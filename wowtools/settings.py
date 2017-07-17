@@ -26,8 +26,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'wowsms.apps.WowsmsConfig',
-    'social.apps.django_app.default',
-    'tastypie'
+    'social.apps.django_app.default'
 ]
 
 MIDDLEWARE = [
