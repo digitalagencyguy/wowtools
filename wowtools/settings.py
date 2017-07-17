@@ -25,8 +25,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'wowsms.apps.WowsmsConfig',
-    'social.apps.django_app.default'
+    'wowsms.apps.WowsmsConfig'
 ]
 
 MIDDLEWARE = [
@@ -37,7 +36,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'social_django.middleware.SocialAuthExceptionMiddleware'
 ]
 
 ROOT_URLCONF = 'wowtools.urls'
@@ -52,16 +50,13 @@ TEMPLATES = [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-                'social.apps.django_app.context_processors.login_redirect',
-                'social.apps.django_app.context_processors.backends'
+                'django.contrib.messages.context_processors.messages'
             ],
         },
     },
 ]
 
 AUTHENTICATION_BACKENDS = [
-    'social.backends.google.Google',
     'django.contrib.auth.backends.ModelBackend'
 ]
 
