@@ -25,7 +25,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'wowsms.apps.WowsmsConfig'
+    'wowsms.apps.WowsmsConfig',
+    'social.apps.django_app.default',
+    'tastypie'
 ]
 
 MIDDLEWARE = [
@@ -36,6 +38,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'social_django.middleware.SocialAuthExceptionMiddleware'
 ]
 
 ROOT_URLCONF = 'wowtools.urls'
@@ -51,16 +54,19 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social.apps.django_app.context_processors.login_redirect',
+                'social.apps.django_app.context_processors.backends'
             ],
         },
     },
 ]
 
+AUTHENTICATION_BACKENDS = [
+    'social.backends.google.Google',
+    'django.contrib.auth.backends.ModelBackend'
+]
+
 WSGI_APPLICATION = 'wowtools.wsgi.application'
-
-
-# Database
-# https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
 DATABASES = {
     'default': {
@@ -107,3 +113,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+
+LOGIN_REDIRECT_URL = '/'
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '983663987810-en52n6p39ut2po46ari5agto3g7nroq8.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'A5B2AfiVmgqIsn3e-hapUuhU'
