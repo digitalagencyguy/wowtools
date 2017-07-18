@@ -107,8 +107,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT  = os.path.join(BASE_DIR, 'static')
 
-LOGIN_REDIRECT_URL = '/'
 
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '983663987810-en52n6p39ut2po46ari5agto3g7nroq8.apps.googleusercontent.com'
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'A5B2AfiVmgqIsn3e-hapUuhU'
