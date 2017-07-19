@@ -1,0 +1,104 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>WOW!SMS</title>
+
+	<!-- Bootstrap -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+
+	<!-- Custom CSS -->
+	<link rel="stylesheet" href="{% static 'css/wowtools.css' %}">
+	
+	<!-- Font Awesome Icons -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body class='dashboard-body'>
+	<!-- Dashboard Flex -->
+	<div class='d-flex flex-column dashboard'>
+		<!-- Top Bar -->
+		<div class="d-flex flex-row dashboard-header">
+			<div class="col">
+				<!-- Profile Information -->
+				<div class="profile-information">
+					<div class="d-flex">
+						<img src="http://via.placeholder.com/100x100">
+						<p>Nathan Hague</p>
+					</div>
+				</div>
+				<!-- End Profile Information -->
+			</div>
+			<div class="col col-lg-6">
+				<!-- Trial Information -->
+				<div class='trial-information'>
+					<p class='trial-deadline'>Trial Expires: <strong>6</strong> days: <strong>22</strong> hours: <strong>58</strong>mins</p>
+					<p>
+						<a href="#" class='buy-now-link'>Buy Now</a>
+					</p>
+				</div>
+				<!-- End Trial Information -->
+			</div>
+			<div class="col">
+				<!-- Log out -->
+				<div class="log-out">
+					<a href="#" class='log-out-link'>
+						Log Out
+					</a>
+				</div>
+				<!-- End log out -->
+			</div>
+		</div>
+		<!-- End Top Bar -->
+		
+		<!-- Dashboard Body -->
+		<div class='d-flex dashboard-body'>
+			<!-- Sidebar -->
+			<div class='d-flex flex-column sidebar'>
+				<nav>
+					<ul>
+						<li>
+							<a href="#">Buy SMS (10)</a>
+						</li>
+						<li>
+							<a href="#">Campaigns</a>
+						</li>
+						<li>
+							<a href="#">Audience</a>
+						</li>
+						<li>
+							<a href="#">Sequences</a>
+						</li>
+						<li>
+							<a href="#">Settings</a>
+						</li>
+					</ul>
+				</nav>
+				<div class="bottom-link">
+					<a href="#">Help</a>
+				</div>
+				<div class="bottom-link">
+					<a href="#">Video Tutorials</a>
+				</div>
+			</div>
+			<!-- End Sidebar -->
+
+			<!-- Dashboard Content -->
+			<div class="dashboard-content">
+				<div class='dashboard-container'>
+					{% block content %}
+					{% endblock %}
+				</div>
+			</div>
+			<!-- End Dashboard Content -->
+		</div>
+		<!-- End Dashboard Body -->
+	</div>
+	<!-- End Dashboard Flex -->
+
+	<!-- Bootstrap Scripts -->
+	<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+</body>
+</html>
