@@ -1,6 +1,17 @@
 html {
 	height: 100%;
 }
+.table {
+	display: table;
+	width: 100%;
+	height: 100%;
+}
+.table-cell {
+	display: table-cell;
+	width: 100%;
+	height: 100%;
+	vertical-align: middle;
+}
 /**
  * Styles used for each dashboard element
  */
@@ -19,6 +30,8 @@ html {
 	background: #2F64A6;
 	padding-top: 12.5px;
 	padding-bottom: 20px;
+	z-index: 12;
+	position: relative;
 }
 
 .dashboard-body {
@@ -67,6 +80,211 @@ html {
 	font-size: 14px;
 }
 
+/**
+ * Modal Code
+ */
+.modal-container {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background: rgba(0,0,0,0.8);
+	z-index: 9;
+	display: none;
+}
+.modal-container .table {
+	box-sizing: border-box;
+}
+.wowtools-modal {
+	position: relative;
+	background: #fff;
+	padding: 40px 20px;
+	margin-left: auto;
+	margin-right: auto;
+	width: 100%;
+	max-width: 1000px;
+	text-align: center;
+	min-height: 550px;
+}
+.wowtools-modal h2 {
+	color: #444;
+	margin-bottom: 40px;
+}
+.wowtools-modal .table {
+	padding-top: 0 !important;
+}
+.wowtools-modal .step {
+	display: none;
+	position: relative;
+}
+.wowtools-modal form {
+	width: 90%;
+	max-width: 800px;
+	margin: 0 auto;
+}
+.wowtools-modal form input[type='file'] {
+	display: none;
+}
+.wowtools-modal form input[type='text'] {
+	width: 45%;
+	height: 40px;
+	line-height: 40px;
+	font-size: 14px;
+	box-sizing: border-box;
+	padding-left: 10px;
+	border: 1px solid #a0a0a0;
+}
+.wowtools-modal .d-flex {
+	padding-bottom: 10px;
+}
+.wowtools-modal form .fake-file-upload {
+	width: 45%;
+	background: #2F64A6;
+	color: #fff;
+	cursor: pointer;
+	height: 40px;
+	line-height: 40px;
+	overflow: hidden;
+}
+.wowtools-modal form .fake-file-upload label {
+	margin-bottom: 0;
+	padding-bottom: 0;
+	cursor: pointer;
+	width: 100%;
+	text-align: center;
+}
+.wowtools-modal label {
+	width: 25%;
+	white-space: nowrap;
+	line-height: 40px;
+	height: 40px;
+	text-align: left;
+	font-size: 15px;
+}
+.wowtools-modal select {
+	width: 45%;
+	line-height: 40px;
+	height: 40px;
+	border-radius: 0;
+	box-sizing: border-box;
+	padding-left: 10px;
+	font-size: 14px;
+	border: 1px solid #a0a0a0;
+	background: transparent;
+}
+.modal-actions {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	box-sizing: border-box;
+	padding: 20px;
+	padding-top: 0;
+}
+.modal-actions .back-btn {
+	float: left;
+	width: 200px;
+	height: 40px;
+	line-height: 38px;
+	background: transparent;
+	cursor: pointer;
+	box-sizing: border-box;
+	border: 2px solid #2F64A6;
+	padding: 0;
+	color: #2F64A6;
+	font-weight: bolder;
+	text-transform: uppercase;
+
+	-webkit-transition: all 0.2s ease-in-out;
+	-moz-transition: all 0.2s ease-in-out;
+	-ms-transition: all 0.2s ease-in-out;
+	-o-transition: all 0.2s ease-in-out;
+	transition: all 0.2s ease-in-out;
+}
+.modal-actions .back-btn:hover {
+	color: #fff;
+	background: #2F64A6;
+}
+.modal-actions .next-btn {
+	float: right;
+	width: 200px;
+	height: 40px;
+	line-height: 40px;
+	background: #65CC59;
+	cursor: pointer;
+	box-sizing: border-box;
+	padding: 0;
+	color: white;
+	border: 0;
+	font-weight: bolder;
+	text-transform: uppercase;
+
+	-webkit-transition: all 0.2s ease-in-out;
+	-moz-transition: all 0.2s ease-in-out;
+	-ms-transition: all 0.2s ease-in-out;
+	-o-transition: all 0.2s ease-in-out;
+	transition: all 0.2s ease-in-out;
+}
+.modal-actions .cancel-btn {
+	color: #ff4136;
+	border: 2px solid #ff4136;
+}
+.modal-actions .cancel-btn:hover {
+	background: #ff4136;
+}
+.modal-icon {
+	font-size: 4em;
+	border: 1px solid black;
+	width: 125px;
+	height: 125px;
+	line-height: 125px;
+	display: inline-block;
+	margin: 0 auto;
+	text-align: center;
+	border-radius: 99999px;
+	margin-top: 20px;
+}
+.successful-action .modal-icon {
+	color: #65CC59;
+	border: 1px solid #65CC59;
+}
+.successful-action span {
+	font-size: 20px;
+	color: #65CC59;
+	display: block;
+	padding-bottom: 20px;
+	font-size: 2em;
+	font-weight: bolder;
+	padding-top: 70px;
+}
+.successful-action p {
+	max-width: 700px;
+	margin: 0 auto;
+	color: #666;
+	font-style: italic;
+	font-size: 17px;
+}
+.back-to-dashboard-button {
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	display: none;
+}
+.back-to-dashboard-btn {
+	height: 70px;
+	text-align: center;
+	line-height: 70px;
+	background: #2F64A6;
+	color: #FFF;
+	width: 100%;
+	text-transform: uppercase;
+	font-size: 1.5em;
+	cursor: pointer;
+	font-weight: bolder;
+	border: 0;
+}
 /**
  * Trial Information in header
  */
@@ -492,6 +710,94 @@ html {
 	color: #D97B7D;
 }
 /**
+ * Audience Modals 
+ */
+.home-buttons {
+	width: 100%;
+	max-width: 350px;
+	margin-left: auto;
+	margin-right: auto;
+}
+.home-buttons button {
+	background: #1D63A9;
+	border: 0;
+	color: #fff;
+	width: 100%;
+	display: block;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	margin-bottom: 30px;
+	font-size: 14px;
+	cursor: pointer;
+}
+.audience-sync-form {
+	padding-left: 15px;
+	width: 30%;
+	align-items: center;
+}
+.audience-sync-form .sync-indicator {
+	width: 70px;
+}
+.audience-sync-form p {
+	font-size: 12px;
+	padding-left: 10px;
+	flex: 1;
+	text-align: left;
+	margin-bottom: 0;
+}
+.audience-sync-form .sync-indicator span {
+	font-size: 11px;
+	text-transform: uppercase;
+}
+.upload-progress-bar-step-content span {
+	margin-bottom: 40px;
+}
+.upload-progress-bar-step-content .progress {
+	max-width: 600px;
+	margin: 0 auto;
+	margin-top: 40px;
+	background: #B7B7B7;
+	position: relative;
+}
+.upload-progress-bar-step-content .progress span {
+	margin-bottom: 0;
+	color: #fff;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	line-height: 40px;
+	font-size: 17px;
+	display: block;
+	position: absolute;
+}
+.upload-progress-bar-step-content .progress-bar {
+	height: 40px;
+	line-height: 40px;
+	background: #1D63A9;
+}
+.legal-statement p {
+	text-align: left;
+	width: 90%;
+	max-width: 700px;
+	margin-left: auto;
+	margin-right: auto;
+}
+.legal-statement .agree-statement {
+	text-align: right;
+}
+.legal-statement .agree-statement label {
+	text-transform: uppercase;
+	height: auto;
+	line-height: 1;
+	cursor: pointer;
+	font-size: 17px;
+	text-align: right;
+}
+.legal-statement .agree-statement input {
+	margin-right: 10px;
+}
+/**
  * Sync indicator for Active Campaign
  */
 .sync-indicator {
@@ -502,6 +808,10 @@ html {
 	border-radius: 9999px;
 	background: #F6081B;
 	position: relative;
+	cursor: pointer;
+}
+.sync-indicator.active {
+	background: #65CC59;
 }
 .sync-indicator .slide {
 	background: #fff;
@@ -514,7 +824,7 @@ html {
 }
 .sync-indicator span {
 	line-height: 35px;
-	padding-right: 10px;
+	padding-right: 12.5px;
 	color: #fff;
 	display: block;
 	float: right;
