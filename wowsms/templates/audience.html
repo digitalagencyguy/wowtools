@@ -1,0 +1,653 @@
+{% extends 'base.html' %}
+{% block content %}
+<!-- Audience -->
+<div class="audience">
+	<div class="audience-home d-flex">
+		<div class='audience-left-side d-flex flex-column'>
+			<!-- Audience Top Bar -->
+			<div class="audience-top-bar d-flex">
+				<div class='item audience-top-bar-btn'>
+					<button>
+					<i class="fa fa-filter"></i> Filter
+					</button>
+					<button>
+					<i class="fa fa-search"></i> Search
+					</button>
+				</div>
+				<div class="item contains-nav-tabs">
+					<ul class="nav nav-tabs" role="tablist">
+						<li class="nav-item">
+							<a class="nav-link active" data-toggle="tab" href="#people" role="tab">People View</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link border-right" data-toggle="tab" href="#audience" role="tab">Audience View</a>
+						</li>
+					</ul>
+				</div>
+				<div class="item">
+					<span>
+					<strong>437 selected</strong>
+					of 437 total
+					</span>
+				</div>
+				<div class="item">
+					<div class="audience-bulk-actions">
+						<span>Bulk Actions</span>
+					</div>
+				</div>
+				<div class="item">
+					<button class="green-btn">
+					Add Members
+					</button>
+				</div>
+				<div class="item">
+					<button class="green-btn modal-toggle" data-modal-function="bulkAddModal">
+					Bulk Add
+					</button>
+				</div>
+			</div>
+			<!-- End Audience Top Bar -->
+			<!-- Audience Main Content -->
+			<div class="audience-main">
+				<div class="tab-content">
+					<!-- People Tab -->
+					<div class="tab-pane active" id="people" role="tabpanel">
+						<div class="d-flex flex-column audience-table">
+							<!-- Header Row -->
+							<div class="audience-table-header audience-table-row">
+								<div class='row'>
+									<div class="checkbox-col">
+									</div>
+									<div class="image-col">
+										<p>Avatar</p>
+									</div>
+									<div class="col">
+										<p>Name</p>
+									</div>
+									<div class="col">
+										<p>Active Campaign List</p>
+									</div>
+									<div class="col">
+										<p>Status</p>
+									</div>
+									<div class="col">
+										<p>Last Message</p>
+									</div>
+									<div class="col col-3 message-col">
+										<p>Last Message Sent</p>
+									</div>
+								</div>
+							</div>
+							<!-- End header Row -->
+							<!-- Row -->
+							<div class="audience-table-row">
+								<div class='row'>
+									<div class="checkbox-col">
+									</div>
+									<div class="image-col">
+										<img src="http://via.placeholder.com/100x100">
+									</div>
+									<div class="col">
+										<p>Keith Smith</p>
+									</div>
+									<div class="col">
+										<p>Australian Prospects</p>
+									</div>
+									<div class="col">
+										<p class='subscriber'>Subscriber</p>
+									</div>
+									<div class="col">
+										<p>14:30 today</p>
+									</div>
+									<div class="col col-3 message-col">
+										<p>Hey Keith! Nathan here! Can't wait to see you next Thursday 18th June at 16:40</p>
+									</div>
+								</div>
+							</div>
+							<!-- End Row -->
+							<!-- Row -->
+							<div class="audience-table-row">
+								<div class='row'>
+									<div class="checkbox-col">
+									</div>
+									<div class="image-col">
+										<img src="http://via.placeholder.com/100x100">
+									</div>
+									<div class="col">
+										<p>Jane Burn</p>
+									</div>
+									<div class="col">
+										<p>American Prospects</p>
+									</div>
+									<div class="col">
+										<p class='subscriber'>Subscriber</p>
+									</div>
+									<div class="col">
+										<p>14:30 yesterday</p>
+									</div>
+									<div class="col col-3 message-col">
+										<p>Hey Jane! Nate here! Thanks for buying the ebook!</p>
+									</div>
+								</div>
+							</div>
+							<!-- End Row -->
+							<!-- Row -->
+							<div class="audience-table-row">
+								<div class='row'>
+									<div class="checkbox-col">
+									</div>
+									<div class="image-col">
+										<img src="http://via.placeholder.com/100x100">
+									</div>
+									<div class="col">
+										<p>John Fuller</p>
+									</div>
+									<div class="col">
+										<p>American Prospects</p>
+									</div>
+									<div class="col">
+										<p class='not-subscribed'>Unsubscribed</p>
+									</div>
+									<div class="col">
+										<p>14:30 Wed 23 Jan 2017</p>
+									</div>
+									<div class="col col-3 message-col">
+										<p>Hey John! Thanks for buying the ebook!</p>
+									</div>
+								</div>
+							</div>
+							<!-- End Row -->
+							<!-- Empty Row -->
+							<div class="audience-table-row">
+								<div class='row'>
+									<div class="checkbox-col">
+									</div>
+									<div class="image-col">
+									</div>
+									<div class="col">
+									</div>
+									<div class="col">
+									</div>
+									<div class="col">
+									</div>
+									<div class="col">
+									</div>
+									<div class="col col-3 message-col">
+									</div>
+								</div>
+							</div>
+							<!-- End Empty Row -->
+							<!-- Empty Row -->
+							<div class="audience-table-row">
+								<div class='row'>
+									<div class="checkbox-col">
+									</div>
+									<div class="image-col">
+									</div>
+									<div class="col">
+									</div>
+									<div class="col">
+									</div>
+									<div class="col">
+									</div>
+									<div class="col">
+									</div>
+									<div class="col col-3 message-col">
+									</div>
+								</div>
+							</div>
+							<!-- End Empty Row -->
+							<!-- Empty Row -->
+							<div class="audience-table-row">
+								<div class='row'>
+									<div class="checkbox-col">
+									</div>
+									<div class="image-col">
+									</div>
+									<div class="col">
+									</div>
+									<div class="col">
+									</div>
+									<div class="col">
+									</div>
+									<div class="col">
+									</div>
+									<div class="col col-3 message-col">
+									</div>
+								</div>
+							</div>
+							<!-- End Empty Row -->
+							<!-- Empty Row -->
+							<div class="audience-table-row">
+								<div class='row'>
+									<div class="checkbox-col">
+									</div>
+									<div class="image-col">
+									</div>
+									<div class="col">
+									</div>
+									<div class="col">
+									</div>
+									<div class="col">
+									</div>
+									<div class="col">
+									</div>
+									<div class="col col-3 message-col">
+									</div>
+								</div>
+							</div>
+							<!-- End Empty Row -->
+						</div>
+					</div>
+					<!-- End People Tab -->
+					<!-- Audience Tab -->
+					<div class="tab-pane" id="audience" role="tabpanel">
+						<div class="d-flex flex-column audience-table audience-tab-table">
+							<!-- Header Row -->
+							<div class="audience-table-header audience-table-row">
+								<div class='d-flex'>
+									<div class="col d-flex">
+										<div class='col-content d-flex'>
+											<p>WOW!SMS Audience Name</p>
+										</div>
+									</div>
+									<div class="col d-flex">
+										<div class='col-content d-flex'>
+											<p>Active Campaign List Name</p>
+										</div>
+									</div>
+									<div class="col d-flex">
+										<div class='col-content d-flex'>
+											<p>My Uploaded CSV</p>
+										</div>
+									</div>
+									<div class="options-col d-flex">
+										<div class="col-content d-flex"></div>
+									</div>
+								</div>
+							</div>
+							<!-- End header Row -->
+							<!-- Row -->
+							<div class="audience-table-row audience-table-body">
+								<div class='d-flex'>
+									<div class="col d-flex">
+										<div class='col-content d-flex'>
+											<p>Test Audience <i class="fa fa-pencil"></i></p>
+										</div>
+									</div>
+									<div class="col d-flex">
+										<div class='col-content d-flex'>
+											<p>Australian Prospects</p>
+										</div>
+									</div>
+									<div class="col d-flex">
+										<div class='col-content d-flex'>
+											<div class="audience-csv-information d-flex">
+												<p>13 Nov 2018</p>
+												<div class='audience-csv-details'>
+													<span class="green">258</span>
+													<span class="red">2</span>
+													<span>260</span>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="options-col d-flex">
+										<div class="col-content d-flex">
+											<div class='audience-options'>
+												<i class="fa fa-copy copy-icon"></i>
+												<i class="fa fa-trash trash-icon"></i>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- End Row -->
+							<!-- Empty Row -->
+							<div class="audience-table-row audience-table-body">
+								<div class='d-flex'>
+									<div class="col d-flex">
+										<div class='col-content'></div>
+									</div>
+									<div class="col d-flex">
+										<div class='col-content'></div>
+									</div>
+									<div class="col d-flex">
+										<div class='col-content'></div>
+									</div>
+									<div class="options-col d-flex">
+										<div class='col-content'></div>
+									</div>
+								</div>
+							</div>
+							<!-- End Empty Row -->
+							<!-- Empty Row -->
+							<div class="audience-table-row audience-table-body">
+								<div class='d-flex'>
+									<div class="col d-flex">
+										<div class='col-content'></div>
+									</div>
+									<div class="col d-flex">
+										<div class='col-content'></div>
+									</div>
+									<div class="col d-flex">
+										<div class='col-content'></div>
+									</div>
+									<div class="options-col d-flex">
+										<div class='col-content'></div>
+									</div>
+								</div>
+							</div>
+							<!-- End Empty Row -->
+							<!-- Empty Row -->
+							<div class="audience-table-row audience-table-body">
+								<div class='d-flex'>
+									<div class="col d-flex">
+										<div class='col-content'></div>
+									</div>
+									<div class="col d-flex">
+										<div class='col-content'></div>
+									</div>
+									<div class="col d-flex">
+										<div class='col-content'></div>
+									</div>
+									<div class="options-col d-flex">
+										<div class='col-content'></div>
+									</div>
+								</div>
+							</div>
+							<!-- End Empty Row -->
+							<!-- Empty Row -->
+							<div class="audience-table-row audience-table-body">
+								<div class='d-flex'>
+									<div class="col d-flex">
+										<div class='col-content'></div>
+									</div>
+									<div class="col d-flex">
+										<div class='col-content'></div>
+									</div>
+									<div class="col d-flex">
+										<div class='col-content'></div>
+									</div>
+									<div class="options-col d-flex">
+										<div class='col-content'></div>
+									</div>
+								</div>
+							</div>
+							<!-- End Empty Row -->
+						</div>
+					</div>
+					<!-- End Audience Tab -->
+				</div>
+			</div>
+			<!-- End Audience Main -->
+		</div>
+		<!-- Audience Sidebar -->
+		<div class="audience-sidebar">
+			<div class="d-flex audience-sidebar-header">
+				<div class='audience-sidebar-header-contains-all'>
+					<a href="#">All</a>
+				</div>
+				<span><em>427 Subscribers</em></span>
+			</div>
+			<div class="audience-sidebar-information">
+				<!-- Tags header -->
+				<div class="d-flex audience-sidebar-information-title">
+					<h2>Tags</h2>
+					<span><em>Subscribers</em></span>
+				</div>
+				<!-- End Tags header -->
+				<!-- Tag Rows -->
+				<div class="audience-sidebar-information-row no-subscribers d-flex">
+					<p>[COTERIE-FRENCH-TOAST-BU...</p>
+					<span>0</span>
+				</div>
+				<div class="audience-sidebar-information-row d-flex">
+					<p>[ANDREW-HOT-LEAD]</p>
+					<span>27</span>
+				</div>
+				<div class="audience-sidebar-information-row no-subscribers d-flex">
+					<p>[ANDREW-LEAD]</p>
+					<span>27</span>
+				</div>
+				<div class="audience-sidebar-information-row d-flex">
+					<p>[WATCHED_ANDREW_WEBIN...</p>
+					<span>33</span>
+				</div>
+				<div class="audience-sidebar-information-row d-flex">
+					<p>[ANDREW-WEBINAR]</p>
+					<span>81</span>
+				</div>
+				<p class='audience-sidebar-information--show-all_p'>
+					<a href="#" class='audience-sidebar-information-show-all_btn'>Show All Tags</a>
+				</p>
+				<!-- End Tag Rows -->
+				<!-- Sequences header -->
+				<div class="d-flex audience-sidebar-information-title">
+					<h2>Sequences</h2>
+					<span><em>Subscribers</em></span>
+				</div>
+				<!-- End Sequences header -->
+				<!-- Sequences Rows -->
+				<div class="audience-sidebar-information-row no-subscribers d-flex">
+					<p>Delete</p>
+					<span>0</span>
+				</div>
+				<div class="audience-sidebar-information-row no-subscribers d-flex">
+					<p>So You Want To Build A Faceboo...</p>
+					<span>0</span>
+				</div>
+				<div class="audience-sidebar-information-row d-flex">
+					<p>Send Andrew's Live Webinar Link</p>
+					<span>50</span>
+				</div>
+				<div class="audience-sidebar-information-row d-flex">
+					<p>Sequence to Give Webinar Link...</p>
+					<span>332</span>
+				</div>
+				<div class="audience-sidebar-information-row d-flex">
+					<p>From NathanHague.com Optin</p>
+					<span>2</span>
+				</div>
+				<p class='audience-sidebar-information--show-all_p'>
+					<a href="#" class='audience-sidebar-information-show-all_btn'>Show All Sequences</a>
+				</p>
+				<!-- End Sequences Rows -->
+				<!-- Active Campaign List header -->
+				<div class="d-flex audience-sidebar-information-title">
+					<h2>Active Campaign List</h2>
+					<span><em>Subscribers</em></span>
+				</div>
+				<!-- End Active Campaign List header -->
+				<!-- Active Campaign List Rows -->
+				<div class="audience-sidebar-information-row no-subscribers d-flex">
+					<p>Delete</p>
+					<span>0</span>
+				</div>
+				<div class="audience-sidebar-information-row no-subscribers d-flex">
+					<p>So You Want To Build A Faceboo...</p>
+					<span>0</span>
+				</div>
+				<div class="audience-sidebar-information-row d-flex">
+					<p>Send Andrew's Live Webinar Link</p>
+					<span>50</span>
+				</div>
+				<div class="audience-sidebar-information-row d-flex">
+					<p>Sequence to Give Webinar Link...</p>
+					<span>332</span>
+				</div>
+				<div class="audience-sidebar-information-row d-flex">
+					<p>From NathanHague.com Optin</p>
+					<span>2</span>
+				</div>
+				<p class='audience-sidebar-information--show-all_p'>
+					<a href="#" class='audience-sidebar-information-show-all_btn'>Show All Active Campaign Lists</a>
+				</p>
+				<!-- End Active Campaign List Rows -->
+			</div>
+		</div>
+		<!-- End Audience Sidebar -->
+	</div>
+</div>
+<!-- End Audience -->
+{% endblock %}
+{% block modalContent %}
+<div class="wowtools-modal">
+	<h2>Bulk Add Contacts</h2>
+	<div class='step-container'>
+		<!-- Home Step -->
+		<div class='step active first-step' id='home-step' style='display:block;' data-next-step="connect-active-campaign-step" data-prev-step="closeModal">
+			<div class='home-buttons'>
+				<button class='step-btn active-campaign-trigger' data-back-step="home-step" data-next-step="connect-active-campaign-step">Connect one of your Active Campaign Lists</button>
+				<button class="step-btn upload-csv-trigger" data-back-step="home-step" data-next-step="upload-csv-step">Upload a CSV of Contacts</button>
+			</div>
+		</div>
+		<!-- End Home Step -->
+		<!-- Connect Active Campaign Step -->
+		<div class='step contains-form' id='connect-active-campaign-step' 
+			data-next-step="active-campaign-success-step" 
+			data-prev-step="home-step"
+			data-form="connectACForm"
+			>
+			<div class="active-campaign-list-sync">
+				<p>Select which Active Campaign list to sync to:</p>
+				<form action='#' id='connectACForm' method='POST'>
+					<select name="#" id='#'>
+						<option value="">Select an Option</option>
+					</select>
+				</form>
+			</div>
+		</div>
+		<!-- End Connect Active Campaign Step -->
+		<!-- Successful AC Syncing -->
+		<div class="step" id="successful-ac-sync">
+			<div class="table">
+				<div class="table-cell">
+					<div class="successful-action">
+						<span class='ac-tagline'>Active Campaign Linking Successful!</span>
+						<div class="modal-icon">
+							<i class="fa fa-check"></i>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End Successful AC Syncing -->
+		<!-- Bulk CSV Form -->
+		<form action='#' id='csvForm' method='POST'>
+			<!-- Bulk CSV Upload Step -->
+			<div class="step" id="upload-csv-step" 
+				data-next-step="agree-to-legal-step" 
+				data-prev-step="home-step" 
+				data-form="csvForm"
+				>
+				<div class="upload-csv">
+					<div class="d-flex">
+						<label>Choose Country</label>
+						<select name="#" id="#">
+							<option value="">Select an Option</option>
+						</select>
+					</div>
+					<div class="d-flex">
+						<label>Upload CSV</label>
+						<div class="fake-file-upload">
+							<label>
+							Upload
+							<input type="file" name="#" id="#">
+							</label>
+						</div>
+					</div>
+					<div class="d-flex">
+						<label>Audience Name</label>
+						<input type="text" name="#" id="#" placeholder="Enter your audience name">
+					</div>
+					<div class="d-flex">
+						<label>Choose Active List</label>
+						<select name="#" id="#">
+							<option value="">Select an Option</option>
+						</select>
+						<div class="d-flex audience-sync-form sync-container">
+							<div class="sync-indicator">
+								<div class="slide"></div>
+								<span>No</span>
+							</div>
+							<p>sync with this list</p>
+						</div>
+					</div>
+					<div class="d-flex">
+						<label>Add Tags</label>
+						<input type="text" name="#" id="#" placeholder="Add multiple tags by using a comma">
+					</div>
+				</div>
+			</div>
+			<!-- End Bulk CSV Upload Step -->
+			<!-- Agree to legal bulk upload -->
+			<div class="step contains-form" id="agree-to-legal-step" 
+				data-prev-step="upload-csv-step" 
+				data-next-step="upload-progress-bar-step"
+				data-form="csvForm"
+				>
+				<div class="legal-statement">
+					<p>
+						I agree that all contacts that I'm about to upload, have been lawfully obtained and have agreed to receive marketing and promotion messages as per my country's applicable spam and mobile communications law(s)
+					</p>
+					<p class='agree-statement'>
+						<label>
+						<input type="checkbox" name="#" id="#"> I Agree
+						</label>
+					</p>
+				</div>
+			</div>
+			<!-- End Agree to legal bulk upload -->
+		</form>
+		<!-- Bulk CSV Upload Progress Bar -->
+		<div class="step" id='upload-progress-bar-step' data-prev-step='agree-to-legal-step' data-next-step="successful-bulk-upload">
+			<div class="table">
+				<div class="table-cell">
+					<div class='upload-progress-bar-step-content'>
+						<span>Bulk Upload Contacts Progress</span>
+						<div class="progress">
+							<span>90%</span>
+							<div class="progress-bar" role="progressbar" aria-valuenow="70"
+								aria-valuemin="0" aria-valuemax="100" style="width:70%"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End Bulk CSV Upload Progress Bar -->
+		<!-- Successful bulk upload -->
+		<div class="step" id="successful-bulk-upload">
+			<div class="table">
+				<div class="table-cell">
+					<div class="successful-action">
+						<span>Bulk Upload Successful!</span>
+						<p>Your audience might take a while to sync, so best to wait until you get email confirmation the audience is live</p>
+						<div class="modal-icon">
+							<i class="fa fa-check"></i>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End Successful bulk upload -->
+	</div>
+	<!-- Modal Actions -->
+	<div class="modal-actions">
+		<button class="back-btn" data-next-step="closeModal">Back</button>
+		<button class="next-btn">Continue</button>
+	</div>
+	<!-- End Modal Actions -->
+	<!-- Back to Dashboard Button -->
+	<div class="back-to-dashboard-button">
+		<button class="back-to-dashboard-btn">Back to Dashboard</button>
+	</div>
+	<!-- End Back to Dashboard Button -->
+</div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+	Site.init('audience');
+</script>
+{% endblock %}
