@@ -14,6 +14,14 @@ var Site = {
 				// Audience functions
 				Audience.init();
 				break;
+
+			case 'sms':
+				SMS.init();
+				break;
+
+			case 'settings':
+				Settings.init();
+				break;
 		}
 	}
 };
@@ -23,11 +31,22 @@ var Site = {
  */
 var Modal = {
 	/**
+	 * Handles the modal toggle click action event
+	 */
+	handleModalToggleBtnClick: function() {
+		$('.modal-toggle').click(function() {
+			$modal = $(this).attr('data-modal-function');
+			Modal.toggleModal($modal);
+		});
+	},
+
+	/**
 	 * Closes Modals 
 	 */
 	closeModal: function() {
 		$(".modal-container").fadeOut(200);
 		$('.modal-actions .back-btn').attr('data-next-step', 'closeModal');
+		$('.wowtools-modal').hide();
 	},
 
 	/**
@@ -39,6 +58,14 @@ var Modal = {
 		$headerHeight = $('.dashboard-header').height();
 		$(".modal-container .table").css('padding-top', $headerHeight);
 		$('.modal-container').fadeIn(100);
+		$('#' + targetModal).find('.first-step').addClass('active');
+		$('#' + targetModal).show();
+
+		if($('.step.active').hasClass('contains-form')) {
+			Modal.changeContinueToSubmit( $('.step.active').attr('data-next-step') );
+		} else {
+			Modal.changeSubmitToContinue( $('.step.active').attr('data-next-step') );
+		}
 	},
 
 	/**
@@ -59,7 +86,9 @@ var Modal = {
 	 */
 	changeContinueToSubmit: function() {
 		$('.next-btn').attr('data-next-step', $('.step.contains-form.active').attr('data-form'));
-		$('.next-btn').text('Upload');
+		if( ! $('.next-btn').hasClass('payment-btn')) {
+			$('.next-btn').text('Upload');
+		}
 		$('.next-btn').addClass('submit-btn');
 	},
 
@@ -113,7 +142,6 @@ var Modal = {
 			$('.back-btn').show().removeClass('cancel-btn').text('Back').attr('data-next-step', 'closeModal');
 			$('.next-btn').show().removeClass('submit-btn').text('Continue');
 			$('.step').hide().removeClass('active');
-			$('.first-step').show().addClass('active');
 			$('.back-to-dashboard-button').hide();
 
 			// Show the "Bulk Add Contacts" title
@@ -126,24 +154,26 @@ var Modal = {
 	 */
 	handleModalBackButtonClick: function() {
 		$('.back-btn').click(function() {
-			if($(this).attr('data-next-step') == 'closeModal') {
+			$stepAction = $('.step.active').attr('data-prev-step');
+
+			if($stepAction == 'closeModal') {
 				Modal.closeModal();
+				return;
+			}
+
+			/**
+			 * Take a step "back"
+			 */
+			Modal.stepAction( $stepAction );
+
+			if($('.first-step').hasClass('active')) {
+				$('.back-btn').attr('data-next-step', 'closeModal');
+			}
+
+			if($('.step.active').hasClass('contains-form')) {
+				Modal.changeContinueToSubmit( $('.step.active').attr('data-next-step') );
 			} else {
-				$stepAction = $('.step.active').attr('data-prev-step');
-				/**
-				 * Take a step "back"
-				 */
-				Modal.stepAction( $stepAction );
-
-				if($('.first-step').hasClass('active')) {
-					$('.back-btn').attr('data-next-step', 'closeModal');
-				}
-
-				if($('.step.active').hasClass('contains-form')) {
-					Modal.changeContinueToSubmit( $('.step.active').attr('data-next-step') );
-				} else {
-					Modal.changeSubmitToContinue( $('.step.active').attr('data-next-step') );
-				}
+				Modal.changeSubmitToContinue( $('.step.active').attr('data-next-step') );
 			}
 
 			if($(this).hasClass('cancel-btn')) {
@@ -175,6 +205,11 @@ var Modal = {
 				$nextStep = $('.step.active').attr('data-next-step');
 				$('.next-btn').attr('data-next-step', $nextStep);
 
+				if($nextStep == 'closeModal') {
+					Modal.closeModal();
+					return;
+				}
+
 				/**
 				 * Step Action
 				 */
@@ -199,6 +234,7 @@ var Modal = {
 	 * Initialises modal
 	 */
 	initModal: function() {
+		this.handleModalToggleBtnClick();
 		this.handleStepBtnClick();
 		this.handleModalBackButtonClick();
 		this.handleModalNextButtonClick();
@@ -215,9 +251,56 @@ var Modal = {
  */
 var Forms = {
 	/**
+	 * Form submission event
+	 */
+	submitForm: function( $formName ) {
+		switch($formName) {
+			/**
+			 * Audience page
+			 */
+			// Audience page CSV form
+			case 'csvForm':
+				AudienceForms.CSVFormSubmission();
+				break;
+
+			// Audience page connect Active Campaign Form
+			case 'connectACForm':
+				AudienceForms.ACFormSubmission();
+				break;
+
+			/**
+			 * SMS page
+			 */
+			// Purchase 1000 messages at $100
+			case 'buy1000Form':
+				SMSForms.buy1000FormSubmission();
+				break;
+
+			case 'buy5000Form':
+				SMSForms.buy5000FormSubmission();
+				break;
+
+			case 'buy36Form':
+				SMSForms.buy36FormSubmission();
+				break;
+
+			case 'buy47Form':
+				SMSForms.buy47FormSubmission();
+				break;
+
+			case 'buy425Form':
+				SMSForms.buy425FormSubmission();
+				break;
+		}
+	},
+};
+
+// All forms on the Audience page
+var AudienceForms = {
+	/**
 	 * CSV Form Submission (Audience Page)
 	 */
-	audienceCSVFormSubmission: function() {
+	CSVFormSubmission: function() {
 		alert('Submitting CSV Form (Event)');
 
 		// Format the back button to become a cancel button
@@ -260,7 +343,7 @@ var Forms = {
 	/**
 	 * Connecting Active Campaign Form Submission (Audience Page)
 	 */
-	connectACFormSubmission: function() {
+	ACFormSubmission: function() {
 		alert("Submitting Active Campaign Form (Event)");
 		/**
 		 * AJAX Call
@@ -281,20 +364,138 @@ var Forms = {
 		// Show the back to dashboard button
 		$('.back-to-dashboard-button').show();
 	},
+};
+
+// All forms on the SMS page
+var SMSForms = {
+	/**
+	 * Shows the Stripe overlay
+	 */
+	Stripe: function() {
+		// Shows the Stripe overlay
+		$('.wowtools-modal').hide();
+		$('.modal-container').fadeIn(200);
+		$('.stripe-overlay').show();
+
+		// Pretend a Stripe payment happened
+
+		// Fade out
+		setTimeout(function() {
+			// Modal.closeModal();
+			$('.stripe-overlay').hide();
+		}, 3000);
+	},
 
 	/**
-	 * Form submission event
+	 * Shows the success modal
 	 */
-	submitForm: function( $formName ) {
-		switch($formName) {
-			case 'csvForm':
-				Forms.audienceCSVFormSubmission();
-				break;
+	Success: function() {
+		$('.wowtools-modal').hide();
+		$("#success-modal .first-step").addClass('active');
+		$("#success-modal .back-to-dashboard-button").show();
 
-			case 'connectACForm':
-				Forms.connectACFormSubmission();
-				break;
-		}
+		// TODO: Remove the delay in the final site to be replaced with AJAX success
+		$('#success-modal').delay(3000).fadeIn(200);
+	},
+
+	/**
+	 * Performs buy 5000 form action
+	 */
+	buy5000FormSubmission: function() {
+		// Modal.closeModal();
+		// Fade out modals
+		$('.wowtools-modal').fadeOut(200);
+		/**
+		 * Stripe related code goes here
+		 */
+		SMSForms.Stripe();
+		alert('Stripe payment completed - $400');
+		/**
+		 * Stripe payment completed, show success screen
+		 */
+		SMSForms.Success();
+	},
+
+	/**
+	 * Performs buy 1000 form action
+	 */
+	buy1000FormSubmission: function() {
+		// Modal.closeModal();
+		// Fade out modals
+		$('.wowtools-modal').fadeOut(200);
+		/**
+		 * Stripe related code goes here
+		 */
+		SMSForms.Stripe();
+		alert('Stripe payment completed - $100');
+		/**
+		 * Stripe payment completed, show success screen
+		 */
+		SMSForms.Success();
+	},
+
+	/**
+	 * Performs buy 36 form action
+	 */
+	buy36FormSubmission: function() {
+		// Modal.closeModal();
+		// Fade out modals
+		$('.wowtools-modal').fadeOut(200);
+		/**
+		 * Stripe related code goes here
+		 */
+		SMSForms.Stripe();
+		alert('Stripe payment completed - $36');
+		/**
+		 * Stripe payment completed, show success screen
+		 */
+		SMSForms.Success();
+	},
+
+	/**
+	 * Performs buy 47 Monthly form action
+	 */
+	buy47FormSubmission: function() {
+		// Modal.closeModal();
+		// Fade out modals
+		$('.wowtools-modal').fadeOut(200);
+		/**
+		 * Stripe related code goes here
+		 */
+		SMSForms.Stripe();
+		alert('Stripe payment completed - $47/month');
+		/**
+		 * Stripe payment completed, show success screen
+		 */
+		SMSForms.Success();
+	},
+
+	/**
+	 * Performs buy 425 Yearly form action
+	 */
+	buy425FormSubmission: function() {
+		// Modal.closeModal();
+		// Fade out modals
+		$('.wowtools-modal').fadeOut(200);
+		/**
+		 * Stripe related code goes here
+		 */
+		SMSForms.Stripe();
+		alert('Stripe payment completed - $425/year');
+		/**
+		 * Stripe payment completed, show success screen
+		 */
+		SMSForms.Success();
+	},
+
+	/**
+	 * Checks prices after discount coupon is applied 
+	 */
+	checkPricesAfterDiscount: function() {
+		/**
+		 * Replace with production code
+		 */
+		alert('Checking price after discount...');
 	},
 };
 
@@ -304,27 +505,6 @@ var Forms = {
  * @type {Object}
  */
 var Audience = {
-	/**
-	 * Handles the modal toggle click action event
-	 */
-	handleModalToggleBtnClick: function() {
-		$('.modal-toggle').click(function() {
-			$modal = $(this).attr('data-modal-function');
-			switch($modal) {
-				case 'bulkAddModal':
-					Audience.bulkAddModal();
-					break;
-			}
-		});
-	},
-
-	/**
-	 * Handles the Bulk Add modal
-	 */
-	bulkAddModal: function() {
-		Modal.toggleModal('bulkAddModal');
-	},
-
 	/**
 	 * Toggles the sync indicator in the bulk add form
 	 */
@@ -344,7 +524,6 @@ var Audience = {
 	 * Initialises required functions
 	 */
 	init: function() {
-		this.handleModalToggleBtnClick();
 		this.bulkAddFormSyncIndicator();
 		Modal.initModal();
 
@@ -359,4 +538,58 @@ var Audience = {
 			}
 		});	
 	},
+};
+
+/**
+ * All functions being used on the SMS
+ * page for the front end
+ * @type {Object}
+ */
+var SMS = {
+	/**
+	 * Handles the modal toggle click action event
+	 */
+	handleModalToggleBtnClick: function() {
+		$('.modal-toggle').click(function() {
+			$modal = $(this).attr('data-modal-function');
+			switch($modal) {
+				case 'bulkAddModal':
+					Audience.bulkAddModal();
+					break;
+			}
+		});
+	},
+
+	/**
+	 * Handle discount form
+	 */
+	handleDiscountForm: function() {
+		$('.apply-discount').click(function(e) {
+			e.preventDefault();
+
+			// Perform form action
+			SMSForms.checkPricesAfterDiscount();
+		});
+	},
+
+	init: function() {
+		this.handleModalToggleBtnClick();
+		this.handleDiscountForm();
+		Modal.initModal();
+	}
+};
+
+/**
+ * All functions being used on the Settings
+ * page for the front end
+ * @type {Object}
+ */
+var Settings = {
+	init: function() {
+		/**
+		 * Set min height accordingly
+		 */
+		var minHeight = $('.dashboard-content').height() - $('.settings-top-header').height();
+		$(".settings-page-content").css('min-height', minHeight);
+	}
 };
