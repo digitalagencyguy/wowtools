@@ -1,0 +1,211 @@
+{% extends 'base.html' %}
+{% block dashboardClasses %}
+no-padding no-margin full-width full-height
+{% endblock %}
+{% block content %}
+<!-- Settings -->
+<div class="settings">
+	<!-- Settings top header -->
+	<div class="settings-top-header">
+		<ul class="nav nav-tabs d-flex" role="tablist">
+			<li class="nav-item">
+				<a class="nav-link active" data-toggle="tab" href="#details" role="tab">
+					<!-- Usage of table for vertical centering -->
+					<div class='table'>
+						<div class='table-cell'>
+							Details
+						</div>
+					</div>
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" data-toggle="tab" href="#ACAPIList" role="tab">
+					<!-- Usage of table for vertical centering -->
+					<div class='table'>
+						<div class='table-cell'>
+							Active Campaign API List
+						</div>
+					</div>
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" data-toggle="tab" href="#subscriptions" role="tab">
+					<!-- Usage of table for vertical centering -->
+					<div class='table'>
+						<div class='table-cell'>
+							Subscriptions
+						</div>
+					</div>
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" data-toggle="tab" href="#users" role="tab">
+					<!-- Usage of table for vertical centering -->
+					<div class='table'>
+						<div class='table-cell'>
+							Users
+						</div>
+					</div>
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" data-toggle="tab" href="#googleAccount" role="tab">
+					<!-- Usage of table for vertical centering -->
+					<div class='table'>
+						<div class='table-cell'>
+							Google Account
+						</div>
+					</div>
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" data-toggle="tab" href="#calendars" role="tab">
+					<!-- Usage of table for vertical centering -->
+					<div class='table'>
+						<div class='table-cell'>
+							Calendars
+						</div>
+					</div>
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" data-toggle="tab" href="#timeSlotSetup" role="tab">
+					<!-- Usage of table for vertical centering -->
+					<div class='table'>
+						<div class='table-cell'>
+							Time Slot Setup
+						</div>
+					</div>
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" data-toggle="tab" href="#smsTimeLimits" role="tab">
+					<!-- Usage of table for vertical centering -->
+					<div class='table'>
+						<div class='table-cell'>
+							SMS Time Limits
+						</div>
+					</div>
+				</a>
+			</li>
+		</ul>
+	</div>
+	<!-- End Settings top header -->
+	<!-- Settings Page Content -->
+	<div class="settings-page-content">
+		<div class="tab-content">
+			<!-- Details Tab -->
+			<div class="tab-pane active" id="details" role="tabpanel">
+				<!-- Details Tab Content -->
+				<div class="settings-content">
+					<!-- Details Form -->
+					<div class="container">
+						<div class="row">
+							<div class="col-sm-12 col-lg-6">
+								<div class="settings-details-form">
+									<div class="d-flex">
+										<label>First Name</label>
+										<input type="text" name="firstName">
+									</div>
+									<div class="d-flex">
+										<label>Last Name</label>
+										<input type="text" name="lastName" id="">
+									</div>
+									<div class="d-flex contains-mobile">
+										<label>Mobile</label>
+										<select name="mobileExt">
+											<option value="61">61</option>
+										</select>
+										<input type="text" name="lastName" id="">
+									</div>
+									<div class="d-flex">
+										<label>Time Zone</label>
+										<select name="timeZone">
+											<option value="#">Select a time zone</option>
+										</select>
+									</div>
+									<div class="d-flex">
+										<label>Business name</label>
+										<input type="text" name="businessName">
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-12 col-lg-6">
+								<div class="settings-details-form">
+									<div class="d-flex">
+										<label>
+										Business Address
+										</label>
+										<input type="text" placeholder="1 This Street">
+										<button>find</button>
+									</div>
+									<div class='d-flex label-offset'>
+										<label>Street 1</label>
+										<input type="text">
+									</div>
+									<div class='d-flex label-offset'>
+										<label>Street 2</label>
+										<input type="text">
+									</div>
+									<div class='d-flex label-offset'>
+										<label>Town, Suburb</label>
+										<input type="text">
+									</div>
+									<div class='d-flex label-offset'>
+										<label>Zip Code</label>
+										<input type="text">
+									</div>
+									<div class='d-flex label-offset'>
+										<select name="#">
+											<option value="#">Australia</option>
+										</select>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- End Details Form -->
+				</div>
+				<!-- End Details Tab Content -->
+			</div>
+			<!-- End Details Tab -->
+			<!-- Active Campaign API List Tab -->
+			<div class="tab-pane" id="ACAPIList" role="tabpanel">
+				<!-- Active Campaign API List Content -->
+				<div class="settings-content">
+					<div class='col'>
+						<p>MyActive Campaign API Key:</p>
+						<div class='campaign-api-key-form'>
+							<div class="d-flex">
+								<input type="text" name="" placeholder="aosdhsapihdoisadh">
+								<button type="submit">change</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- End Active Campaign API List Content -->
+			</div>
+			<!-- End Active Campaign API List Tab -->
+			<div class="tab-pane" id="subscriptions" role="tabpanel">...</div>
+			<div class="tab-pane" id="users" role="tabpanel">...</div>
+		</div>
+		<!-- Details Save Buttons -->
+		<div class="settings-save-buttons">
+			<div class='col'>
+				<div class="d-flex">
+					<button class='cancel-btn'>Cancel</button>
+					<button class="save-btn">Save</button>
+				</div>
+			</div>
+		</div>
+		<!-- End Details Save Buttons -->
+	</div>
+	<!-- End Settings Page Content -->
+</div>
+<!-- End Settings -->
+{% endblock %}
+{% block scripts %}
+<script>
+	Site.init('settings');
+</script>
+{% endblock %}
