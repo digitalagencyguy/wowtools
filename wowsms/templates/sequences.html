@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+{% block content %}
+<!-- top-button -->
+<div class="d-flex flex-row top-button-sequences">
+	<div class="col-12 button-col">
+		<div class="top-button">
+			<button class='add-sequence'>add sequence</button>
+		</div>
+	</div>
+</div>
+<!-- Sequences -->
+<div class="sequences">
+	<div class="sequences-home d-flex flex-column">
+		<div class="sequences-item-first">
+			<div class="sequences-name">
+				<div class="d-flex flex-row">
+					<div class="col-7">
+						<p>Name</p>
+					</div>
+					<div class="col-2">
+						<p>Subscribers</p>
+					</div>
+					<div class="col-2">
+						<p>Messages</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="sequences-item">
+			<div class="sequences-name">
+				<div class="d-flex flex-row">
+					<div class="col-7">
+						<p>Building a bot</p>
+					</div>
+					<div class="col-2">
+						<p>99</p>
+					</div>
+					<div class="col-2">
+						<p>199</p>
+					</div>
+					<div class="col-1">
+						<button type="button" class="btn btn-sequences modal-toggle" data-modal-function="dlt-confirm"><i class="fa fa-trash trash-icon"></i></button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="sequences-item">
+			<div class="sequences-name">
+				<div class="d-flex flex-row">
+					<div class="col-7">
+						<p>Building a bot</p>
+					</div>
+					<div class="col-2">
+						<p>99</p>
+					</div>
+					<div class="col-2">
+						<p>199</p>
+					</div>
+					<div class="col-1">
+						<button type="button" class="btn modal-toggle btn-sequences" data-modal-function="dlt-confirm"><i class="fa fa-trash trash-icon"></i></button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="sequences-item">
+			<div class="sequences-name">
+				<div class="d-flex flex-row">
+					<div class="col-7">
+						<p>Building a bot</p>
+					</div>
+					<div class="col-2">
+						<p>99</p>
+					</div>
+					<div class="col-2">
+						<p>199</p>
+					</div>
+					<div class="col-1">
+						<button type="button" class="btn btn-sequences modal-toggle" data-modal-function="dlt-confirm"><i class="fa fa-trash trash-icon"></i></button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="sequences-item">
+			<div class="sequences-name">
+				<div class="d-flex flex-row">
+					<div class="col-7">
+						<p>Building a bot</p>
+					</div>
+					<div class="col-2">
+						<p>99</p>
+					</div>
+					<div class="col-2">
+						<p>199</p>
+					</div>
+					<div class="col-1">
+						<button type="button" class="btn btn-sequences" data-modal-function="dlt-confirm"><i class="fa fa-trash trash-icon"></i></button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="sequences-item">
+			<div class="sequences-name"></div>
+		</div>
+		<div class="sequences-item">
+			<div class="sequences-name"></div>
+		</div>
+		<div class="sequences-item">
+			<div class="sequences-name"></div>
+		</div>
+		<div class="sequences-item">
+			<div class="sequences-name"></div>
+		</div>
+	</div>
+	<div class="sequences-item">
+		<div class="sequences-name"></div>
+	</div>
+	<div class="sequences-item">
+		<div class="sequences-name"></div>
+	</div>
+	<div class="sequences-item">
+		<div class="sequences-name"></div>
+	</div>
+	<div class="sequences-item-end">
+		<div class="sequences-name"></div>
+	</div>
+</div>
+</div>
+{% endblock %}
+{% block modalContent %}
+<div class='wowtools-modal' id='dlt-confirm'>
+	<div class='step first-step contains-form' data-prev-step="closeModal" data-next-step="closeModal">
+		<div class="sequence-modal">
+			<h2>Are you sure you want to delete the sequence?</h2>
+			<button class="back-btn sqnce-btn" data-next-step="closeModal">Back</button>
+			<button class="back-btn sqnce-btn-dlt" data-next-step="closeModal">Delete</button>
+		</div>
+	</div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+	Site.init('sequences');
+</script>
+{% endblock %}

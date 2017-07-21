@@ -22,6 +22,10 @@ var Site = {
 			case 'settings':
 				Settings.init();
 				break;
+
+			case 'sequences':
+				Sequences.init();
+				break;
 		}
 	}
 };
@@ -586,10 +590,24 @@ var SMS = {
  */
 var Settings = {
 	init: function() {
-		/**
-		 * Set min height accordingly
-		 */
-		var minHeight = $('.dashboard-content').height() - $('.settings-top-header').height();
-		$(".settings-page-content").css('min-height', minHeight);
 	}
+};
+
+/**
+ * All functions being used on the Sequences
+ * page for the front end
+ * @type {Object}
+ */
+var Sequences = {
+	init: function() {
+		$('.add-sequence').click(function() {
+			event.preventDefault();
+			alert("Add Sequence Event");
+		});
+		$('.sqnce-btn-dlt').click(function() {
+			event.preventDefault();
+			alert("Delete Event");
+		});
+		Modal.initModal();
+	},
 };
