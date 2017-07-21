@@ -13,6 +13,9 @@
 	
 	<!-- Font Awesome Icons -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<script src="{% static 'js/utils.js' %}">var cookies = Cookies();</script>
+
 </head>
 <body class='dashboard-body'>
 	<!-- Dashboard Flex -->
@@ -24,7 +27,7 @@
 				<div class="profile-information">
 					<div class="d-flex">
 						<img src="http://via.placeholder.com/100x100">
-						<p>Nathan Hague</p>
+						<p id='name'></p>
 					</div>
 				</div>
 				<!-- End Profile Information -->
@@ -64,7 +67,7 @@
 							<a href="#">Campaigns</a>
 						</li>
 						<li>
-							<a href="#">Audience</a>
+							<a href="/me?dest=audience">Audience</a>
 						</li>
 						<li>
 							<a href="#">Sequences</a>
@@ -85,7 +88,7 @@
 
 			<!-- Dashboard Content -->
 			<div class="dashboard-content">
-				<div class='dashboard-container {% block customDashboardClasses %}{% endblock %}'>
+				<div class='dashboard-container'>
 					{% block content %}
 					{% endblock %}
 				</div>
@@ -114,9 +117,15 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 	<script src="{% static 'js/wowtools-frontend.js' %}"></script>
-	<script src="{% static 'js/utils.js' &}">console.log(Cookies())</script>
 	<!-- Custom Scripts per page -->
 	{% block scripts %}
 	{% endblock %}
+	<script>
+		(function() {
+			var user = {{user | safe}},
+				namePlaceholder = $('#name')[0];
+			namePlaceholder.innerText = `${user.firstname} ${user.lastname}`
+		})();
+	</script>
 </body>
 </html>

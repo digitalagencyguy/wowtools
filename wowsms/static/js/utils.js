@@ -1,6 +1,6 @@
 
 
-var Cookies = function() {
+function Cookies() {
 	var cookies = document.cookie,
 		cArray = cookies.split(';');
 		json = new Object;
