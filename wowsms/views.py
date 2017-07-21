@@ -1,12 +1,18 @@
 from django.shortcuts import render
-from django.contrib.auth.decorators import login_required
+from django.shortcuts import redirect
+from .utils import MakeRequest
+from .utils import PostRequest
+from .utils import Authenticate
 
 
 def index(request):
-	return render(request, 'index.html')
-
-def login(request):
-	return render(request, 'login.html')
+	if request.method == 'GET':
+		if Authenticate(request).logged_in:
+			return render(request, 'index.html')
+		else:
+			return render(request, 'landing.html')
+	else:
+		print("yay")
 
 def register(request):
 	return render(request, 'register.html')
