@@ -12,6 +12,19 @@ html {
 	height: 100%;
 	vertical-align: middle;
 }
+.no-padding {
+	padding: 0 !important;
+}
+.no-margin {
+	margin: 0 !important;
+}
+.full-width {
+	width: 100% !important;
+	max-width: 100% !important;
+}
+.full-height {
+	min-height: 100% !important;
+}
 /**
  * Styles used for each dashboard element
  */
@@ -105,6 +118,7 @@ html {
 	width: 100%;
 	max-width: 1000px;
 	text-align: center;
+	display: none;
 	min-height: 550px;
 }
 .wowtools-modal h2 {
@@ -117,6 +131,9 @@ html {
 .wowtools-modal .step {
 	display: none;
 	position: relative;
+}
+.wowtools-modal .step.active {
+	display: block !important;
 }
 .wowtools-modal form {
 	width: 90%;
@@ -182,8 +199,7 @@ html {
 	padding: 20px;
 	padding-top: 0;
 }
-.modal-actions .back-btn {
-	float: left;
+.back-btn {
 	width: 200px;
 	height: 40px;
 	line-height: 38px;
@@ -202,12 +218,14 @@ html {
 	-o-transition: all 0.2s ease-in-out;
 	transition: all 0.2s ease-in-out;
 }
-.modal-actions .back-btn:hover {
+.back-btn:hover {
 	color: #fff;
 	background: #2F64A6;
 }
-.modal-actions .next-btn {
-	float: right;
+.modal-actions .back-btn {
+	float: left;
+}
+.next-btn {
 	width: 200px;
 	height: 40px;
 	line-height: 40px;
@@ -225,6 +243,9 @@ html {
 	-ms-transition: all 0.2s ease-in-out;
 	-o-transition: all 0.2s ease-in-out;
 	transition: all 0.2s ease-in-out;
+}
+.modal-actions .next-btn {
+	float: right;
 }
 .modal-actions .cancel-btn {
 	color: #ff4136;
@@ -829,4 +850,407 @@ html {
 	display: block;
 	float: right;
 	flex: 1;
+}
+
+/**
+ * Purchase SMS CSS
+ */
+.buy-sms {
+	margin-top: 40px;
+	text-align: center;
+	margin-bottom: 60px
+}
+.buy-sms .individual {
+	border: 1px solid #ACACAC;
+	border-top: 10px solid #3065A6;
+	width: 85%;
+	display: block;
+	margin-right: auto;
+	margin-left: auto;
+	background: #F9F9F9;
+}
+.buy-sms .individual.ind-different{
+	margin-top: 40px;
+}
+.buy-sms .individual h2{
+	padding-top: 30px;
+	color: #3E4245;
+	font-size: 1.4em;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 0;
+}
+.buy-sms .individual h3{
+	color: #3E4245;
+	width: 200px;
+	font-size: 1.4em;
+	font-weight: 500;
+	margin-bottom: 50px;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+.buy-sms .individual h4 {
+	margin-bottom: 50px;
+	font-weight: normal;
+	font-size: 1.2em;
+	padding-top: 5px;
+	color:#25D141;
+}
+.buy-sms .individual hr{
+	max-width: 250px;
+	border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(153, 153, 153, 0), rgba(153, 153, 153, 0.75), rgba(153, 153, 153, 0));
+}
+.buy-sms .individual p {
+	font-size: 1.6em;
+	font-weight: bold;
+	color: #3065A6;
+}
+.buy-sms .individual a {
+	margin-top: 100px;
+	display: block;
+	background: #25D141;
+	width: 200px;
+	margin-right: auto;
+	margin-left: auto;
+	line-height: 55px;
+	height:55px;
+	margin-bottom: 30px;
+	color: #fff;
+	font-weight: bold;
+	text-transform: uppercase;
+	font-size: 1.6em;
+	letter-spacing: 2px;
+	border-right: 1px solid #3d3d3d;
+	border-bottom: 1px solid #3d3d3d;
+}
+.buy-sms .individual button {
+	margin-top: 80px;
+	margin-bottom: 30px;
+	color: #fff;
+	font-weight: bold;
+	text-transform: uppercase;
+	font-size: 1.6em;
+	letter-spacing: 2px;
+	border-right: 1px solid #3d3d3d;
+	border-bottom: 1px solid #3d3d3d;
+	border-radius: 0;
+	background: #25D141;
+	width: 200px;
+	cursor: pointer;
+}
+.buy-sms .individual button.btn-different {
+	margin-top:10px;
+}
+.buy-sms .individual a:hover {
+	text-decoration: none;
+}
+.buy-sms .individual form input {
+	height:30px;
+	text-align: center;
+	font-size: 1.3em;
+	width: 140px;
+}
+.sms-buy-custom-btn {
+	margin-top: 10px !important;
+}
+.sms-buy-monthly-h2 {
+	margin-bottom: 75px !important;
+}
+.buy-sms .sms-best-value-indicator {
+	position:absolute; 
+	font-size: 1.3em; 
+	text-transform: uppercase; 
+	margin-left: 120px; 
+	margin-top: 15px; 
+	color:#fff;
+}
+.buy-sms .sms-best-value-individual {
+	border-top: 50px solid #3065A6;
+}
+/**
+ * Custom modal styles for purchasing SMS
+ */
+.purchase-modal {
+	position: relative;
+}
+.purchase-modal .back-btn {
+	position: absolute;
+	top: 0;
+	left: 0;
+	margin-top: 20px;
+	margin-left: 20px;
+	z-index: 99;
+}
+.purchase-modal .next-btn {
+	position: absolute;
+	height: auto;
+	line-height: 1;
+	margin: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	width: 100%;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	font-size: 20px;
+}
+.purchase-modal h2 {
+	padding-top: 80px;
+}
+.sms-purchase-information {
+	font-size: 30px;
+	padding-top: 40px;
+	color: #2F64A6;
+}
+.sms-how-many {
+	max-width: 225px;
+	margin-top: 40px;
+	margin-left: auto;
+	margin-right: auto;
+}
+.sms-how-many label {
+	width: 60%;
+	flex: 1;
+}
+.sms-how-many select {
+	width: 30%;
+}
+
+.sms-discount {
+	text-align: center;
+	margin-top: 40px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+.sms-discount label {
+	flex: 1;
+	text-align: center;
+	width: 100%;
+}
+.sms-discount [input=text] {
+	width:100%;
+}
+.sms-discount button {
+	width:200px;
+	background: #fff;
+	border: 3px solid #65CC59;
+	color: #65CC59;
+	font-weight: 600;
+}
+.monthly-wow-sms {
+	max-width: 400px !important;
+	width: 100% !important;
+}
+.monthly-wow-sms input {
+	margin-right: 20px;
+	width: 100% !important;
+}
+.stripe-overlay {
+	display: none;
+	background: #fff;
+	padding: 40px 20px;
+	width: 300px;
+	margin: 0 auto;
+	text-align: center;
+}
+.stripe-overlay button {
+	cursor: pointer;
+}
+
+/**
+ * Settings page
+ */
+.settings-top-header .nav-tabs .nav-item {
+	flex: 1;
+}
+.settings-top-header .nav-tabs .nav-item .nav-link {
+	padding: 10px;
+	box-sizing: border-box;
+	text-align: center;
+	font-size: 13px;
+	text-transform: uppercase;
+	height: 100%;
+	width: 100%;
+	color: #666;
+	background: #DCDCDC;
+	border-radius: 0;
+	border: 0;
+	border-right: 1px solid #666;
+	border-bottom: 1px solid #666;
+}
+.settings-top-header .nav-tabs .nav-item .nav-link.active {
+	background: #2F64A6;
+	color: #fff;
+}
+.settings-page-content {
+	position: relative;
+}
+.settings-page-content .tab-pane {
+	position: relative;
+	min-height: 100%;
+}
+.settings-content {
+	max-width: 95%;
+	margin: 0 auto;
+	padding-top: 40px;
+}
+.settings-details-form .d-flex {
+	padding-bottom: 30px;
+}
+.settings-details-form label {
+	width: 30%;
+	margin-bottom: 0;
+	line-height: 30px;
+}
+.settings-details-form input {
+	width: 57.5%;
+	border: 1px solid #666;
+	height: 30px;
+	line-height: 30px;
+	box-sizing: border-box;
+	padding-left: 10px;
+}
+.settings-details-form button {
+	width: 10%;
+	margin-left: 15px;
+	border: 2px solid #25D141;
+	background: transparent;
+	color: #25D141;
+	font-weight: bolder;
+	box-sizing: border-box;
+	height: 30px;
+	line-height: 23px;
+	text-align: center;
+	cursor: pointer;
+
+	-webkit-transition: all 0.2s ease-in-out;
+	-moz-transition: all 0.2s ease-in-out;
+	-ms-transition: all 0.2s ease-in-out;
+	-o-transition: all 0.2s ease-in-out;
+	transition: all 0.2s ease-in-out;
+}
+.settings-details-form button:hover {
+	background: #25D141;
+	color: #fff;
+}
+.settings-details-form select {
+	background: transparent;
+	border: 1px solid #666;
+	border-radius: 0;
+	height: 30px;
+	line-height: 30px;
+	width: 57.5%;
+}
+.contains-mobile input {
+	margin-left: 20px;
+	width: 43.75%;
+}
+.contains-mobile select {
+	width: 10%;
+}
+.label-offset {
+	position: relative;
+}
+.label-offset label {
+	position: absolute;
+	left: 0;
+	margin-left: 32.5%;
+	font-size: 12px;
+	height: 20px;
+	line-height: 20px;
+	text-align: center;
+	width: auto;
+	top: 0;
+	background: #fff;
+	padding-left: 5px;
+	padding-right: 5px;
+	margin-top: -10px;
+}
+.label-offset select {
+	margin-left: 30%;
+}
+.label-offset input {
+	margin-left: 30%;
+	padding-top: 5px;
+}
+.settings-save-buttons {
+	bottom: 0;
+	left: 0;
+	text-align: right;
+	position: absolute;
+	margin-right: 2.5%;
+	margin-bottom: 30px;
+	right: 0;
+}
+.settings-save-buttons button {
+	margin-left: 10px;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	width: 150px;
+	color: #fff;
+	text-transform: uppercase;
+	font-weight: bolder;
+	border: 0;
+	cursor: pointer;
+
+	-webkit-transition: all 0.2s ease-in-out;
+	-moz-transition: all 0.2s ease-in-out;
+	-ms-transition: all 0.2s ease-in-out;
+	-o-transition: all 0.2s ease-in-out;
+	transition: all 0.2s ease-in-out;
+}
+.settings-save-buttons .cancel-btn {
+	background: #ff4136;
+}
+.settings-save-buttons .cancel-btn:hover {
+	background: #e90d00;
+}
+.settings-save-buttons .save-btn {
+	background: #25D141;
+}
+.settings-save-buttons .save-btn:hover {
+	background: #21bc3a;
+}
+.settings-save-buttons .d-flex {
+	width: 100%;
+	justify-content: flex-end;
+}
+.campaign-api-key-form {
+	width: 100%;
+	max-width: 500px;
+}
+.campaign-api-key-form input {
+	width: 80%;
+	margin-right: 10px;
+	border: 1px solid #666;
+	height: 30px;
+	line-height: 30px;
+	box-sizing: border-box;
+	padding-left: 10px;
+}
+.campaign-api-key-form button {
+	border: 2px solid #1D63A9;
+	box-sizing: border-box;
+	height: 30px;
+	line-height: 24px;
+	background: transparent;
+	color: #1D63A9;
+	font-weight: bolder;
+	cursor: pointer;
+
+	-webkit-transition: all 0.2s ease-in-out;
+	-moz-transition: all 0.2s ease-in-out;
+	-ms-transition: all 0.2s ease-in-out;
+	-o-transition: all 0.2s ease-in-out;
+	transition: all 0.2s ease-in-out;
+}
+.campaign-api-key-form button:hover {
+	background: #1D63A9;
+	color: #fff;
 }
