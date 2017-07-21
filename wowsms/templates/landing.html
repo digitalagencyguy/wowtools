@@ -1,5 +1,6 @@
 <h1>test</h1>
 <form id='thing' name='thing' method='post' action='/'>
+	{% csrf_token %}
 	<input type='text' name='name'>
 	<input type='submit'>
 </form>

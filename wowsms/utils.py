@@ -1,7 +1,20 @@
 import requests
 import json 
 
-
+user_data = {
+	'1777': {
+		'firstname': 'Nathan',
+		'lastname': 'Hague'
+	},
+	'4224' : {
+		'firstname': 'William',
+		'lastname': 'Hicks'
+	},
+	'8888' : {
+		'firstname': 'Eric',
+		'lastname': 'Kornia'
+	}
+}
 #create a class to handle all JSON passing to the database
 class MakeRequest:
 
@@ -31,6 +44,10 @@ class Authenticate:
 			return True
 		else:
 			return False
+
+	def get_me(self):
+		me = self.request.session.get('user')
+		return {me: user_data[me]}
 
 
 class PostRequest:
