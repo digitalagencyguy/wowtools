@@ -851,7 +851,6 @@ html {
 	float: right;
 	flex: 1;
 }
-
 /**
  * Purchase SMS CSS
  */
@@ -1062,6 +1061,106 @@ html {
 	cursor: pointer;
 }
 
+.top-button {
+	float: right;
+}
+.top-button button {
+	background: #65CC59;
+	color:#fff;
+	border: 0;
+	text-transform: uppercase;
+	font-size: 0.9em;
+	height:35px;
+	line-height: 35px;
+	width:130px;
+	cursor: pointer;
+}
+.top-button-sequences {
+	width: 95%;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+.button-col {
+	padding-right: 0;
+}
+/**
+ * Sequences
+ */
+.sequences {
+	margin-top: 20px;
+	border: 1px solid #E4E4E4;
+	width:95%;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 50px;
+	color:#4E4F51;
+	background: #FCFCFC;
+}
+.btn-sequences {
+	text-align: center;
+	background-color: inherit;
+}
+.sequences-item {
+	border-bottom: 1px solid #E4E4E4;
+}
+.sequences-item-first {
+	border-bottom: 1px solid #E4E4E4;
+	font-weight: 600;
+}
+.sequences-name {
+	padding-left: 20px;
+	height: 55px;
+	line-height:50px;
+}
+.sequences-name .col-2 h6{
+	float: right;
+}
+.sequences-name .col-2 p{
+	float: right;
+}
+.sequences-name .col-1 i{
+	color: red;
+	text-align: center;
+}
+/**
+ * Custom modal styles for sequences
+ */
+.sequence-modal {
+	margin-top: 150px;
+}
+.sqnce-btn {
+	width: 150px;
+	height: 40px;
+	line-height: 38px;
+	background: #2F64A6;
+	cursor: pointer;
+	box-sizing: border-box;
+	border: 2px solid #2F64A6;
+	padding: 0;
+	color: #fff;
+	font-weight: bolder;
+	text-transform: uppercase;
+	margin-right: 100px;
+}
+.sqnce-btn-dlt {
+	width: 150px;
+	height: 40px;
+	line-height: 38px;
+	background: #FE0000;
+	cursor: pointer;
+	box-sizing: border-box;
+	border: 2px solid #FE0000;
+	padding: 0;
+	color: #fff;
+	font-weight: bolder;
+	text-transform: uppercase;
+}
+.sqnce-btn-dlt:hover {
+	background: #FE0000;
+}
+
 /**
  * Settings page
  */
@@ -1098,6 +1197,7 @@ html {
 	max-width: 95%;
 	margin: 0 auto;
 	padding-top: 40px;
+	padding-bottom: 120px;
 }
 .settings-details-form .d-flex {
 	padding-bottom: 30px;
@@ -1182,10 +1282,13 @@ html {
 	bottom: 0;
 	left: 0;
 	text-align: right;
-	position: absolute;
-	margin-right: 2.5%;
-	margin-bottom: 30px;
+	width: 100%;
+	margin-bottom: -60px;
+	padding-top: 30px;
 	right: 0;
+}
+.cancel-subscription {
+	text-align: left;
 }
 .settings-save-buttons button {
 	margin-left: 10px;
@@ -1221,6 +1324,19 @@ html {
 	width: 100%;
 	justify-content: flex-end;
 }
+.cancel-subscription .d-flex {
+	justify-content: flex-start;
+}
+.cancel-subscription button {
+	background: transparent;
+	height: auto;
+	line-height: 1;
+	color: #666;
+	width: auto;
+	text-transform: none;
+	font-weight: normal;
+	margin-left: 0;
+}
 .campaign-api-key-form {
 	width: 100%;
 	max-width: 500px;
@@ -1253,4 +1369,233 @@ html {
 .campaign-api-key-form button:hover {
 	background: #1D63A9;
 	color: #fff;
+}
+.subscriptions-tab h2 {
+	padding-bottom: 20px;
+	color: #666;
+	font-size: 24px;
+}
+.subscriptions-tab h2 strong {
+	color: #000;
+}
+.subscription-col a {
+	width: 240px;
+	height: 40px;
+	line-height: 36px;
+	border: 2px solid #2F64A6;
+	color: #2F64A6;
+	display: inline-block;
+	text-align: center;
+	font-size: 17px;
+}
+.subscription-col a:hover {
+	text-decoration: none;
+	background: #2F64A6;
+	color: #fff;
+
+	-webkit-transition: all 0.2s ease-in-out;
+	-moz-transition: all 0.2s ease-in-out;
+	-ms-transition: all 0.2s ease-in-out;
+	-o-transition: all 0.2s ease-in-out;
+	transition: all 0.2s ease-in-out;
+}
+.users-fields {
+	padding-top: 10px;
+}
+.users-field {
+	max-width: 900px;
+	width: 100%;
+	padding-bottom: 20px;
+}
+.users-field label {
+	width: 100%;
+	display: block;
+}
+.users-field input {
+	width: 100%;
+	border: 1px solid #666;
+	padding-left: 10px;
+	box-sizing: border-box;
+}
+.user-settings-options {
+	width: 100px;
+}
+.user-settings-options ul {
+	text-align: left;
+	margin: 0;
+	padding: 0;
+}
+.user-settings-options ul li {
+	display: inline-block;
+	margin-top: 31.5px;
+	background: transparent;
+	color: #fff;
+}
+.user-settings-options ul li button {
+	color: #fff;
+	background: transparent;
+	border: 0;
+	width: 30px;
+	height: 30px;
+	line-height: 27px;
+	cursor: pointer;
+	margin-right: 5px;
+}
+.user-settings-options ul li button.trash {
+	background: #ff4136;
+}
+.user-settings-options ul li button.edit {
+	background: #2F64A6;
+}
+.add-user-top-right {
+	position: absolute;
+	top: 0;
+	right: 0;
+	z-index: 9;
+}
+.add-user-top-right .add-user-btn {
+	background: #25D141;
+	margin-right: 10px;
+	border: 0;
+	color: #fff;
+	height: 35px;
+	line-height: 35px;
+	padding-left: 15px;
+	padding-right: 15px;
+	text-transform: uppercase;
+	cursor: pointer;
+}
+.add-user-top-right input {
+	height: 35px;
+	line-height: 35px;
+	background: #f0f0f0;
+	border: 0;
+	box-sizing: border-box;
+	padding-left: 10px;
+	border: 1px solid #a0a0a0;
+}
+.add-user-top-right .add-user-btn:hover {
+	background: #21bc3a;
+}
+.search-users {
+	position: relative;
+}
+.search-users i {
+	position: absolute;
+	right: 0;
+	top: 0;
+	line-height: 35px;
+	margin-right: 10px;
+}
+.google-account-image {
+	margin-right: 20px;
+}
+.google-account-image img {
+	display: block;
+	width: 125px;
+	height: auto;
+	border-radius: 9999px;
+}
+.google-account-information span {
+	display: block;
+}
+.google-account-information span.google-account-status {
+	color: #25D141;
+	padding-bottom: 10px;
+}
+.google-account-information span.google-account-name {
+	font-size: 24px;
+}
+.google-account-information span.google-account-email {
+	font-size: 14px;
+	font-style: italic;
+}
+.google-account-information a {
+	width: 100px;
+	height: 35px;
+	line-height: 31px;
+	border: 2px solid #2F64A6;
+	color: #2F64A6;
+	display: inline-block;
+	text-align: center;
+	font-size: 14px;
+	margin-top: 15px;
+	font-weight: bolder;
+}
+.google-account-information a:hover {
+	text-decoration: none;
+	background: #2F64A6;
+	color: #fff;
+
+	-webkit-transition: all 0.2s ease-in-out;
+	-moz-transition: all 0.2s ease-in-out;
+	-ms-transition: all 0.2s ease-in-out;
+	-o-transition: all 0.2s ease-in-out;
+	transition: all 0.2s ease-in-out;
+}
+.calendars-content select {
+	width: 100%;
+	max-width: 400px;
+	height: 35px;
+	line-height: 35px;
+}
+.time-slot-flex {
+	max-width: 650px;
+	margin-bottom: 5px;
+}
+.time-slot-content p {
+	margin-right: 20px;
+	height: 35px;
+	line-height: 35px;
+	display: block;
+	width: 50%;
+}
+.time-slot-content select {
+	width: 100%;
+	padding: 0;
+	line-height: 35px;
+	height: 35px;
+	flex: 1;
+}
+.time-slot-content input {
+	flex: 1;
+	width: 100%;
+	padding: 0;
+	height: 35px;
+	line-height: 35px;
+	box-sizing: border-box;
+	border: 1px solid #a0a0a0;
+	padding-left: 10px;
+}
+.mins-time-slot-duration {
+	margin-left: 10px;
+}
+.time-slot-content .mins-time-slot-duration {
+	width: 32.5%;
+}
+.time-slot-multiple-times-select {
+	max-width: 62.5px;
+}
+.days-of-week-booked-title p {
+	padding-bottom: 0;
+	margin-bottom: 0;
+	font-size: 14px;
+}
+.days-of-week-row {
+	font-size: 14px;
+}
+.day-title {
+	width: 250px;
+	margin-right: 20px;
+}
+.sms-time-flex {
+	width: 100%;
+	margin-bottom: 20px;
+}
+.sms-time-flex label {
+	width: 10%;
+}
+.sms-time-flex input {
+	box-sizing: border-box;
+	padding-left: 10px;
 }
