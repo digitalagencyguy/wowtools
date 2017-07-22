@@ -1,20 +1,7 @@
 import requests
-import json 
+import json
+from .data import user_data
 
-user_data = {
-	'1777': {
-		'firstname': 'Nathan',
-		'lastname': 'Hague'
-	},
-	'4224' : {
-		'firstname': 'William',
-		'lastname': 'Hicks'
-	},
-	'8888' : {
-		'firstname': 'Eric',
-		'lastname': 'Kornia'
-	}
-}
 #create a class to handle all JSON passing to the database
 class MakeRequest:
 

@@ -45,7 +45,7 @@
 			<div class="col">
 				<!-- Log out -->
 				<div class="log-out">
-					<a href="#" class='log-out-link'>
+					<a href="/logout" class='log-out-link'>
 						Log Out
 					</a>
 				</div>
@@ -61,7 +61,7 @@
 				<nav>
 					<ul>
 						<li>
-							<a href="#">Buy SMS (10)</a>
+							<a href="#">Buy SMS <span id='numSms'></span></a>
 						</li>
 						<li>
 							<a href="#">Campaigns</a>
@@ -123,8 +123,10 @@
 	<script>
 		(function() {
 			var user = {{user | safe}},
-				namePlaceholder = $('#name')[0];
+				namePlaceholder = $('#name')[0],
+				smsPlaceholder = $('#numSms')[0];
 			namePlaceholder.innerText = `${user.firstname} ${user.lastname}`
+			smsPlaceholder.innerText = `(${user.sms})`
 		})();
 	</script>
 </body>

@@ -57,7 +57,8 @@ TEMPLATES = [
 ]
 
 AUTHENTICATION_BACKENDS = [
-    'django.contrib.auth.backends.ModelBackend'
+    'django.contrib.auth.backends.ModelBackend',
+    'social_core.backends.'
 ]
 
 WSGI_APPLICATION = 'wowtools.wsgi.application'
