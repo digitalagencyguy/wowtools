@@ -1,0 +1,585 @@
+{% extends 'base.html' %}
+{% block dashboardClasses %}
+no-padding no-margin full-width full-height
+{% endblock %}
+{% block content %}
+<!-- Settings -->
+<div class="settings">
+	<!-- Settings top header -->
+	<div class="settings-top-header">
+		<ul class="nav nav-tabs d-flex" role="tablist">
+			<li class="nav-item">
+				<a class="nav-link active" data-toggle="tab" href="#details" role="tab">
+					<!-- Usage of table for vertical centering -->
+					<div class='table'>
+						<div class='table-cell'>
+							Details
+						</div>
+					</div>
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" data-toggle="tab" href="#ACAPIList" role="tab">
+					<!-- Usage of table for vertical centering -->
+					<div class='table'>
+						<div class='table-cell'>
+							Active Campaign API List
+						</div>
+					</div>
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" data-toggle="tab" href="#subscriptions" role="tab">
+					<!-- Usage of table for vertical centering -->
+					<div class='table'>
+						<div class='table-cell'>
+							Subscriptions
+						</div>
+					</div>
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" data-toggle="tab" href="#users" role="tab">
+					<!-- Usage of table for vertical centering -->
+					<div class='table'>
+						<div class='table-cell'>
+							Users
+						</div>
+					</div>
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" data-toggle="tab" href="#googleAccount" role="tab">
+					<!-- Usage of table for vertical centering -->
+					<div class='table'>
+						<div class='table-cell'>
+							Google Account
+						</div>
+					</div>
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" data-toggle="tab" href="#calendars" role="tab">
+					<!-- Usage of table for vertical centering -->
+					<div class='table'>
+						<div class='table-cell'>
+							Calendars
+						</div>
+					</div>
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" data-toggle="tab" href="#timeSlotSetup" role="tab">
+					<!-- Usage of table for vertical centering -->
+					<div class='table'>
+						<div class='table-cell'>
+							Time Slot Setup
+						</div>
+					</div>
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" data-toggle="tab" href="#smsTimeLimits" role="tab">
+					<!-- Usage of table for vertical centering -->
+					<div class='table'>
+						<div class='table-cell'>
+							SMS Time Limits
+						</div>
+					</div>
+				</a>
+			</li>
+		</ul>
+	</div>
+	<!-- End Settings top header -->
+	<!-- Settings Page Content -->
+	<div class="settings-page-content">
+		<div class="tab-content">
+			<!-- Details Tab -->
+			<div class="tab-pane active" id="details" role="tabpanel">
+				<!-- Details Tab Content -->
+				<div class="settings-content">
+					<!-- Details Form -->
+					<div class="container">
+						<div class="row">
+							<div class="col-sm-12 col-lg-6">
+								<div class="settings-details-form">
+									<div class="d-flex">
+										<label>First Name</label>
+										<input type="text" name="firstName">
+									</div>
+									<div class="d-flex">
+										<label>Last Name</label>
+										<input type="text" name="lastName" id="">
+									</div>
+									<div class="d-flex contains-mobile">
+										<label>Mobile</label>
+										<select name="mobileExt">
+											<option value="61">61</option>
+										</select>
+										<input type="text" name="lastName" id="">
+									</div>
+									<div class="d-flex">
+										<label>Time Zone</label>
+										<select name="timeZone">
+											<option value="#">Select a time zone</option>
+										</select>
+									</div>
+									<div class="d-flex">
+										<label>Business name</label>
+										<input type="text" name="businessName">
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-12 col-lg-6">
+								<div class="settings-details-form">
+									<div class="d-flex">
+										<label>
+										Business Address
+										</label>
+										<input type="text" placeholder="1 This Street">
+										<button>find</button>
+									</div>
+									<div class='d-flex label-offset'>
+										<label>Street 1</label>
+										<input type="text">
+									</div>
+									<div class='d-flex label-offset'>
+										<label>Street 2</label>
+										<input type="text">
+									</div>
+									<div class='d-flex label-offset'>
+										<label>Town, Suburb</label>
+										<input type="text">
+									</div>
+									<div class='d-flex label-offset'>
+										<label>Zip Code</label>
+										<input type="text">
+									</div>
+									<div class='d-flex label-offset'>
+										<select name="#">
+											<option value="#">Australia</option>
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="settings-save-buttons">
+								<div class='col'>
+									<div class="d-flex">
+										<button class='cancel-btn'>Cancel</button>
+										<button class="save-btn">Save</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- End Details Form -->
+				</div>
+				<!-- End Details Tab Content -->
+			</div>
+			<!-- End Details Tab -->
+			<!-- Active Campaign API List Tab -->
+			<div class="tab-pane" id="ACAPIList" role="tabpanel">
+				<!-- Active Campaign API List Content -->
+				<div class="settings-content">
+					<div class='container'>
+						<div class='col'>
+							<p>MyActive Campaign API Key:</p>
+							<div class='campaign-api-key-form'>
+								<div class="d-flex">
+									<input type="text" name="" placeholder="aosdhsapihdoisadh">
+									<button type="submit">change</button>
+								</div>
+							</div>
+						</div>
+						<div class="settings-save-buttons">
+							<div class='col'>
+								<div class="d-flex">
+									<button class='cancel-btn'>Cancel</button>
+									<button class="save-btn">Save</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- End Active Campaign API List Content -->
+			</div>
+			<!-- End Active Campaign API List Tab -->
+			<!-- Subscriptions Tab -->
+			<div class="tab-pane" id="subscriptions" role="tabpanel">
+				<!-- Subscriptions Content -->
+				<div class="settings-content subscriptions-tab">
+					<div class='container'>
+						<div class="col subscription-col">
+							<h2>Current Subscription: <strong>$47/month</strong></h2>
+							<h2>Next Payment Due: <strong>23 January 2018</strong></h2>
+							<a href="#">Change Subscription</a>
+						</div>
+						<div class="settings-save-buttons cancel-subscription">
+							<div class='col'>
+								<div class="d-flex">
+									<button>Cancel Subscription</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- End Subscriptions Content -->
+			</div>
+			<!-- End Subscriptions Tab -->
+			<!-- Users Tab -->
+			<div class="tab-pane" id="users" role="tabpanel">
+				<!-- Users Content -->
+				<div class="settings-content">
+					<div class="container">
+						<div class="col">
+							<div class="add-user-top-right">
+								<div class='d-flex'>
+									<button class="add-user-btn">Add User</button>
+									<div class="search-users">
+										<input type="text" name="" placeholder="Search Users...">
+										<i class="fa fa-search"></i>
+									</div>
+								</div>
+							</div>
+							<div class='col'>
+								<p>Do you have any other staff or team members that you would like notifications to be emailed to:</p>
+							</div>
+							<div class='users-fields'>
+								<div class="users-field d-flex">
+									<div class="col">
+										<label>First Name</label>
+										<input type="text" name="#">
+									</div>
+									<div class="col">
+										<label>Last Name</label>
+										<input type="text" name="#">
+									</div>
+									<div class="col">
+										<label>Email address</label>
+										<input type="text" name="#">
+									</div>
+									<div class="col user-settings-options">
+										<ul>
+											<li>
+												<button class='trash'><i class="fa fa-trash"></i></button>
+											</li>
+											<li>
+												<button class='edit'><i class="fa fa-pencil"></i></button>
+											</li>
+										</ul>
+									</div>
+								</div>
+								<div class="users-field d-flex">
+									<div class="col">
+										<label>First Name</label>
+										<input type="text" name="#">
+									</div>
+									<div class="col">
+										<label>Last Name</label>
+										<input type="text" name="#">
+									</div>
+									<div class="col">
+										<label>Email address</label>
+										<input type="text" name="#">
+									</div>
+									<div class="col user-settings-options">
+										<ul>
+											<li>
+												<button class='trash'><i class="fa fa-trash"></i></button>
+											</li>
+											<li>
+												<button class='edit'><i class="fa fa-pencil"></i></button>
+											</li>
+										</ul>
+									</div>
+								</div>
+								<div class="users-field d-flex">
+									<div class="col">
+										<label>First Name</label>
+										<input type="text" name="#">
+									</div>
+									<div class="col">
+										<label>Last Name</label>
+										<input type="text" name="#">
+									</div>
+									<div class="col">
+										<label>Email address</label>
+										<input type="text" name="#">
+									</div>
+									<div class="col user-settings-options">
+										<ul>
+											<li>
+												<button class='trash'><i class="fa fa-trash"></i></button>
+											</li>
+											<li>
+												<button class='edit'><i class="fa fa-pencil"></i></button>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="settings-save-buttons">
+							<div class='col'>
+								<div class="d-flex">
+									<button class='cancel-btn'>Cancel</button>
+									<button class="save-btn">Save</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- End Users Content -->
+			</div>
+			<!-- End Users Tab -->
+			<!-- Google Account Tab -->
+			<div class="tab-pane" id='googleAccount' role='tabpanel'>
+				<!-- Google Account Content -->
+				<div class="settings-content">
+					<div class="container">
+						<div class="col">
+							<div class="google-account-desc">
+								<div class="d-flex">
+									<div class='google-account-image'>
+										<img src="http://via.placeholder.com/150x150">
+									</div>
+									<div class="google-account-information">
+										<span class='google-account-status'>Google Account Connected</span>
+										<span class="google-account-name">Nathan Hague</span>
+										<span class="google-account-email">australiawow@gmail.com</span>
+										<a href="#">change</a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="settings-save-buttons">
+							<div class='col'>
+								<div class="d-flex">
+									<button class='cancel-btn'>Cancel</button>
+									<button class="save-btn">Save</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- End Google Account Content -->
+			</div>
+			<!-- End Google Account Tab -->
+			<!-- Calendars Tab -->
+			<div class="tab-pane" id="calendars" role="tabpanel">
+				<!-- Calendars Content -->
+				<div class="settings-content calendars-content">
+					<div class='container'>
+						<div class='col'>
+							<p>Select which google calendar you would like to use:</p>
+							<select name="#" id="">
+								<option value="">Select an Option</option>
+							</select>
+						</div>
+						<div class="settings-save-buttons">
+							<div class='col'>
+								<div class="d-flex">
+									<button class='cancel-btn'>Cancel</button>
+									<button class="save-btn">Save</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- End Calendars Content -->
+			</div>
+			<!-- End Calendars Tab -->
+			<!-- Time Slot Setup -->
+			<div class="tab-pane" id="timeSlotSetup" role="tabpanel">
+				<!-- Time Slot Setup Content -->
+				<div class="settings-content time-slot-content">
+					<div class='container'>
+						<div class='col'>
+							<div class="d-flex time-slot-flex">
+								<p>What will your time slot be called:</p>
+								<input type="text" name='#'>
+							</div>
+							<div class="d-flex time-slot-flex time-slot-duration">
+								<p>What duration are your time slots:</p>
+								<input type="text" name='#'>
+								<p class='mins-time-slot-duration'>mins</p>
+							</div>
+							<div class="d-flex time-slot-flex time-slot-duration">
+								<p>Can one slot be booked multiple times:</p>
+								<select name="#" id="" class='time-slot-multiple-times-select'>
+									<option value="Yes">Yes</option>
+									<option value="No">No</option>
+								</select>
+							</div>
+							<p>What days of week and hours can be booked:</p>
+							<div class="days-of-week-can-be-booked">
+								<div class="d-flex days-of-week-booked-title">
+									<div class="day-title"></div>
+									<p>from:</p>
+									<p>to:</p>
+									<p>exclude from:</p>
+									<p>to:</p>
+								</div>
+								<div class="d-flex days-of-week-row">
+									<div class="day-title d-flex">
+										<input type="checkbox" name="#" id="">
+										<p>Monday</p>
+									</div>
+									<p>
+										<input type="text" name="" value='07:30'>
+									</p>
+									<p>
+										<input type="text" name="" value="15:30">
+									</p>
+									<p>
+										<input type="text" name="" id="">
+									</p>
+									<p>
+										<input type="text" name="" id="">
+									</p>
+								</div>
+								<div class="d-flex days-of-week-row">
+									<div class="day-title d-flex">
+										<input type="checkbox" name="#" id="">
+										<p>Tuesday</p>
+									</div>
+									<p>
+										<input type="text" name="" value='07:30'>
+									</p>
+									<p>
+										<input type="text" name="" value="15:30">
+									</p>
+									<p>
+										<input type="text" name="" id="">
+									</p>
+									<p>
+										<input type="text" name="" id="">
+									</p>
+								</div>
+								<div class="d-flex days-of-week-row">
+									<div class="day-title d-flex">
+										<input type="checkbox" name="#" id="">
+										<p>Wednesday</p>
+									</div>
+									<p>
+										<input type="text" name="" value='07:30'>
+									</p>
+									<p>
+										<input type="text" name="" value="15:30">
+									</p>
+									<p>
+										<input type="text" name="" id="">
+									</p>
+									<p>
+										<input type="text" name="" id="">
+									</p>
+								</div>
+								<div class="d-flex days-of-week-row">
+									<div class="day-title d-flex">
+										<input type="checkbox" name="#" id="">
+										<p>Thursday</p>
+									</div>
+									<p>
+										<input type="text" name="" value='07:30'>
+									</p>
+									<p>
+										<input type="text" name="" value="15:30">
+									</p>
+									<p>
+										<input type="text" name="" id="">
+									</p>
+									<p>
+										<input type="text" name="" id="">
+									</p>
+								</div>
+								<div class="d-flex days-of-week-row">
+									<div class="day-title d-flex">
+										<input type="checkbox" name="#" id="">
+										<p>Friday</p>
+									</div>
+									<p>
+										<input type="text" name="" value='07:30'>
+									</p>
+									<p>
+										<input type="text" name="" value="15:30">
+									</p>
+									<p>
+										<input type="text" name="" id="">
+									</p>
+									<p>
+										<input type="text" name="" id="">
+									</p>
+								</div>
+								<div class="d-flex days-of-week-row">
+									<div class="day-title d-flex">
+										<input type="checkbox" name="#" id="">
+										<p>Saturday</p>
+									</div>
+									<p>
+										<input type="text" name="" value='07:30'>
+									</p>
+									<p>
+										<input type="text" name="" value="15:30">
+									</p>
+									<p>
+										<input type="text" name="" id="">
+									</p>
+									<p>
+										<input type="text" name="" id="">
+									</p>
+								</div>
+							</div>
+						</div>
+						<div class="settings-save-buttons">
+							<div class='col'>
+								<div class="d-flex">
+									<button class='cancel-btn'>Cancel</button>
+									<button class="save-btn">Save</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- End Time Slot Setup Content -->
+			</div>
+			<!-- End Time Slot Setup -->
+			<!-- SMS Time Limits Tab -->
+			<div class="tab-pane" id="smsTimeLimits" role="tabpanel">
+				<!-- SMS Time Limits Content -->
+				<div class="settings-content sms-time-limits-content">
+					<div class='container'>
+						<div class='col'>
+							<p>By default, sms will be sent around the clock. Did you want to set an earliest and latest time for sms to be sent (better experience for your audience):</p>
+							<div class="d-flex sms-time-flex">
+								<label>earliest time</label>
+								<input type="text" name="" placeholder="08:30">
+							</div>
+							<div class="d-flex sms-time-flex">
+								<label>latest time</label>
+								<input type="text" name="" placeholder="18:30">
+							</div>
+						</div>
+						<div class="settings-save-buttons">
+							<div class='col'>
+								<div class="d-flex">
+									<button class='cancel-btn'>Cancel</button>
+									<button class="save-btn">Save</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- End SMS Time Limits Content -->
+			</div>
+			<!-- End SMS Time Limits Tab -->
+		</div>
+	</div>
+	<!-- End Settings Page Content -->
+</div>
+<!-- End Settings -->
+{% endblock %}
+{% block scripts %}
+<script>
+	Site.init('settings');
+</script>
+{% endblock %}
