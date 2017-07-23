@@ -6,9 +6,11 @@ from .utils import Authenticate
 from .data import user_data
 import json
 
-
-#index - should show landing page or logged in session.
 def index(request):
+	'''
+	Landing page if user is not logged in.
+	If there is a user session already, then bring them to their home page
+	'''
 	if request.method == 'GET':
 		if Authenticate(request).logged_in:
 			data = user_data[request.session['user']]
@@ -20,9 +22,13 @@ def index(request):
 		return redirect('/')
 
 def audience(request, user_id):
+	'''
+	Display audience page with multiple views
+	'''
 	if request.method == 'GET':
 		data = user_data[user_id]
-		return render(request, 'audience.html', {'user':data})
+		test_name = request.user
+		return render(request, 'audience.html', {'user':data, 'test': request.user.__dict__})
 
 def settings(request, user_id):
 	if request.method == 'GET':
