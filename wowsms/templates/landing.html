@@ -39,7 +39,7 @@
                 <div class="col-md-6 col-md-pull-3 get-it">
                     <h1>WOW!SMS</h1>
                     <p>SMS tools for your marketing campaign</p>
-                    <p><a class="btn btn-primary btn-lg" role="button" href="/register">Free Trial!</a><a class="btn btn-success btn-lg" role="button" href="/login">Login </a></p>
+                    <p><a class="btn btn-primary btn-lg" role="button" href="/register">Free Trial!</a><a class="btn btn-success btn-lg" role="button" href="{% url 'social:begin' 'google-oauth2' %}?next={{request.path}}">Login </a></p>
                 </div>
             </div>
         </div>

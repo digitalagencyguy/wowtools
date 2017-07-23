@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
-from .utils import MakeRequest
-from .utils import PostRequest
+from .utils import Request
+from .utils import PostRequestHandler
 from .utils import Authenticate
 from .data import user_data
 import json
@@ -28,6 +28,8 @@ def settings(request, user_id):
 	if request.method == 'GET':
 		data = user_data[user_id]
 		return render(request,'settings.html',{'user':data})
+	elif request.method == 'POST':
+		return redirect('/')
 
 def sequences(request, user_id):
 	if request.method == 'GET':
@@ -41,7 +43,6 @@ def logout(request):
 def login(request):
 	request.session['user'] = '4224'
 	return redirect('/')
-
 
 def me(request):
 	user = Authenticate(request).get_me()

@@ -5,6 +5,7 @@ no-padding no-margin full-width full-height
 {% block content %}
 <!-- Settings -->
 <div class="settings">
+	{% csrf_token %}
 	<!-- Settings top header -->
 	<div class="settings-top-header">
 		<ul class="nav nav-tabs d-flex" role="tablist">
@@ -105,18 +106,20 @@ no-padding no-margin full-width full-height
 								<div class="settings-details-form">
 									<div class="d-flex">
 										<label>First Name</label>
-										<input type="text" name="firstName">
+										<input type="text" name="firstName" id='firstname' oninput='validateName(this)'>
 									</div>
 									<div class="d-flex">
 										<label>Last Name</label>
-										<input type="text" name="lastName" id="">
+										<input type="text" name="lastName" id="" oninput='validateName(this)'>
 									</div>
 									<div class="d-flex contains-mobile">
 										<label>Mobile</label>
 										<select name="mobileExt">
 											<option value="61">61</option>
+											<option value="44">44</option>
+											<option value='1'>1</option>
 										</select>
-										<input type="text" name="lastName" id="">
+										<input type="text" name="phoneNumber" id="phoneNumber" oninput='validateNum(this)'>
 									</div>
 									<div class="d-flex">
 										<label>Time Zone</label>
@@ -140,20 +143,20 @@ no-padding no-margin full-width full-height
 										<button>find</button>
 									</div>
 									<div class='d-flex label-offset'>
-										<label>Street 1</label>
-										<input type="text">
+										<label id='labelStreet1'>Street 1</label>
+										<input type="text" name='street1' oninput='swapValues(this, "labelStreet1")'>
 									</div>
 									<div class='d-flex label-offset'>
-										<label>Street 2</label>
-										<input type="text">
+										<label id='labelStreet2'>Street 2</label>
+										<input type="text" name='street2' oninput='swapValues(this, "labelStreet2")'>
 									</div>
 									<div class='d-flex label-offset'>
-										<label>Town, Suburb</label>
-										<input type="text">
+										<label id='town-suburb'>Town, Suburb</label>
+										<input type="text" name='town-suburb' oninput='swapValues(this, "town-suburb")'>
 									</div>
 									<div class='d-flex label-offset'>
 										<label>Zip Code</label>
-										<input type="text">
+										<input type="text" name='zipCode' oninput='validateNum(this)'>
 									</div>
 									<div class='d-flex label-offset'>
 										<select name="#">
@@ -296,15 +299,15 @@ no-padding no-margin full-width full-height
 								<div class="users-field d-flex">
 									<div class="col">
 										<label>First Name</label>
-										<input type="text" name="#">
+										<input type="text" name="firstname">
 									</div>
 									<div class="col">
 										<label>Last Name</label>
-										<input type="text" name="#">
+										<input type="text" name="lastname">
 									</div>
 									<div class="col">
 										<label>Email address</label>
-										<input type="text" name="#">
+										<input type="text" name="email">
 									</div>
 									<div class="col user-settings-options">
 										<ul>
@@ -577,9 +580,8 @@ no-padding no-margin full-width full-height
 	<!-- End Settings Page Content -->
 </div>
 <!-- End Settings -->
+<script type='text/javascript' src="/static/js/settings.js"></script>
 {% endblock %}
 {% block scripts %}
-<script>
-	Site.init('settings');
-</script>
+<script>Site.init('settings')</script>
 {% endblock %}

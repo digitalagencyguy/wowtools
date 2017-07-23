@@ -3,7 +3,7 @@ import json
 from .data import user_data
 
 #create a class to handle all JSON passing to the database
-class MakeRequest:
+class Request:
 
 	def __init__(self, url, payload={}, headers={'Content-type':'application/json'}):
 		self.url = url
@@ -36,7 +36,7 @@ class Authenticate:
 		me = self.request.session.get('user')
 		return {me: user_data[me]}
 
-class PostRequest:
+class PostRequestHandler:
 
 	def __init__(self, request):
 		self.request = request

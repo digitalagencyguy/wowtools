@@ -115,9 +115,8 @@ STATIC_ROOT  = os.path.join(BASE_DIR, 'static')
 
 LOGIN_REDIRECT_URL = '/'
 
-GOOGLE_OAUTH2_KEY = '688994722967-labnkja6j7v66ussqp6eljbeduj3s0tm.apps.googleusercontent.com'
-GOOGLE_OAUTH2_SECRET = 'Mam1pWo2Bdrv6mBp7kphdxSk'
-
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '474218385040-o8ec1ius2uisvqdss4jb5gsqmkmdkmlv.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'w18xoiaHlU-gUUd0Yt7dufp7'
 
 
 

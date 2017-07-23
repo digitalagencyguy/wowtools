@@ -1,5 +1,3 @@
-
-
 function Cookies() {
 	var cookies = document.cookie,
 		cArray = cookies.split(';');
