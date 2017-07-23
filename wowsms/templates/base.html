@@ -35,7 +35,7 @@
 			<div class="col col-lg-6">
 				<!-- Trial Information -->
 				<div class='trial-information'>
-					<p class='trial-deadline'>Trial Expires: <strong>6</strong> days: <strong>22</strong> hours: <strong>58</strong>mins</p>
+					<p class='trial-deadline'>Trial Expires: <strong id='countdown-days'>6</strong> days: <strong id='countdown-hours'>22</strong> hours: <strong id='countdown-minutes'>58</strong> minutes <strong id='countdown-seconds'>29</strong> seconds</p>
 					<p>
 						<a href="#" class='buy-now-link'>Buy Now</a>
 					</p>
@@ -70,10 +70,10 @@
 							<a href="/me?dest=audience">Audience</a>
 						</li>
 						<li>
-							<a href="#">Sequences</a>
+							<a href="/me?dest=sequences">Sequences</a>
 						</li>
 						<li>
-							<a href="#">Settings</a>
+							<a href="/me?dest=settings">Settings</a>
 						</li>
 					</ul>
 				</nav>
@@ -88,7 +88,7 @@
 
 			<!-- Dashboard Content -->
 			<div class="dashboard-content">
-				<div class='dashboard-container {% block dashboardClasses %}'>
+				<div class='dashboard-container {% block dashboardClasses %}{%endblock%}'>
 					{% block content %}
 					{% endblock %}
 				</div>

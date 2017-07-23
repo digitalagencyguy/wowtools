@@ -25,6 +25,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'social.apps.django_app.default',
     'wowsms.apps.WowsmsConfig'
 ]
 
@@ -50,7 +51,9 @@ TEMPLATES = [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages'
+                'django.contrib.messages.context_processors.messages',
+                'social.apps.django_app.context_processors.login_redirect',
+                'social.apps.django_app.context_processors.backends'
             ],
         },
     },
@@ -58,7 +61,7 @@ TEMPLATES = [
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
-    'social_core.backends.'
+    'social.backends.google.GoogleOAuth2'
 ]
 
 WSGI_APPLICATION = 'wowtools.wsgi.application'
@@ -109,5 +112,12 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT  = os.path.join(BASE_DIR, 'static')
+
+LOGIN_REDIRECT_URL = '/'
+
+GOOGLE_OAUTH2_KEY = '688994722967-labnkja6j7v66ussqp6eljbeduj3s0tm.apps.googleusercontent.com'
+GOOGLE_OAUTH2_SECRET = 'Mam1pWo2Bdrv6mBp7kphdxSk'
+
+
 
 

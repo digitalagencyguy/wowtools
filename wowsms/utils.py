@@ -36,7 +36,6 @@ class Authenticate:
 		me = self.request.session.get('user')
 		return {me: user_data[me]}
 
-
 class PostRequest:
 
 	def __init__(self, request):

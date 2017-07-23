@@ -9,7 +9,6 @@ import json
 
 #index - should show landing page or logged in session.
 def index(request):
-	request.session['user'] = '4224'
 	if request.method == 'GET':
 		if Authenticate(request).logged_in:
 			data = user_data[request.session['user']]
@@ -25,8 +24,22 @@ def audience(request, user_id):
 		data = user_data[user_id]
 		return render(request, 'audience.html', {'user':data})
 
+def settings(request, user_id):
+	if request.method == 'GET':
+		data = user_data[user_id]
+		return render(request,'settings.html',{'user':data})
+
+def sequences(request, user_id):
+	if request.method == 'GET':
+		data = user_data[user_id]
+		return render(request, 'sequences.html',{'user':data})
+
 def logout(request):
 	request.session.clear();
+	return redirect('/')
+
+def login(request):
+	request.session['user'] = '4224'
 	return redirect('/')
 
 
