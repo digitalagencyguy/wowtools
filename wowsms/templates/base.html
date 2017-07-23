@@ -32,12 +32,12 @@
 				</div>
 				<!-- End Profile Information -->
 			</div>
-			<div class="col col-lg-6" id='free-trial'>
+			<div class="col col-lg-6" id='free-trial' style='display: none'>
 				<!-- Trial Information -->
 				<div class='trial-information'>
 					<p class='trial-deadline'>Trial Expires: <strong id='countdown-days'>6</strong> days: <strong id='countdown-hours'>22</strong> hours: <strong id='countdown-minutes'>58</strong> minutes <strong id='countdown-seconds'>29</strong> seconds</p>
 					<p>
-						<a href="#" class='buy-now-link'>Buy Now</a>
+						<a href="#" class='buy-now-link' id='buyNow'>Buy Now</a>
 					</p>
 				</div>
 				<!-- End Trial Information -->
@@ -61,10 +61,10 @@
 				<nav>
 					<ul>
 						<li>
-							<a href="#">Buy SMS <span id='numSms'></span></a>
+							<a href="/me?dest=sms">Buy SMS <span id='numSms'></span></a>
 						</li>
 						<li>
-							<a href="#">Campaigns</a>
+							<a href="/me?dest=campaigns">Campaigns</a>
 						</li>
 						<li>
 							<a href="/me?dest=audience">Audience</a>
@@ -125,11 +125,15 @@
 			var user = {{user | safe}},
 				namePlaceholder = $('#name')[0],
 				smsPlaceholder = $('#numSms')[0],
-				trial = $("#free-trial")[0];
+				trial = $("#free-trial")[0],
+				buyNow = $('#buyNow')[0];
 			namePlaceholder.innerText = `${user.firstname} ${user.lastname}`
 			smsPlaceholder.innerText = `(${user.sms})`
 			if (user.free_trial) {
-				$(trial).css('display', 'none')
+				$(trial).css('display', 'block')
+			}
+			if (window.location.href.split('/')[4] == 'sms') {
+				$(buyNow).css('opacity',0)
 			}
 		})();
 	</script>

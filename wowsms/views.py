@@ -36,12 +36,22 @@ def sequences(request, user_id):
 		data = user_data[user_id]
 		return render(request, 'sequences.html',{'user':data})
 
+def campaigns(request, user_id):
+	if request.method == 'GET':
+		data = user_data[user_id]
+		return render(request, 'campaigns.html', {'user':data})
+
+def sms(request, user_id):
+	if request.method == 'GET':
+		data = user_data[user_id]
+		return render(request, 'sms.html', {'user':data})
+
 def logout(request):
 	request.session.clear();
 	return redirect('/')
 
 def login(request):
-	request.session['user'] = '4224'
+	request.session['user'] = '1777'
 	return redirect('/')
 
 def me(request):
