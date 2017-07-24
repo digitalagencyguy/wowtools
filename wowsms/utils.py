@@ -1,8 +1,19 @@
 import requests
 import json
 import re
+from .data import user_data
 
 #create a class to handle all JSON passing to the database
+
+def Object(template, context):
+	return {'template':template, 'context':context}
+
+class Response:
+
+	def __init__(self, template, context):
+		self.template = template
+		self.context = context
+
 class Request:
 
 	def __init__(self, url, payload={}, headers={'Content-type':'application/json'}):
@@ -21,26 +32,25 @@ class Request:
 
 class Authenticate:
 
-	def __init__(self, user):
-		self.user = user
+	def __init__(self, request):
+		self.request = request
 
 	@property
-	def json(self):
-		payload = {}
-		fullname = self.user.get_full_name()
-		firstname = re.search('\w+\s',fullname).group()[:-1]
-		lastname = re.search('\s\w+',fullname).group()[1:]
-		payload.update(
-			fullname=fullname,
-			firstname=firstname,
-			lastname=lastname,
-			email=self.user.email,
-			username=self.user.username,
-			authenticated=str(self.user.is_authenticated()).lower(),
-			id=self.user.id)
-		payload = json.dumps(payload)
-		return json.loads(payload)
+	def user(self):
+		user = self.request.session.get('user')
+		return user
 
+	def login_required(self, alpha, beta):
+		if self.user:
+			return Response(alpha.get('template'), alpha.get('context'))
+		else:
+			return Response(beta.get('template'), beta.get('context'))
+
+	def conditionalResponse(self, alpha, beta, condition):
+		if condition:
+			return Response(alpha.get('template'), alpha.get('context'))
+		else:
+			return Response(beta.get('template'), beta.get('context'))
 
 class createContext:
 
@@ -57,7 +67,26 @@ class createContext:
 		return context
 
 
-class validateUrl:
+class Process:
 
-	def __init__(self):
-		pass
+	def __init__(self, request, *user_id):
+		self.request = request
+		if user_id:
+			self.user_id = user_id[0]
+
+	def main(self, preferred, context, other='error.html'):
+		authenticate = Authenticate(self.request)
+		alpha = Object(preferred+'.html', context=context)
+		if other != 'error.html':
+			beta = Object(other+'html', context=context)
+		else:
+			beta = Object(other, context=context)
+		response = authenticate.conditionalResponse(alpha, beta, self.user_id==authenticate.user)
+		return response
+
+	def index(self, preferred, context, other='landing.html'):
+		authenticate = Authenticate(self.request)
+		alpha = Object(preferred+'.html', context=context)
+		beta = Object(other, context=context)
+		response = authenticate.login_required(alpha, beta)
+		return response
