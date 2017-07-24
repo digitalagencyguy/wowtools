@@ -127,7 +127,7 @@
 				smsPlaceholder = $('#numSms')[0],
 				trial = $("#free-trial")[0],
 				buyNow = $('#buyNow')[0];
-			namePlaceholder.innerText = `${user.firstname} ${user.lastname}`
+			namePlaceholder.innerText = `${user.firstname} ${user.lastname} (${user.email})`
 			smsPlaceholder.innerText = `(${user.sms})`
 			if (user.free_trial) {
 				$(trial).css('display', 'block')

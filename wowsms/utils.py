@@ -1,6 +1,6 @@
 import requests
 import json
-from .data import user_data
+import re
 
 #create a class to handle all JSON passing to the database
 class Request:
@@ -19,25 +19,45 @@ class Request:
 			thing = requests.get(self.url)
 			return thing
 
-#Authentication class for loggging in
 class Authenticate:
 
-	def __init__(self, request):
-		self.request = request
+	def __init__(self, user):
+		self.user = user
 
 	@property
-	def logged_in(self):
-		if self.request.session.get('user'):
-			return True
-		else:
-			return False
+	def json(self):
+		payload = {}
+		fullname = self.user.get_full_name()
+		firstname = re.search('\w+\s',fullname).group()[:-1]
+		lastname = re.search('\s\w+',fullname).group()[1:]
+		payload.update(
+			fullname=fullname,
+			firstname=firstname,
+			lastname=lastname,
+			email=self.user.email,
+			username=self.user.username,
+			authenticated=str(self.user.is_authenticated()).lower(),
+			id=self.user.id)
+		payload = json.dumps(payload)
+		return json.loads(payload)
 
-	def get_me(self):
-		me = self.request.session.get('user')
-		return {me: user_data[me]}
 
-class PostRequestHandler:
+class createContext:
 
-	def __init__(self, request):
-		self.request = request
-		self.data = request.POST
+	def __init__(self, keys, payloads): 
+		self.keys = keys
+		self.payloads = payloads
+
+	@property
+	def context(self):
+		context = {}
+		for key in self.keys:
+			index = self.keys.index(key)
+			context[key] = self.payloads[index]
+		return context
+
+
+class validateUrl:
+
+	def __init__(self):
+		pass

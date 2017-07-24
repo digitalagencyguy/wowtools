@@ -1,6 +1,6 @@
 //validate names
 function validateName(input) {
-	var specialChars = /[!@#$%^&*()_+=\[\]\}\{\\\~\`\?\>\<]/g
+	var specialChars = /[!@#$%^&*()_+=\[\]\}\{\\\~\`\?\>\<\d]/g
 		obj = $(input);
 	obj.val(obj.val().replace(specialChars, ''))
 }
