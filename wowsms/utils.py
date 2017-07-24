@@ -8,6 +8,32 @@ from .data import user_data
 def Object(template, context):
 	return {'template':template, 'context':context}
 
+#returns an array of each item passed as an argument
+def Array(*things, fill=True):
+	if things:
+		return [thing for thing in things]
+	else:
+		if fill:
+			return [None]
+		else:
+			return []
+
+#turns array into object
+def JSON(array, obj={}):
+	if type(array) != list:
+		array = Array(array)
+	if len(array) % 2:
+		return array
+	while array:
+		alpha = array[0]
+		beta = array[1]
+		obj[alpha] = beta
+		try:
+			del array[:2]
+		except:
+			del array
+	return obj
+
 #a context object for processing by Authentication class
 def Context(keys, payloads):
 	context = {}
@@ -73,7 +99,7 @@ class Process:
 
 	def main(self, preferred, other='error.html'):
 		authenticate = Authenticate(self.request)
-		context = Context(['user'],[user_data[authenticate.user]])
+		context = Context(Array('user'),Array(user_data[authenticate.user]))
 		alpha = Object(preferred+'.html', context=context)
 		if other != 'error.html':
 			beta = Object(other+'html', context=context)
@@ -84,7 +110,10 @@ class Process:
 
 	def index(self, preferred, other='landing.html'):
 		authenticate = Authenticate(self.request)
-		context = Context(['user'],[user_data[authenticate.user]])
+		if authenticate.user:
+			context = Context(Array('user'),Array(user_data[authenticate.user]))
+		else:
+			context = Context(Array('user'), Array())
 		alpha = Object(preferred+'.html', context=context)
 		beta = Object(other, context=context)
 		response = authenticate.login_required(alpha, beta)
