@@ -22,7 +22,6 @@ def audience(request, user_id):
 @methods(["GET", "POST"])
 def settings(request, user_id):
 	if request.method == 'GET':
-		context = Context(['user'],[user_data[user_id]])
 		response = Process(request, user_id).main('settings')
 		return render(request,response.template, response.context)
 	elif request.method == 'POST':
