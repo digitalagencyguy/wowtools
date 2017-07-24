@@ -110,11 +110,11 @@ no-padding no-margin full-width full-height
 									</div>
 									<div class="d-flex">
 										<label>Last Name</label>
-										<input type="text" name="lastName" id="" oninput='validateName(this)'>
+										<input type="text" name="lastName" id="lastname" oninput='validateName(this)'>
 									</div>
 									<div class="d-flex contains-mobile">
 										<label>Mobile</label>
-										<select name="mobileExt">
+										<select name="mobileExt" id='countryCode'>
 											<option value="61">61</option>
 											<option value="44">44</option>
 											<option value='1'>1</option>
@@ -123,13 +123,14 @@ no-padding no-margin full-width full-height
 									</div>
 									<div class="d-flex">
 										<label>Time Zone</label>
-										<select name="timeZone">
+										<select name="timeZone" id='timeZone'>
 											<option value="#">Select a time zone</option>
+											<option value='utc'>UTC</option>
 										</select>
 									</div>
 									<div class="d-flex">
 										<label>Business name</label>
-										<input type="text" name="businessName">
+										<input type="text" name="businessName" id='businessName'>
 									</div>
 								</div>
 							</div>
@@ -139,28 +140,31 @@ no-padding no-margin full-width full-height
 										<label>
 										Business Address
 										</label>
-										<input type="text" placeholder="1 This Street">
+										<input type="text" placeholder="1 This Street" id='businessAddress'>
 										<button>find</button>
 									</div>
 									<div class='d-flex label-offset'>
 										<label id='labelStreet1'>Street 1</label>
-										<input type="text" name='street1' placeholder='street 1' oninput='swapValues(this, "labelStreet1")'>
+										<input type="text" name='street1' placeholder='street 1' id='street1'>
 									</div>
 									<div class='d-flex label-offset'>
 										<label id='labelStreet2'>Street 2</label>
-										<input type="text" name='street2' oninput='swapValues(this, "labelStreet2")'>
+										<input type="text" name='street2' id='street2'>
 									</div>
 									<div class='d-flex label-offset'>
 										<label id='town-suburb'>Town, Suburb</label>
-										<input type="text" name='town-suburb' oninput='swapValues(this, "town-suburb")'>
+										<input type="text" name='town-suburb' id='town'>
 									</div>
 									<div class='d-flex label-offset'>
 										<label>Zip Code</label>
-										<input type="text" name='zipCode' oninput='validateNum(this)'>
+										<input type="text" name='zipCode' id='zipCode'>
 									</div>
 									<div class='d-flex label-offset'>
-										<select name="#">
-											<option value="#">Australia</option>
+										<select name="bCountry" id="bCountry">
+											<option value='#'>Select Country</option>
+											<option value="au">Australia</option>
+											<option value='gb'>Great Britain</option>
+											<option value='us'>United States</option>
 										</select>
 									</div>
 								</div>
@@ -168,8 +172,12 @@ no-padding no-margin full-width full-height
 							<div class="settings-save-buttons">
 								<div class='col'>
 									<div class="d-flex">
-										<button class='cancel-btn'>Cancel</button>
-										<button class="save-btn">Save</button>
+										<script>var details = [
+										"firstname","lastname", "countryCode","phoneNumber",
+										"timeZone", "businessName","businessAddress",
+										"street1","street2","town","zipCode"]</script>
+										<button class='cancel-btn' onclick='clearSettings(details)'>Cancel</button>
+										<button class="save-btn" onclick='sendRequest(details)'>Save</button>
 									</div>
 								</div>
 							</div>
@@ -580,8 +588,25 @@ no-padding no-margin full-width full-height
 	<!-- End Settings Page Content -->
 </div>
 <!-- End Settings -->
-<script type='text/javascript' src="/static/js/settings.js"></script>
 {% endblock %}
 {% block scripts %}
+{% load staticfiles %}
+<script type='text/javascript' src='{% static "/js/settings.js" %}'></script>
+<script type='text/javascript'>
+	function sendRequest(array) {
+		var data = new Object;
+		for (let i = 0; i < array.length; i++) {
+			var thing = $(`#${array[i]}`)[0];
+			data[array[i]] = $(thing).val()
+		}
+		console.log(data)
+	}
+	function clearSettings(array) {
+		for (let i = 0; i < array.length; i++ ) {
+			var thing = $(`#${array[i]}`)[0];
+			$(thing).val('')
+		}
+	}
+</script>
 <script>Site.init('settings')</script>
 {% endblock %}

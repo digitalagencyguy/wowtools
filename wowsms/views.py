@@ -21,6 +21,8 @@ def settings(request, user_id):
 		response = Process(request, user_id).main('settings')
 		return render(request,response.template, response.context)
 	elif request.method == 'POST':
+		data = request.POST
+		print(data)
 		return redirect('/')
 
 def sequences(request, user_id):

@@ -1,6 +1,6 @@
 //validate names
 function validateName(input) {
-	var specialChars = /[!@#$%^&*()_+=\[\]\}\{\\\~\`\?\>\<\d]/g
+	var specialChars = /[!@#$%^&*()_+=\[\]\}\{\\\~\`\?\>\<1-9]/g
 		obj = $(input);
 	obj.val(obj.val().replace(specialChars, ''))
 }
@@ -10,9 +10,8 @@ function validateNum(input) {
 		obj = $(input);
 	obj.val(obj.val().replace(specialChars, ''))
 }
-//swap values on 
-function swapValues(input, labelId) {
-	var obj = $(input);
-		label = $(`#${labelId}`);
-	label.html(obj.val())
+function validateAPIKey(input) {
+	var specialChars = /\s/g,
+		obj = $(input);
+	obj.val(obj.val().replace(specialChars, ''))
 }
