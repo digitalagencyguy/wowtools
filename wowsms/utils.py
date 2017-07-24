@@ -3,8 +3,6 @@ import json
 import re
 from .data import user_data
 
-#create a class to handle all JSON passing to the database
-
 def Object(template, context):
 	return {'template':template, 'context':context}
 

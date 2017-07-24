@@ -1,13 +1,12 @@
+import json
+from .utils import Process
+from .utils import Request
+from .data import user_data
+from .utils import createContext
+from .utils import Authenticate
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.views.decorators.http import require_http_methods as methods
-from .utils import Request
-from .utils import Authenticate
-from .utils import createContext
-from .utils import Object
-from .utils import Process
-from .data import user_data
-import json
 
 @methods(["GET"])
 def index(request):
