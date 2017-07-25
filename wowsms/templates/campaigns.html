@@ -4,9 +4,69 @@
 	<link rel='stylesheet' href='{% static "/css/campaign-builder.css" %}'>
 {% endblock %}
 {% block content %}
-{%endblock%}
+	<!-- Campaign Builder -->
+	<div class='d-flex campaign-builder'>
+		<div class='campaign-builder-content'>
+			<div class="d-flex flex-column campaign-builder-col">
+				<!-- Campaign Builder Controls (Top Part) -->
+				<div class="campaign-builder-controls">
+					<div class="d-flex">
+						<button id='newSMSMessage'>
+							<div class='new-sms-message-campaign-builder'>New SMS Message</div>
+						</button>
+						<button id="wait" class='wait-btn'>
+							<div class="wait-campaign-builder">
+								<span>Wait</span>
+							</div>
+						</button>
+						<div class='campaign-details-campaign-builder'>
+							<div class="campaign-details-header d-flex">
+								<span>Campaign Name <i class="fa fa-pencil"></i></span>
+								<a href="#" class='copy-webhook'>Copy Webhook</a>
+							</div>
+							<div class="campaign-details-content d-flex">
+								<span class='to-span'>To:</span>
+								<span class="to-person">+4476856 3367</span>
+								<span class="to-person">customer-list</span>
+								<span class="to-person">[ACTIVE-CAMPAIGN-TAG]</span>
+								<span class="more">+11 more</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- End Campaign Builder Controls (Top Part) -->
+				<!-- Campaign Builder Drag and Drop interface -->
+				<div class="campaign-builder-interface"></div>
+				<!-- End Campaign Builder Drag and Drop Interface -->
+			</div>
+		</div>
+		<div class='campaign-builder-phone'>
+			<div class='campaign-builder-phone-content'>
+				<!-- Message Received -->
+				<div class="campaign-builder-message">
+					<p>Hello Jon! How are you today? How's the weather in London treating you?</p>
+				</div>
+				<div class="clearfix"></div>
+				<!-- End Message Received -->
+				<!-- Message Sent -->
+				<div class="campaign-builder-message message-sent">
+					<p>Hello Every Interaction. The weather is fantastic. It's currently 19<sup>O</sup>C, we have crisp blue skies with a beautiful sunshine.</p>
+				</div>
+				<div class="clearfix"></div>
+				<!-- End Message Sent -->
+				<!-- Message Sent -->
+				<div class="campaign-builder-message">
+					<p>Perfect. What's on the agenda today?</p>
+				</div>
+				<div class="clearfix"></div>
+				<!-- End Message Sent -->
+			</div>
+		</div>
+	</div>
+	<!-- End Campaign Builder -->
+{% endblock %}
 {% block scripts %}
-<script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/gojs/1.7.17/go.js'></script>
-<script type='text/javascript' src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script type='text/javascript' src='https://code.jquery.com/ui/1.12.1/jquery-ui.js'></script>
+	<script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/gojs/1.7.17/go.js'></script>
+	<script type='text/javascript' src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script type='text/javascript' src='https://code.jquery.com/ui/1.12.1/jquery-ui.js'></script>
 {% endblock %}
