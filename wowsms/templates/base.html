@@ -29,17 +29,16 @@
 				<div class="profile-information">
 					<div class="d-flex">
 						<img src="http://via.placeholder.com/100x100">
-						<p id='name'></p>
 					</div>
 				</div>
 				<!-- End Profile Information -->
 			</div>
-			<div class="col col-lg-6" id='free-trial' style='display: none'>
+			<div class="col col-lg-6">
 				<!-- Trial Information -->
 				<div class='trial-information'>
-					<p class='trial-deadline'>Trial Expires: <strong id='countdown-days'>6</strong> days: <strong id='countdown-hours'>22</strong> hours: <strong id='countdown-minutes'>58</strong> minutes <strong id='countdown-seconds'>29</strong> seconds</p>
+					<p class='trial-deadline'>Trial Expires: <strong>6</strong> days: <strong>22</strong> hours: <strong>58</strong>mins</p>
 					<p>
-						<a href="#" class='buy-now-link' id='buyNow'>Buy Now</a>
+						<a href="#" class='buy-now-link'>Buy Now</a>
 					</p>
 				</div>
 				<!-- End Trial Information -->
@@ -47,7 +46,7 @@
 			<div class="col">
 				<!-- Log out -->
 				<div class="log-out">
-					<a href="/logout" class='log-out-link'>
+					<a href="#" class='log-out-link'>
 						Log Out
 					</a>
 				</div>
@@ -60,22 +59,29 @@
 		<div class='d-flex dashboard-body'>
 			<!-- Sidebar -->
 			<div class='d-flex flex-column sidebar'>
+				<div class="sidebar-information">
+					<img src="http://via.placeholder.com/100x100">
+					<span class="sidebar-business-name">Business Name</span>
+					<span class="sidebar-person-name">Nathan Hague</span>
+				</div>
+				<hr>
 				<nav>
 					<ul>
 						<li>
-							<a href="/me?dest=sms">Buy SMS <span id='numSms'></span></a>
+							<a href="#">Buy SMS</a>
+							<span class='credit-remaining'>(Credit Remaining: $5.22)</span>
 						</li>
 						<li>
-							<a href="/me?dest=campaigns">Campaigns</a>
+							<a href="#" class='active-link'>Campaigns</a>
 						</li>
 						<li>
-							<a href="/me?dest=audience">Audience</a>
+							<a href="audience.html">Audience</a>
 						</li>
 						<li>
-							<a href="/me?dest=sequences">Sequences</a>
+							<a href="#">Sequences</a>
 						</li>
 						<li>
-							<a href="/me?dest=settings">Settings</a>
+							<a href="#">Settings</a>
 						</li>
 					</ul>
 				</nav>

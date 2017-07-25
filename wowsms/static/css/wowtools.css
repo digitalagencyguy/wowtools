@@ -407,7 +407,35 @@ html {
 	min-height: 100%;
 	width: 225px;
 	background: #F8F8F8;
-	padding-top: 30px;
+	padding-top: 10px;
+}
+.sidebar-information {
+	margin-left: 20px;
+	box-sizing: border-box;
+	padding-right: 20px;
+}
+.sidebar-information img {
+	width: 80px;
+	height: 80px;
+	display: block;
+	border-radius: 9999px;
+}
+.sidebar-business-name {
+	color: #2F64A6;
+	padding-top: 10px;
+	display: block;
+	font-size: 20px;
+	font-weight: bolder;
+	margin-bottom: 0;
+	padding-bottom: 0;
+}
+.sidebar-person-name {
+	font-size: 17px;
+	color: #2F64A7;
+	display: block;
+	padding-top: 3px;
+	border-bottom: 1px solid #666;
+	padding-bottom: 20px;
 }
 
 .sidebar ul {
@@ -416,7 +444,7 @@ html {
 }
 
 .sidebar ul li {
-	margin-bottom: 30px;
+	margin-bottom: 20px;
 }
 
 .sidebar nav {
@@ -430,7 +458,7 @@ html {
 .sidebar a {
 	color: #666;
 	text-transform: uppercase;
-	font-size: 1.15em;
+	font-size: 17px;
 }
 
 .sidebar a.active-link {
@@ -445,6 +473,14 @@ html {
 .bottom-link {
 	padding-bottom: 20px;
 	padding-left: 20px;
+}
+
+.credit-remaining {
+	font-size: 13px;
+	padding-top: 3px;
+	display: block;
+	width: 100%;
+	color: #666;
 }
 
 /**
@@ -1614,7 +1650,7 @@ html {
 }
 .campaign-builder-phone {
 	width: 350px;
-	background: url('../campaign-builder-images/phone.png');
+	background: url('assets/phone.png');
 	min-height: 700px;
 	background-size: 100% 100%;
 	margin-bottom: 40px;
@@ -1703,12 +1739,12 @@ html {
 .campaign-builder-interface {
 	width: 100%;
 	flex: 1;
-	background: url('../campaign-builder-images/interactive-area-bg.jpg');
+	background: url('assets/interactive-area-bg.jpg');
 	border: 3px solid #b0b0b0;
 	box-sizing: border-box;
 }
 .campaign-builder-controls .wait-btn {
-	background: url('../campaign-builder-images/wait-button-bg.jpg');
+	background: url('assets/wait-button-bg.jpg');
 	background-size: 100% 100%;
 	background-position: center;
 }
