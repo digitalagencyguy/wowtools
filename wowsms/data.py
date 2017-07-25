@@ -10,7 +10,7 @@ user_data = {
 		'firstname': 'William',
 		'lastname': 'Hicks',
 		'sms': 332,
-		'free_trial': 1
+		'free_trial': 0
 	},
 	'8888' : {
 		'firstname': 'Eric',

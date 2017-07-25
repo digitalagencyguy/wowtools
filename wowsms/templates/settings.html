@@ -176,7 +176,7 @@ no-padding no-margin full-width full-height
 										"firstname","lastname", "countryCode","phoneNumber",
 										"timeZone", "businessName","businessAddress",
 										"street1","street2","town","zipCode", "Country"];
-										detailsDestination='/api/v1/settings/details'</script>
+										detailsDestination='/api/v1/settings/details';</script>
 										<button class='cancel-btn' onclick='clearData(details)'>Cancel</button>
 										<button class="save-btn" onclick='sendRequest(details, detailsDestination)'>Save</button>
 									</div>
@@ -261,15 +261,15 @@ no-padding no-margin full-width full-height
 								<div class="users-field d-flex">
 									<div class="col">
 										<label>First Name</label>
-										<input type="text" name="#">
+										<input type="text" name="#" id='userFirstName1'>
 									</div>
 									<div class="col">
 										<label>Last Name</label>
-										<input type="text" name="#">
+										<input type="text" name="#" id='userLastName1'>
 									</div>
 									<div class="col">
 										<label>Email address</label>
-										<input type="text" name="#">
+										<input type="text" name="#" id='userEmail1'>
 									</div>
 									<div class="col user-settings-options">
 										<ul>
@@ -285,15 +285,15 @@ no-padding no-margin full-width full-height
 								<div class="users-field d-flex">
 									<div class="col">
 										<label>First Name</label>
-										<input type="text" name="#">
+										<input type="text" name="#" id='userFirstName2'>
 									</div>
 									<div class="col">
 										<label>Last Name</label>
-										<input type="text" name="#">
+										<input type="text" name="#" id='userLastName2'>
 									</div>
 									<div class="col">
 										<label>Email address</label>
-										<input type="text" name="#">
+										<input type="text" name="#" id='userEmail2'>
 									</div>
 									<div class="col user-settings-options">
 										<ul>
@@ -309,15 +309,15 @@ no-padding no-margin full-width full-height
 								<div class="users-field d-flex">
 									<div class="col">
 										<label>First Name</label>
-										<input type="text" name="firstname">
+										<input type="text" name="firstname" id='userFirstName3'>
 									</div>
 									<div class="col">
 										<label>Last Name</label>
-										<input type="text" name="lastname">
+										<input type="text" name="lastname" id='userLastName3'>
 									</div>
 									<div class="col">
 										<label>Email address</label>
-										<input type="text" name="email">
+										<input type="text" name="email" id='userEmail3'>
 									</div>
 									<div class="col user-settings-options">
 										<ul>
@@ -335,8 +335,16 @@ no-padding no-margin full-width full-height
 						<div class="settings-save-buttons">
 							<div class='col'>
 								<div class="d-flex">
-									<button class='cancel-btn'>Cancel</button>
-									<button class="save-btn">Save</button>
+									<script>
+										var users = [
+											"userFirstName1","userLastName1", "userEmail1",
+											"userFirstName2", "userLastName2", "userEmail2",
+											"userFirstName3", "userLastName3","userEmail3"
+										];
+										usersDestination ='/api/v1/settings/users';
+									</script>
+									<button class='cancel-btn' onclick='clearData(users)'>Cancel</button>
+									<button class="save-btn" onclick='sendRequest(users, usersDestination)'>Save</button>
 								</div>
 							</div>
 						</div>
@@ -385,15 +393,22 @@ no-padding no-margin full-width full-height
 					<div class='container'>
 						<div class='col'>
 							<p>Select which google calendar you would like to use:</p>
-							<select name="#" id="">
+							<select name="#" id="googleCalendar">
 								<option value="">Select an Option</option>
+								<option value="1">Google Calendar 1</option>
 							</select>
 						</div>
 						<div class="settings-save-buttons">
 							<div class='col'>
 								<div class="d-flex">
-									<button class='cancel-btn'>Cancel</button>
-									<button class="save-btn">Save</button>
+									<script>
+										var googleCalendar = [
+											"googleCalendar"
+										];
+										usersDestination ='/api/v1/settings/calendars';
+									</script>
+									<button class='cancel-btn' onclick='clearData(googleCalendar)'>Cancel</button>
+									<button class="save-btn" onclick='sendRequest(googleCalendar, calendarDestination)'>Save</button>
 								</div>
 							</div>
 						</div>
@@ -410,16 +425,16 @@ no-padding no-margin full-width full-height
 						<div class='col'>
 							<div class="d-flex time-slot-flex">
 								<p>What will your time slot be called:</p>
-								<input type="text" name='#'>
+								<input type="text" id='timeSlotName'>
 							</div>
 							<div class="d-flex time-slot-flex time-slot-duration">
 								<p>What duration are your time slots:</p>
-								<input type="text" name='#'>
+								<input type="text" id='timeSlotDuration'>
 								<p class='mins-time-slot-duration'>mins</p>
 							</div>
 							<div class="d-flex time-slot-flex time-slot-duration">
 								<p>Can one slot be booked multiple times:</p>
-								<select name="#" id="" class='time-slot-multiple-times-select'>
+								<select id="timeSlotMultiple" class='time-slot-multiple-times-select'>
 									<option value="Yes">Yes</option>
 									<option value="No">No</option>
 								</select>
@@ -435,110 +450,128 @@ no-padding no-margin full-width full-height
 								</div>
 								<div class="d-flex days-of-week-row">
 									<div class="day-title d-flex">
-										<input type="checkbox" name="#" id="">
+										<input type="checkbox" id='timeSlotEnabledMonday'>
 										<p>Monday</p>
 									</div>
 									<p>
-										<input type="text" name="" value='07:30'>
+										<input type="text" value='07:30' id='timeSlotFromMonday'>
 									</p>
 									<p>
-										<input type="text" name="" value="15:30">
+										<input type="text" value="15:30" id='timeSlotToMonday'>
 									</p>
 									<p>
-										<input type="text" name="" id="">
+										<input type="text" id='timeSlotExcludeFromMonday'>
 									</p>
 									<p>
-										<input type="text" name="" id="">
+										<input type="text" id='timeSlotExcludeFromToMonday'>
 									</p>
 								</div>
 								<div class="d-flex days-of-week-row">
 									<div class="day-title d-flex">
-										<input type="checkbox" name="#" id="">
+										<input type="checkbox" id="timeSlotEnabledTuesday">
 										<p>Tuesday</p>
 									</div>
 									<p>
-										<input type="text" name="" value='07:30'>
+										<input type="text" value='07:30' id='timeSlotFromTuesday'>
 									</p>
 									<p>
-										<input type="text" name="" value="15:30">
+										<input type="text" value="15:30" id='timeSlotToTuesday'>
 									</p>
 									<p>
-										<input type="text" name="" id="">
+										<input type="text" id="timeSlotExcludeFromTuesday">
 									</p>
 									<p>
-										<input type="text" name="" id="">
+										<input type="text" id="timeSlotExcludeFromToTuesday">
 									</p>
 								</div>
 								<div class="d-flex days-of-week-row">
 									<div class="day-title d-flex">
-										<input type="checkbox" name="#" id="">
+										<input type="checkbox" id="timeSlotEnabledWednesday">
 										<p>Wednesday</p>
 									</div>
 									<p>
-										<input type="text" name="" value='07:30'>
+										<input type="text" value='07:30' id='timeSlotFromWednesday'>
 									</p>
 									<p>
-										<input type="text" name="" value="15:30">
+										<input type="text" value="15:30" id='timeSlotToWednesday'>
 									</p>
 									<p>
-										<input type="text" name="" id="">
+										<input type="text" id="timeSlotExcludeFromWednesday">
 									</p>
 									<p>
-										<input type="text" name="" id="">
+										<input type="text" id="timeSlotExcludeFromToWednesday">
 									</p>
 								</div>
 								<div class="d-flex days-of-week-row">
 									<div class="day-title d-flex">
-										<input type="checkbox" name="#" id="">
+										<input type="checkbox" id="timeSlotEnabledThursday">
 										<p>Thursday</p>
 									</div>
 									<p>
-										<input type="text" name="" value='07:30'>
+										<input type="text" value='07:30' id='timeSlotFromThursday'>
 									</p>
 									<p>
-										<input type="text" name="" value="15:30">
+										<input type="text" value="15:30" id='timeSlotToThursday'>
 									</p>
 									<p>
-										<input type="text" name="" id="">
+										<input type="text" id="timeSlotExcludeFromThursday">
 									</p>
 									<p>
-										<input type="text" name="" id="">
+										<input type="text" id="timeSlotExcludeFromToThursday">
 									</p>
 								</div>
 								<div class="d-flex days-of-week-row">
 									<div class="day-title d-flex">
-										<input type="checkbox" name="#" id="">
+										<input type="checkbox" id="timeSlotEnabledFriday">
 										<p>Friday</p>
 									</div>
 									<p>
-										<input type="text" name="" value='07:30'>
+										<input type="text" value='07:30' id='timeSlotFromFriday'>
 									</p>
 									<p>
-										<input type="text" name="" value="15:30">
+										<input type="text" value="15:30" id='timeSlotToFriday'>
 									</p>
 									<p>
-										<input type="text" name="" id="">
+										<input type="text" id="timeSlotExcludeFromFriday">
 									</p>
 									<p>
-										<input type="text" name="" id="">
+										<input type="text" id="timeSlotExcludeFromToFriday">
 									</p>
 								</div>
 								<div class="d-flex days-of-week-row">
 									<div class="day-title d-flex">
-										<input type="checkbox" name="#" id="">
+										<input type="checkbox" id="timeSlotEnabledSaturday">
 										<p>Saturday</p>
 									</div>
 									<p>
-										<input type="text" name="" value='07:30'>
+										<input type="text" value='07:30' id='timeSlotFromSaturday'>
 									</p>
 									<p>
-										<input type="text" name="" value="15:30">
+										<input type="text" value="15:30" id='timeSlotToSaturday'>
 									</p>
 									<p>
-										<input type="text" name="" id="">
+										<input type="text" id="timeSlotExcludeFromSaturday">
 									</p>
 									<p>
-										<input type="text" name="" id="">
+										<input type="text" id="timeSlotExcludeFromToSaturday">
+									</p>
+								</div>
+								<div class="d-flex days-of-week-row">
+									<div class="day-title d-flex">
+										<input type="checkbox" id="timeSlotEnabledSunday">
+										<p>Sunday</p>
+									</div>
+									<p>
+										<input type="text" value='07:30' id='timeSlotFromSunday'>
+									</p>
+									<p>
+										<input type="text" value="15:30" id='timeSlotToSunday'>
+									</p>
+									<p>
+										<input type="text" id="timeSlotExcludeFromSunday">
+									</p>
+									<p>
+										<input type="text" id="timeSlotExcludeFromToSunday">
 									</p>
 								</div>
 							</div>
@@ -546,8 +579,21 @@ no-padding no-margin full-width full-height
 						<div class="settings-save-buttons">
 							<div class='col'>
 								<div class="d-flex">
-									<button class='cancel-btn'>Cancel</button>
-									<button class="save-btn">Save</button>
+									<script>
+										var timeSlotSetupData = [
+											"timeSlotName", "timeSlotDuration", "timeSlotMultiple",
+											"timeSlotEnabledMonday", "timeSlotFromMonday", "timeSlotToMonday", "timeSlotExcludeFromMonday", "timeSlotExcludeFromToMonday",
+											"timeSlotEnabledTuesday", "timeSlotFromTuesday", "timeSlotToTuesday", "timeSlotExcludeFromTuesday", "timeSlotExcludeFromToTuesday",
+											"timeSlotEnabledWednesday", "timeSlotFromWednesday", "timeSlotToWednesday", "timeSlotExcludeFromWednesday", "timeSlotExcludeFromToWednesday",
+											"timeSlotEnabledThursday", "timeSlotFromThursday", "timeSlotToThursday", "timeSlotExcludeFromThursday", "timeSlotExcludeFromToThursday",
+											"timeSlotEnabledFriday", "timeSlotFromFriday", "timeSlotToFriday", "timeSlotExcludeFromFriday", "timeSlotExcludeFromToFriday",
+											"timeSlotEnabledSaturday", "timeSlotFromSaturday", "timeSlotToSaturday", "timeSlotExcludeFromSaturday", "timeSlotExcludeFromToSaturday",
+											"timeSlotEnabledSunday", "timeSlotFromSunday", "timeSlotToSunday", "timeSlotExcludeFromSunday", "timeSlotExcludeFromToSunday",
+										];
+										timeSlotSetupDestination ='/api/v1/settings/timeSlot';
+									</script>
+									<button class='cancel-btn' onclick='clearData(timeSlotSetupData)'>Cancel</button>
+									<button class="save-btn" onclick='sendRequest(timeSlotSetupData, timeSlotSetupDestination)'>Save</button>
 								</div>
 							</div>
 						</div>
@@ -565,18 +611,24 @@ no-padding no-margin full-width full-height
 							<p>By default, sms will be sent around the clock. Did you want to set an earliest and latest time for sms to be sent (better experience for your audience):</p>
 							<div class="d-flex sms-time-flex">
 								<label>earliest time</label>
-								<input type="text" name="" placeholder="08:30">
+								<input type="text" placeholder="08:30" id='SMSTimeLimitsEarliest'>
 							</div>
 							<div class="d-flex sms-time-flex">
 								<label>latest time</label>
-								<input type="text" name="" placeholder="18:30">
+								<input type="text" placeholder="18:30" id='SMSTimeLimitsLatest'>
 							</div>
 						</div>
 						<div class="settings-save-buttons">
 							<div class='col'>
 								<div class="d-flex">
-									<button class='cancel-btn'>Cancel</button>
-									<button class="save-btn">Save</button>
+									<script>
+										var SMSTimeLimitsData = [
+											"SMSTimeLimitsEarliest", "SMSTimeLimitsLatest"
+										];
+										SMSTimeLimitsDestination ='/api/v1/settings/SMSTimeLimits';
+									</script>
+									<button class='cancel-btn' onclick='clearData(SMSTimeLimitsData)'>Cancel</button>
+									<button class="save-btn" onclick='sendRequest(SMSTimeLimitsData, SMSTimeLimitsDestination)'>Save</button>
 								</div>
 							</div>
 						</div>
