@@ -4,6 +4,27 @@
 	<link rel='stylesheet' href='{% static "/css/campaign-builder.css" %}'>
 {% endblock %}
 {% block content %}
+	<style>
+		.campaign-builder-phone {
+			width: 350px;
+			background: url('{% static "/campaign-builder-images/phone.png" %}');
+			min-height: 700px;
+			background-size: 100% 100%;
+			margin-bottom: 40px;
+		}
+		.campaign-builder-interface {
+			width: 100%;
+			flex: 1;
+			background: url('{% static "/campaign-builder-images/interactive-area-bg.jpg" %}');
+			border: 3px solid #b0b0b0;
+			box-sizing: border-box;
+		}
+		.campaign-builder-controls .wait-btn {
+			background: url('{% static "campaign-builder-images/wait-button-bg.jpg" %}');
+			background-size: 100% 100%;
+			background-position: center;
+		}
+	</style>
 	<!-- Campaign Builder -->
 	<div class='d-flex campaign-builder'>
 		<div class='campaign-builder-content'>
