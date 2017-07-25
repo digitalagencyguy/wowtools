@@ -18,3 +18,8 @@ def details(request):
 def apiKey(request):
 	message = Response(request.POST)
 	return HttpResponse(message)
+
+@route(["POST"])
+def subscriptions(request):
+	message = Response(request.POST)
+	return HttpResponse(message)
