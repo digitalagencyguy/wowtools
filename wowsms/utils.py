@@ -1,57 +1,102 @@
-import requests
-import json 
+import json
+import re
+from .data import user_data
 
-user_data = {
-	'1777': {
-		'firstname': 'Nathan',
-		'lastname': 'Hague'
-	},
-	'4224' : {
-		'firstname': 'William',
-		'lastname': 'Hicks'
-	},
-	'8888' : {
-		'firstname': 'Eric',
-		'lastname': 'Kornia'
-	}
-}
-#create a class to handle all JSON passing to the database
-class MakeRequest:
 
-	def __init__(self, url, payload={}, headers={'Content-type':'application/json'}):
-		self.url = url
-		self.payload = json.dumps(payload)
-		self.headers = headers
-		self.response = self.request()
+#returns an object for processing by Authentication class
+def Object(template, context):
+	return {'template':template, 'context':context}
 
-	def request(self):
-		if json.loads(self.payload):
-			thing = requests.post(self.url,data=self.payload, headers=self.headers)
-			return thing
+#returns an array of each item passed as an argument
+def Array(*things, fill=True):
+	if things:
+		return [thing for thing in things]
+	else:
+		if fill:
+			return [None]
 		else:
-			thing = requests.get(self.url)
-			return thing
+			return []
 
-#Authentication class for loggging in
+#turns array into object
+def JSON(array, obj={}):
+	if type(array) != list:
+		array = Array(array)
+	if len(array) % 2:
+		return array
+	while array:
+		alpha = array[0]
+		beta = array[1]
+		obj[alpha] = beta
+		try:
+			del array[:2]
+		except:
+			del array
+	return obj
+
+#a context object for processing by Authentication class
+def Context(keys, payloads):
+	context = {}
+	for key in keys:
+		index = keys.index(key)
+		context[key] = payloads[index]
+	return context
+
+#returns a response object for rendering as a template
+class Response:
+
+	def __init__(self, template, context):
+		self.template = template
+		self.context = context
+
+#authenticate requests and return Response objects
 class Authenticate:
 
 	def __init__(self, request):
 		self.request = request
 
 	@property
-	def logged_in(self):
-		if self.request.session.get('user'):
-			return True
+	def user(self):
+		user = self.request.session.get('user')
+		return user
+
+	def login_required(self, alpha, beta):
+		if self.user:
+			return Response(alpha.get('template'), alpha.get('context'))
 		else:
-			return False
+			return Response(beta.get('template'), beta.get('context'))
 
-	def get_me(self):
-		me = self.request.session.get('user')
-		return {me: user_data[me]}
+	def conditionalResponse(self, alpha, beta, condition):
+		if condition:
+			return Response(alpha.get('template'), alpha.get('context'))
+		else:
+			return Response(beta.get('template'), beta.get('context'))
 
+#process all main data flow
+class Process:
 
-class PostRequest:
-
-	def __init__(self, request):
+	def __init__(self, request, *user_id):
 		self.request = request
-		self.data = request.POST
+		if user_id:
+			self.user_id = user_id[0]
+
+	def main(self, preferred, other='error.html'):
+		authenticate = Authenticate(self.request)
+		context = Context(Array('user'),Array(user_data[authenticate.user]))
+		alpha = Object(preferred+'.html', context=context)
+		if other != 'error.html':
+			beta = Object(other+'html', context=context)
+		else:
+			beta = Object(other, context=context)
+		response = authenticate.conditionalResponse(alpha, beta, self.user_id==authenticate.user)
+		return response
+
+	def index(self, preferred, other='landing.html'):
+		authenticate = Authenticate(self.request)
+		if authenticate.user:
+			context = Context(Array('user'),Array(user_data[authenticate.user]))
+		else:
+			context = Context(Array('user'), Array())
+		alpha = Object(preferred+'.html', context=context)
+		beta = Object(other, context=context)
+		response = authenticate.login_required(alpha, beta)
+		return response

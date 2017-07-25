@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row">
+	<div class="col-sm-6">
+		<h1 id='mao'>Mao {{ mao }}</h1>
+		<h1>William {{ william }}</h1>
+	</div>
+</div>
+{% endblock %}
+
+<!-- Endblock content --> 
+
+{% block scripts %}
+{%load staticfiles%}
+<script type='text/javascript' src='{% static "/js/mao.js" %}'></script>
+{%endblock%}
