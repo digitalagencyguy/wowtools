@@ -12,10 +12,10 @@
 				<div class="item contains-nav-tabs">
 					<ul class="nav nav-tabs" role="tablist">
 						<li class="nav-item">
-							<a class="nav-link active" data-toggle="tab" href="#people" role="tab">People View</a>
+							<a class="nav-link active" data-toggle="tab" href="#people" role="tab"><div class='table'><div class='table-cell'>People View</div></div></a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link border-right" data-toggle="tab" href="#audience" role="tab">Audience View</a>
+							<a class="nav-link border-right" data-toggle="tab" href="#audience" role="tab"><div class='table'><div class='table-cell'>Audience View</div></div></a>
 						</li>
 					</ul>
 				</div>
@@ -487,7 +487,7 @@
 <!-- End Audience -->
 {% endblock %}
 {% block modalContent %}
-<div class="wowtools-modal">
+<div class="wowtools-modal" id='bulkAddModal'>
 	<h2>Bulk Add Contacts</h2>
 	<div class='step-container'>
 		<!-- Home Step -->
@@ -507,7 +507,7 @@
 			<div class="active-campaign-list-sync">
 				<p>Select which Active Campaign list to sync to:</p>
 				<form action='#' id='connectACForm' method='POST'>
-					<select name="#" id='#'>
+					<select id='connectACFormACList'>
 						<option value="">Select an Option</option>
 					</select>
 				</form>
@@ -539,7 +539,7 @@
 				<div class="upload-csv">
 					<div class="d-flex">
 						<label>Choose Country</label>
-						<select name="#" id="#">
+						<select id="uploadCSVCountry">
 							<option value="">Select an Option</option>
 						</select>
 					</div>
@@ -548,17 +548,17 @@
 						<div class="fake-file-upload">
 							<label>
 							Upload
-							<input type="file" name="#" id="#">
+							<input type="file" id="uploadCSVFile">
 							</label>
 						</div>
 					</div>
 					<div class="d-flex">
 						<label>Audience Name</label>
-						<input type="text" name="#" id="#" placeholder="Enter your audience name">
+						<input type="text" id="uploadCSVAudienceName" placeholder="Enter your audience name">
 					</div>
 					<div class="d-flex">
 						<label>Choose Active List</label>
-						<select name="#" id="#">
+						<select id="uploadCSVActiveList">
 							<option value="">Select an Option</option>
 						</select>
 						<div class="d-flex audience-sync-form sync-container">
@@ -571,7 +571,7 @@
 					</div>
 					<div class="d-flex">
 						<label>Add Tags</label>
-						<input type="text" name="#" id="#" placeholder="Add multiple tags by using a comma">
+						<input type="text" id="uploadCSVTags" placeholder="Add multiple tags by using a comma">
 					</div>
 				</div>
 			</div>
@@ -588,7 +588,7 @@
 					</p>
 					<p class='agree-statement'>
 						<label>
-						<input type="checkbox" name="#" id="#"> I Agree
+						<input type="checkbox" id="uploadCSVAgree"> I Agree
 						</label>
 					</p>
 				</div>

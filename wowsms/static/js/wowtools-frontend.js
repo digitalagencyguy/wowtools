@@ -307,6 +307,22 @@ var AudienceForms = {
 	CSVFormSubmission: function() {
 		alert('Submitting CSV Form (Event)');
 
+		/**
+		 * AJAX Call
+		 */
+		var CSVFormData = [
+			'uploadCSVCountry',
+			'uploadCSVFile',
+			'uploadCSVAudienceName',
+			'uploadCSVActiveList',
+			'uploadCSVTags',
+			'uploadCSVAgree',
+		];
+		var CSVFormDestination = 'api/v1/audience/bulkAddUploadCSV';
+
+		// AJAX Call
+		sendRequest(CSVFormData, CSVFormDestination);
+
 		// Format the back button to become a cancel button
 		$('.back-btn').addClass('cancel-btn');
 		$('.back-btn').text('Cancel');
@@ -349,10 +365,18 @@ var AudienceForms = {
 	 */
 	ACFormSubmission: function() {
 		alert("Submitting Active Campaign Form (Event)");
+
 		/**
 		 * AJAX Call
 		 */
-		
+		var ACFormData = [
+			'connectACFormACList'
+		];
+		var ACFormDestination = 'api/v1/audience/bulkAddActiveCampaign';
+
+		// AJAX Call
+		sendRequest(ACFormData, ACFormDestination);
+
 		alert("Submitted AC Form");
 
 		// Assume a successful AJAX call
