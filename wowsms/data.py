@@ -9,7 +9,7 @@ user_data = {
 	'4224' : {
 		'firstname': 'William',
 		'lastname': 'Hicks',
-		'sms': 332,
+		'sms': "$5.36",
 		'free_trial': 0
 	},
 	'8888' : {

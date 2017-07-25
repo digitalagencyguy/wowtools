@@ -36,7 +36,7 @@
 			<div class="col col-lg-6">
 				<!-- Trial Information -->
 				<div class='trial-information'>
-					<p class='trial-deadline'>Trial Expires: <strong>6</strong> days: <strong>22</strong> hours: <strong>58</strong>mins</p>
+					<p class='trial-deadline' id='free-trial'>Trial Expires: <strong>6</strong> days: <strong>22</strong> hours: <strong>58</strong>mins</p>
 					<p>
 						<a href="#" class='buy-now-link'>Buy Now</a>
 					</p>
@@ -62,26 +62,26 @@
 				<div class="sidebar-information">
 					<img src="http://via.placeholder.com/100x100">
 					<span class="sidebar-business-name">Business Name</span>
-					<span class="sidebar-person-name">Nathan Hague</span>
+					<span class="sidebar-person-name" id='name'></span>
 				</div>
 				<hr>
 				<nav>
 					<ul>
 						<li>
-							<a href="#">Buy SMS</a>
-							<span class='credit-remaining'>(Credit Remaining: $5.22)</span>
+							<a href="/me?dest=sms">Buy SMS</a>
+							<span class='credit-remaining'>(Credit Remaining: <span id='sms'></span>)</span>
 						</li>
 						<li>
-							<a href="#" class='active-link'>Campaigns</a>
+							<a href="/me?dest=campaigns" class='active-link'>Campaigns</a>
 						</li>
 						<li>
-							<a href="audience.html">Audience</a>
+							<a href="/me?dest=audience">Audience</a>
 						</li>
 						<li>
-							<a href="#">Sequences</a>
+							<a href="/me?dest=sequences">Sequences</a>
 						</li>
 						<li>
-							<a href="#">Settings</a>
+							<a href="/me?dest=settings">Settings</a>
 						</li>
 					</ul>
 				</nav>
@@ -132,11 +132,11 @@
 		(function() {
 			var user = {{user | safe}},
 				namePlaceholder = $('#name')[0],
-				smsPlaceholder = $('#numSms')[0],
+				smsPlaceholder = $('#sms')[0],
 				trial = $("#free-trial")[0],
 				buyNow = $('#buyNow')[0];
 			namePlaceholder.innerText = `${user.firstname} ${user.lastname}`
-			smsPlaceholder.innerText = `(${user.sms})`
+			smsPlaceholder.innerText = `${user.sms}`
 			if (user.free_trial) {
 				$(trial).css('display', 'block')
 			}
