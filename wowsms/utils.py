@@ -1,4 +1,3 @@
-import requests
 import json
 import re
 from .data import user_data
@@ -48,23 +47,6 @@ class Response:
 	def __init__(self, template, context):
 		self.template = template
 		self.context = context
-
-#automatically process requests to the database
-class Request:
-
-	def __init__(self, url, payload={}, headers={'Content-type':'application/json'}):
-		self.url = url
-		self.payload = json.dumps(payload)
-		self.headers = headers
-		self.response = self.request()
-
-	def request(self):
-		if json.loads(self.payload):
-			thing = requests.post(self.url,data=self.payload, headers=self.headers)
-			return thing
-		else:
-			thing = requests.get(self.url)
-			return thing
 
 #authenticate requests and return Response objects
 class Authenticate:

@@ -1,1 +1,12 @@
 {%extends "base.html" %}
+{% block css %}
+{% load staticfiles %}
+	<link rel='stylesheet' href='{% static "/css/campaign-builder.css" %}'>
+{% endblock %}
+{% block content %}
+{%endblock%}
+{% block scripts %}
+<script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/gojs/1.7.17/go.js'></script>
+<script type='text/javascript' src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script type='text/javascript' src='https://code.jquery.com/ui/1.12.1/jquery-ui.js'></script>
+{% endblock %}

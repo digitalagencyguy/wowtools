@@ -1,7 +1,6 @@
 import json
 from .data import user_data
 from .utils import Process
-from .utils import Request
 from .utils import Context
 from .utils import Authenticate
 from django.shortcuts import render
@@ -20,10 +19,6 @@ def settings(request, user_id):
 	if request.method == 'GET':
 		response = Process(request, user_id).main('settings')
 		return render(request,response.template, response.context)
-	elif request.method == 'POST':
-		data = request.POST
-		print(data)
-		return redirect('/')
 
 def sequences(request, user_id):
 	if request.method == 'GET':

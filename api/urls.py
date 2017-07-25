@@ -3,5 +3,7 @@ from . import views
 
 
 urlpatterns = [
-	url(r'^test/?$', views.index, name='apiIndex')
+	url(r'^$', views.apiTest, name='apiTest'),
+	url(r'settings/details/?$', views.details, name='settings-details'),
+	url(r'settings/apiKey/?$', views.apiKey, name='apiKey')
 ]
