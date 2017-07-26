@@ -26,6 +26,11 @@ var Site = {
 			case 'sequences':
 				Sequences.init();
 				break;
+
+			case 'pricingCalculator':
+				// Show the pricing calculator modal by default
+				Modal.toggleModal('smsPricingCalculator');
+				break;
 		}
 	}
 };
