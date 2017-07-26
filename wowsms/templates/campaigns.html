@@ -33,7 +33,7 @@
 				<div class="campaign-builder-controls">
 					<div class="d-flex">
 						<button id='newSMSMessage'>
-							<div class='new-sms-message-campaign-builder'>New SMS Message</div>
+							<div class='new-sms-message-campaign-builder' id='new-sms-message' >New SMS Message</div>
 						</button>
 						<button id="wait" class='wait-btn'>
 							<div class="wait-campaign-builder">
@@ -42,7 +42,7 @@
 						</button>
 						<div class='campaign-details-campaign-builder'>
 							<div class="campaign-details-header d-flex">
-								<span>Campaign Name <i class="fa fa-pencil"></i></span>
+								<span id='campaign-name'>Campaign Name <i class="fa fa-pencil" id='edit-campaign-name' onclick='editName("#campaign-name")'></i></span>
 								<a href="#" class='copy-webhook'>Copy Webhook</a>
 							</div>
 							<div class="campaign-details-content d-flex">
@@ -62,7 +62,7 @@
 			</div>
 		</div>
 		<div class='campaign-builder-phone'>
-			<div class='campaign-builder-phone-content'>
+			<div class='campaign-builder-phone-content' id='campaign-builder'>
 				<!-- Message Received -->
 				<div class="campaign-builder-message">
 					<p>Hello Jon! How are you today? How's the weather in London treating you?</p>
@@ -79,6 +79,9 @@
 				<div class="campaign-builder-message">
 					<p>Perfect. What's on the agenda today?</p>
 				</div>
+				<div class='campaign-builder-message message-sent'>
+					<p>Nothing cuz ur a cunt</p>
+				</div>
 				<div class="clearfix"></div>
 				<!-- End Message Sent -->
 			</div>
@@ -90,4 +93,23 @@
 	<script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/gojs/1.7.17/go.js'></script>
 	<script type='text/javascript' src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	<script type='text/javascript' src='https://code.jquery.com/ui/1.12.1/jquery-ui.js'></script>
+	<script>
+		(function() {
+			var smsMessage = $($('#newSMSMessage')[0]),
+				wait = $($('#wait')[0]);
+			smsMessage.on({
+				dblclick: function() {
+					alert("Create new SMS message")
+				}
+			})
+			wait.on({
+				dblclick: function() {
+					alert("Create a new WAIT command")
+				}
+			})
+		})();
+		function editName(element) {
+			var textArea = $('<textarea />')
+		}
+	</script>
 {% endblock %}
