@@ -35,6 +35,12 @@ def sms(request, user_id):
 		response = Process(request, user_id).main('sms')
 		return render(request, response.template, response.context)
 
+
+def schedule(request, user_id):
+	if request.method == 'GET':
+		response = Process(request, user_id).main('schedule')
+		return render(request, response.template, response.context)
+
 def logout(request):
 	request.session.clear()
 	return redirect('/')
