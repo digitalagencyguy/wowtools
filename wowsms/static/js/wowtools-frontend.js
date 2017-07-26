@@ -19,8 +19,8 @@ var Site = {
 				SMS.init();
 				break;
 
-			case 'settings':
-				Settings.init();
+			case 'audience2':
+				Audience2.init();
 				break;
 
 			case 'sequences':
@@ -569,6 +569,80 @@ var Audience = {
 };
 
 /**
+ * All functions being used on the individual audience
+ * page for the front end
+ * @type {Object}
+ */
+var Audience2 = {
+	/**
+	 * Handles behaviour of pressing the plus button on the
+	 * individual audience page
+	 */
+	addIndividualAudienceRow: function(counter) {
+		event.preventDefault();
+		counter = counter + 1;
+
+		// Turn the current add row button into a trash button
+		$('.individual-add-audience ul li button.plus').hide();
+		$('.individual-add-audience ul li.contains-trash').show();
+
+		// Append a row
+		$('.add-audience-individual-rows').append(
+			'<div class="d-flex individual-add-audience" id="row-' + counter + '">' +
+				'<label>First Name</label>' +
+				'<input type="text" name="#">' +
+				'<label>Last Name</label>' +
+				'<input type="text" name="#">' +
+				'<label>Mobile</label>' +
+					'<select>' +
+							'<option value="+61">+61</option>' +
+					'</select>' +
+				'<input type="text" name="#">' +
+				'<label>Tags</label>' +
+				'<input type="text" name="#">' +
+				'<ul class="d-flex">' +
+					'<li class="contains-trash" style="display:none;">' +
+						'<button class="delete-individual-add-audience trash" onclick="Audience2.removeIndividualAudienceRow(' + counter + ');"><i class="fa fa-minus"></i></button>' +
+					'</li>' +
+					'<li>' +
+						'<button class="plus" onclick="Audience2.addIndividualAudienceRow(' + counter + ');"><i class="fa fa-plus"></i></button>' +
+					'</li>' +
+				'</ul>' +
+			'</div>'
+		);
+	},
+
+	/**
+	 * Handles behaviour when pressing the minus button
+	 * on the individual audience page
+	 */
+	removeIndividualAudienceRow: function(counter) {
+		event.preventDefault();
+		$('#row-' + counter).remove();
+
+		var counter = counter + 1;
+		if(! $('#row-' + counter).length) {
+			var counter = counter - 1;
+			if(counter > 0) {
+				$('#row-' + counter + ' ul.d-flex').append(
+					'<li>' +
+						'<button class="plus" onclick="Audience2.addIndividualAudienceRow(' + counter + ');"><i class="fa fa-plus"></i></button>' +
+					'</li>'
+				);
+			}
+		}
+	},
+
+	init: function() {
+		Modal.initModal();
+
+		$('.modal-toggle').click(function() {
+			event.preventDefault();
+		});
+	},
+};
+
+/**
  * All functions being used on the SMS
  * page for the front end
  * @type {Object}
@@ -604,16 +678,6 @@ var SMS = {
 		this.handleModalToggleBtnClick();
 		this.handleDiscountForm();
 		Modal.initModal();
-	}
-};
-
-/**
- * All functions being used on the Settings
- * page for the front end
- * @type {Object}
- */
-var Settings = {
-	init: function() {
 	}
 };
 
