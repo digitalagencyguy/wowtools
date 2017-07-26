@@ -72,9 +72,11 @@
 							<span class='credit-remaining'>(Credit Remaining: <span id='sms'></span>)</span>
 						</li>
 						<li>
-							<a href="/me?dest=campaigns" class='active-link'>Campaigns</a>
-						</li>
+							<a href='/me?dest=schedule'>Schedule (<span id='in-queue'></span>)</a>
 						<li>
+						<li>
+							<a href="/me?dest=campaigns">Campaigns</a>
+						</li>
 							<a href="/me?dest=audience">Audience</a>
 						</li>
 						<li>
@@ -134,9 +136,11 @@
 				namePlaceholder = $('#name')[0],
 				smsPlaceholder = $('#sms')[0],
 				trial = $("#free-trial")[0],
-				buyNow = $('#buyNow')[0];
-			namePlaceholder.innerText = `${user.firstname} ${user.lastname}`
-			smsPlaceholder.innerText = `${user.sms}`
+				buyNow = $('#buyNow')[0],
+				inQueue = $($('#in-queue')[0]);
+			namePlaceholder.innerText = `${user.firstname} ${user.lastname}`;
+			smsPlaceholder.innerText = `${user.sms}`;
+			inQueue.html(`${user.inQueue}`)
 			if (user.free_trial) {
 				$(trial).css('display', 'block')
 			}
