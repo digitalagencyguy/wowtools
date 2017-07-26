@@ -4,6 +4,27 @@
 	<link rel='stylesheet' href='{% static "/css/campaign-builder.css" %}'>
 {% endblock %}
 {% block content %}
+	<style>
+		.campaign-builder-phone {
+			width: 350px;
+			background: url('{% static "/campaign-builder-images/phone.png" %}');
+			min-height: 700px;
+			background-size: 100% 100%;
+			margin-bottom: 40px;
+		}
+		.campaign-builder-interface {
+			width: 100%;
+			flex: 1;
+			background: url('{% static "/campaign-builder-images/interactive-area-bg.jpg" %}');
+			border: 3px solid #b0b0b0;
+			box-sizing: border-box;
+		}
+		.campaign-builder-controls .wait-btn {
+			background: url('{% static "campaign-builder-images/wait-button-bg.jpg" %}');
+			background-size: 100% 100%;
+			background-position: center;
+		}
+	</style>
 	<!-- Campaign Builder -->
 	<div class='d-flex campaign-builder'>
 		<div class='campaign-builder-content'>
@@ -17,6 +38,15 @@
 						<button id="wait" class='wait-btn'>
 							<div class="wait-campaign-builder">
 								<span>Wait</span>
+							</div>
+						</button>
+						<button id="sequence-joiner" class="sequence-joiner">
+							<div class="sequence-joiner-builder">
+								<div class='table'>
+									<div class='table-cell'>
+										<span>Sequence Joiner</span>
+									</div>
+								</div>
 							</div>
 						</button>
 						<div class='campaign-details-campaign-builder'>
@@ -36,7 +66,12 @@
 				</div>
 				<!-- End Campaign Builder Controls (Top Part) -->
 				<!-- Campaign Builder Drag and Drop interface -->
-				<div class="campaign-builder-interface"></div>
+				<div class="campaign-builder-interface">
+					<div class='campaign-builder-buttons d-flex'>
+						<button class="schedule-btn">Schedule</button>
+						<button class="send-now">Send Now</button>
+					</div>
+				</div>
 				<!-- End Campaign Builder Drag and Drop Interface -->
 			</div>
 		</div>
