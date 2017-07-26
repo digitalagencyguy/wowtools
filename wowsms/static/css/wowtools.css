@@ -632,6 +632,75 @@ html {
 .audience-sidebar-information-show-all_btn {
 	color: #48A9FF;
 }
+ /**
+ * Audience Individual Add
+ */
+.audience-individual-add {
+	padding-top: 40px;
+}
+.individual-add-audience {
+	padding-top: 20px;
+}
+.individual-add-audience label,
+.individual-add-audience input {
+	margin-right: 15px;
+	height: 32.5px;
+	font-size: 14px;
+	line-height: 32.5px;
+}
+.individual-add-audience label {
+	white-space: nowrap;
+}
+.individual-add-audience input {
+	box-sizing: border-box;
+	padding-left: 10px;
+	flex: 1;
+}
+.individual-add-audience ul {
+	margin: 0;
+	padding: 0;
+	text-align: center;
+	width: 120px;
+}
+.individual-add-audience ul li {
+	display: inline-block;
+	margin-right: 5px;
+}
+.individual-add-audience ul li button {
+	width: 32.5px;
+	height: 32.5px;
+	line-height: 31px;
+	border: 0;
+	background: transparent;
+	color: #fff;
+	cursor: pointer;
+}
+.individual-add-audience ul li button.trash {
+	background: #ff4136;
+}
+.individual-add-audience ul li button.plus {
+	background: #27D23F;
+}
+.individual-add-audience select {
+	height: 32.5px;
+	line-height: 32.5px;
+	margin-right: 10px;
+}
+.add-audience-form .submit-btn {
+	float: right;
+	margin-top: 20px;
+	background: #27D23f;
+	height: 40px;
+	width: 150px;
+	line-height: 40px;
+	text-transform: uppercase;
+	color: #fff;
+	cursor: pointer;
+	font-weight: bolder;
+	border: 0;
+	padding: 0;
+}
+
 /**
  * Audience Table
  */
@@ -895,61 +964,91 @@ html {
 /**
  * Purchase SMS CSS
  */
-.buy-sms {
-	margin-top: 40px;
-	text-align: center;
-	margin-bottom: 60px
+.sms-section {
+	box-sizing: border-box;
+	background: #F1F1F1;
+	padding-top: 40px;
+	margin-bottom: 40px;
+	border: 1px solid #a0a0a0;
 }
-.buy-sms .individual {
+.sms-section-header {
+	width: 100%;
+	background: #959595;
+	box-sizing: border-box;
+	padding: 10px 20px;
+	max-width: 92.75%;
+	margin: 0 auto;
+}
+.sms-section-header h2 {
+	margin-bottom: 0;
+	padding-bottom: 0;
+	color: #fff;
+	font-size: 20px;
+	font-weight: bolder;
+}
+.buy-sms {
+	margin: 40px auto;
+	text-align: center;
+}
+.sms-title {
+	background: #2F64A6;
+	width: 100%;
+	display: block;
+	color: #fff;
+	font-weight: bolder;
+	font-size: 30px;
+	text-transform: uppercase;
+	height: 60px;
+	line-height: 60px;
+	overflow: hidden;
+}
+.buy-sms .sms-individual {
 	border: 1px solid #ACACAC;
-	border-top: 10px solid #3065A6;
 	width: 85%;
 	display: block;
 	margin-right: auto;
 	margin-left: auto;
 	background: #F9F9F9;
 }
-.buy-sms .individual.ind-different{
-	margin-top: 40px;
-}
-.buy-sms .individual h2{
+.buy-sms .sms-individual h2{
 	padding-top: 30px;
 	color: #3E4245;
 	font-size: 1.4em;
 	display: block;
 	margin-left: auto;
+	font-weight: bolder;
 	margin-right: auto;
-	margin-bottom: 0;
+	margin-bottom: 10px;
 }
-.buy-sms .individual h3{
+.buy-sms .sms-individual h3{
 	color: #3E4245;
 	width: 200px;
 	font-size: 1.4em;
-	font-weight: 500;
-	margin-bottom: 50px;
+	margin-bottom: 30px;
 	display: block;
 	margin-left: auto;
 	margin-right: auto;
+	font-weight: bolder;
 }
-.buy-sms .individual h4 {
+.buy-sms .sms-individual h4 {
 	margin-bottom: 50px;
 	font-weight: normal;
 	font-size: 1.2em;
 	padding-top: 5px;
 	color:#25D141;
 }
-.buy-sms .individual hr{
+.buy-sms .sms-individual hr{
 	max-width: 250px;
 	border: 0;
     height: 1px;
     background-image: linear-gradient(to right, rgba(153, 153, 153, 0), rgba(153, 153, 153, 0.75), rgba(153, 153, 153, 0));
 }
-.buy-sms .individual p {
+.buy-sms .sms-individual p {
 	font-size: 1.6em;
 	font-weight: bold;
 	color: #3065A6;
 }
-.buy-sms .individual a {
+.buy-sms .sms-individual a {
 	margin-top: 100px;
 	display: block;
 	background: #25D141;
@@ -967,7 +1066,7 @@ html {
 	border-right: 1px solid #3d3d3d;
 	border-bottom: 1px solid #3d3d3d;
 }
-.buy-sms .individual button {
+.buy-sms .sms-individual button {
 	margin-top: 80px;
 	margin-bottom: 30px;
 	color: #fff;
@@ -982,13 +1081,16 @@ html {
 	width: 200px;
 	cursor: pointer;
 }
-.buy-sms .individual button.btn-different {
+.buy-sms .sms-individual button.btn-different {
 	margin-top:10px;
 }
-.buy-sms .individual a:hover {
+.buy-sms .sms-individual button.sms-best-value-btn {
+	margin-top: 69px;
+}
+.buy-sms .sms-individual a:hover {
 	text-decoration: none;
 }
-.buy-sms .individual form input {
+.buy-sms .sms-individual form input {
 	height:30px;
 	text-align: center;
 	font-size: 1.3em;

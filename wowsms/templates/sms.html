@@ -1,60 +1,74 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="d-flex flex-row buy-sms">
-	<div class="col-4">
-		<div class="individual">
-			<h2>Buy 1000</h2>
-			<h3>SMS Messages</h3>
-			<hr>
-			<p>$100</p>
-			<hr>
-			<button type="button" class="btn btn-info btn-lg modal-toggle" data-modal-function="buy1000">buy $100</button>					
-		</div>
+<div class='packages sms-section'>
+	<div class="sms-section-header">
+		<h2>Package Options</h2>
 	</div>
-	<div class="col-4">
-		<div class="individual">
-			<h2>Buy 5000</h2>
-			<h3>SMS Messages</h3>
-			<hr>
-			<p>$400</p>
-			<hr>
-			<button type="button" class="btn btn-info btn-lg modal-toggle" data-modal-function="buy5000">buy $400</button>	
+	<div class="d-flex flex-row buy-sms">
+		<div class="col-4">
+			<div class="sms-individual">
+				<span class="sms-title">Wow 1000</span>
+				<h2>Buy 1000</h2>
+				<h3>SMS Messages</h3>
+				<hr>
+				<p>$100</p>
+				<hr>
+				<button type="button" class="btn btn-info btn-lg modal-toggle" data-modal-function="buy1000">buy $100</button>					
+			</div>
 		</div>
-	</div>
-	<div class="col-4">
-		<div class="individual">
-			<h2>Buy Custom Ammount</h2>
-			<h3>SMS Messages</h3>
-			<form>
-				How Many Messages:
-				<input type="number" name="quantity" min="1">
-			</form>
-			<hr>
-			<p>$36</p>
-			<hr>
-			<button type="button" class="btn btn-info btn-lg modal-toggle btn-different" data-modal-function="buy36">buy $36</button>	
+		<div class="col-4">
+			<div class="sms-individual">
+				<span class="sms-title">Wow 5000</span>
+				<h2>Buy 5000</h2>
+				<h3>SMS Messages</h3>
+				<hr>
+				<p>$400</p>
+				<hr>
+				<button type="button" class="btn btn-info btn-lg modal-toggle" data-modal-function="buy5000">buy $400</button>	
+			</div>
+		</div>
+		<div class="col-4">
+			<div class="sms-individual">
+				<span class="sms-title">Wow Custom</span>
+				<h2>Buy Custom Amount</h2>
+				<h3>SMS Messages</h3>
+				<form>
+					How Many Messages:
+					<input type="number" name="quantity" min="1" value="300">
+				</form>
+				<hr>
+				<p>$36</p>
+				<hr>
+				<button type="button" class="btn btn-info btn-lg modal-toggle btn-different" data-modal-function="buy36">buy $36</button>	
+			</div>
 		</div>
 	</div>
 </div>
-<div class="d-flex justify-content-center flex-row buy-sms">
-	<div class="col-4">
-		<div class="individual ind-different">
-			<h2 class='sms-buy-monthly-h2'>Buy Monthly</h2>
-			<hr>
-			<p>$47/Mo</p>
-			<hr>
-			<button type="button" class="btn btn-info btn-lg modal-toggle" data-modal-function="buy47">buy $47</button>				
-		</div>
+<div class='packages sms-section'>
+	<div class="sms-section-header">
+		<h2>Subscription Options</h2>
 	</div>
-	<div class="col-4">
-		<h2 class='sms-best-value-indicator'>best value</h2>
-		<div class="individual sms-best-value-individual">
-			<h2>Buy Annual</h2>
-			<h4>(25% Off)</h4>
-			<hr>
-			<p>$425/year</p>
-			<hr>
-			<button type="button" class="btn btn-info btn-lg modal-toggle" data-modal-function="buy425">buy $47</button>			
+	<div class="d-flex justify-content-center flex-row buy-sms">
+		<div class="col-4">
+			<div class="sms-individual">
+				<span class="sms-title"></span>
+				<h2 class='sms-buy-monthly-h2'>Buy Monthly</h2>
+				<hr>
+				<p>$47/Mo</p>
+				<hr>
+				<button type="button" class="btn btn-info btn-lg modal-toggle" data-modal-function="buy47">buy $47</button>				
+			</div>
+		</div>
+		<div class="col-4">
+			<div class="sms-individual sms-best-value-sms-individual">
+				<span class="sms-title">Best Value</span>
+				<h2>Buy Annual</h2>
+				<h4>(25% Off)</h4>
+				<hr>
+				<p>$425/year</p>
+				<hr>
+				<button type="button" class="btn btn-info btn-lg modal-toggle sms-best-value-btn" data-modal-function="buy425">buy $47</button>			
+			</div>
 		</div>
 	</div>
 </div>
