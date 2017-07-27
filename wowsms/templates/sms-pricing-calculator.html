@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+{% block content %}
+<!-- SMS Pricing Calculator -->
+<div class="sms-pricing-calculator">
+	<div class="sms-pricing-calculator-content">
+		<div class="sms-pricing-calculator-instructions">
+			<p>How much credit do I need? Check with our PRICING CALCULATOR!</p>
+		</div>
+		<div class="sms-pricing-calculator-instructions">
+			<label>Credit Amount:</label>
+			<select name="#" id="#">
+				<option value="A$20">A$20</option>
+			</select>
+		</div>
+		<!-- TODO: Replace with pay with Stripe checkout button -->
+		<button style='margin:0 auto;cursor:pointer;margin-bottom:40px;margin-top: 0;display:block;'>Pay with Stripe Checkout</button>
+		<!-- End TODO -->
+		<div class="sms-pricing-calculator-instructions rest-assured-pricing-calculator">
+			<div class="d-flex">
+				<img src='{% static "/sms-pricing-calculator-images/lock.jpg" %}' alt="Rest assured that WOWSMS does not store credit or debit card details on this website.">
+				<p>Rest assured that WOWSMS does not store credit or debit card details on this website. <br> All payment data is securely stored by third-party PCI-compliant payment gateways.</p>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- End SMS Pricing Calculator -->
+{% endblock %}
+{% block modalContent %}
+<div class='wowtools-modal sms-pricing-calculator-modal' id='smsPricingCalculator'>
+	<!-- Pricing Calculator Form -->
+	<form action="#">
+		<div class='d-flex flex-column sms-pricing-calculator-flex'>
+			<div class='sms-pricing-calculator-modal-header'>
+				<h2>Pricing Calculator</h2>
+				<button class='closeModal' onclick="event.preventDefault();Modal.closeModal();">
+				<i class="fa fa-times"></i>
+				</button>
+				<hr>
+			</div>
+			<div class="sms-pricing-calculator-modal-content">
+				<p>Use our pricing calculator to check how much WOWSMS credit you need to send specific amount of SMS to desired countries.</p>
+				<div class="pricing-calculator-modal-table">
+					<!-- Table Header -->
+					<div class="d-flex pricing-calculator-modal-table-header">
+						<div class="pricing-calculator-modal-table-destination-country">
+							<span>Destination Country</span>
+						</div>
+						<div class="pricing-calculator-modal-table-price-per-text">
+							<span>Price Per Text</span>
+						</div>
+						<div class="pricing-calculator-modal-table-number-of-texts">
+							<span>Number of texts</span>
+						</div>
+						<div class="pricing-calculator-modal-table-cost">
+							<span>Cost</span>
+						</div>
+						<div class="pricing-calculator-table-option"></div>
+					</div>
+					<!-- End Table Header -->
+					<!-- Table Row -->
+					<div class="d-flex pricing-calculator-modal-table-row">
+						<div class="pricing-calculator-modal-table-destination-country">
+							<select name="#" id="#">
+								<option value="Australia">Australia</option>
+							</select>
+						</div>
+						<div class="pricing-calculator-modal-table-price-per-text">
+							<span>A$0.082</span>
+						</div>
+						<div class="pricing-calculator-modal-table-number-of-texts">
+							<input type="text" name="#" id="#" value="1000">
+						</div>
+						<div class="pricing-calculator-modal-table-cost">
+							<span>A$82.00</span>
+						</div>
+						<div class="pricing-calculator-table-option">
+							<button onclick="event.preventDefault();">
+							<i class="fa fa-times"></i>
+							</button>
+						</div>
+					</div>
+					<!-- End Table Row -->
+					<!-- Total Cost Row -->
+					<div class="d-flex pricing-calculator-modal-table-row pricing-calculator-modal-table-total-cost-row">
+						<div class="pricing-calculator-modal-table-destination-country">
+							<a href="#" onclick="event.preventDefault();"><i class="fa fa-plus"></i> <em>Add another country</em></a>
+						</div>
+						<div class="pricing-calculator-modal-table-price-per-text"></div>
+						<div class="pricing-calculator-modal-table-number-of-texts" style='text-align:right;'>
+							<span><strong>Total Cost:</strong></span>
+						</div>
+						<div class="pricing-calculator-modal-table-cost">
+							<span>A$82.00</span>
+						</div>
+						<div class="pricing-calculator-table-option"></div>
+					</div>
+					<!-- End Total Cost Row -->
+				</div>
+			</div>
+			<div class="sms-pricing-calculator-modal-footer">
+				<hr>
+				<p>Suitable top up amount:</p>
+				<span>100 AUD</span>
+				<button onclick="event.preventDefault();">Continue</button>
+			</div>
+		</div>
+	</form>
+	<!-- End Pricing Calculator Form -->
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+	Site.init('pricingCalculator');
+</script>
+{% endblock %}
