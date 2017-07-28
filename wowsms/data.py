@@ -6,7 +6,8 @@ user_data = {
 		'sms': 10,
 		'free_trial': 0,
 		'inQueue': 66,
-		'id': 1777
+		'id': 1777,
+		'password': 'test'
 	},
 	'4224' : {
 		'firstname': 'William',
@@ -14,7 +15,8 @@ user_data = {
 		'sms': "$5.36",
 		'free_trial': 0,
 		'inQueue': 34,
-		'id': 4224
+		'id': 4224,
+		'password': 'test'
 	},
 	'8888' : {
 		'firstname': 'Eric',
@@ -22,6 +24,7 @@ user_data = {
 		'sms': 37,
 		'free_trial': 1,
 		'inQueue': 54,
-		'id': 8888
+		'id': 8888,
+		'password': 'test'
 	}
 }
