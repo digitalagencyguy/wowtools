@@ -35,12 +35,14 @@
 			</div>
 			<div class="col col-lg-6">
 				<!-- Trial Information -->
+				{% if user.free_trial %}
 				<div class='trial-information'>
 					<p class='trial-deadline' id='free-trial'>Trial Expires: <strong>6</strong> days: <strong>22</strong> hours: <strong>58</strong>mins</p>
 					<p>
 						<a href="#" class='buy-now-link' id='buyNow'>Buy Now</a>
 					</p>
 				</div>
+				{% endif %}
 				<!-- End Trial Information -->
 			</div>
 			<div class="col">
@@ -62,29 +64,29 @@
 				<div class="sidebar-information">
 					<img src="http://via.placeholder.com/100x100">
 					<span class="sidebar-business-name">Business Name</span>
-					<span class="sidebar-person-name" id='name'></span>
+					<span class="sidebar-person-name" id='name'>{{ user.firstname}} {{ user.lastname }}</span>
 				</div>
 				<hr>
 				<nav>
 					<ul>
 						<li>
 							<a href="/me?dest=sms">Buy SMS</a>
-							<span class='credit-remaining'>(Credit Remaining: <span id='sms'></span>)</span>
+							<span class='credit-remaining'>(Credit Remaining: {{ user.sms }})</span>
 						</li>
 						<li>
-							<a href='/me?dest=schedule'>Schedule (<span id='in-queue'></span>)</a>
+							<a href='/{{user.id}}/schedule'>Schedule ({{ user.inQueue }})</a>
 						</li>
 						<li>
-							<a href="/me?dest=campaigns">Campaigns</a>
+							<a href="/{{user.id}}/campaigns">Campaigns</a>
 						</li>
 						<li>
-							<a href="/me?dest=audience">Audience</a>
+							<a href="/{{user.id}}/audience">Audience</a>
 						</li>
 						<li>
-							<a href="/me?dest=sequences">Sequences</a>
+							<a href="/{{user.id}}/sequences">Sequences</a>
 						</li>
 						<li>
-							<a href="/me?dest=settings">Settings</a>
+							<a href="/{{user.id}}/settings">Settings</a>
 						</li>
 					</ul>
 				</nav>
@@ -132,23 +134,6 @@
 	{% block scripts %}
 	{% endblock %}
 	<script>
-		(function() {
-			var user = {{user | safe}},
-				namePlaceholder = $('#name')[0],
-				smsPlaceholder = $('#sms')[0],
-				trial = $("#free-trial")[0],
-				buyNow = $('#buyNow')[0],
-				inQueue = $($('#in-queue')[0]);
-			namePlaceholder.innerText = `${user.firstname} ${user.lastname}`;
-			smsPlaceholder.innerText = `${user.sms}`;
-			inQueue.html(`${user.inQueue}`)
-			if (user.free_trial) {
-				$(trial).css('display', 'block')
-			}
-			if (window.location.href.split('/')[4] == 'sms') {
-				$(buyNow).css('opacity',0)
-			}
-		})();
 	</script>
 </body>
 </html>

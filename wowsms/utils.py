@@ -71,6 +71,12 @@ class Authenticate:
 		else:
 			return Response(beta.get('template'), beta.get('context'))
 
+class User:
+
+	def __init__(self, json_):
+		for key in json_:
+			setattr(self, key, json_[key])
+
 #process all main data flow
 class Process:
 
@@ -81,7 +87,7 @@ class Process:
 
 	def main(self, preferred, other='error.html'):
 		authenticate = Authenticate(self.request)
-		context = Context(Array('user'),Array(user_data[authenticate.user]))
+		context = Context(Array('user'),Array(User(user_data[authenticate.user])))
 		alpha = Object(preferred+'.html', context=context)
 		if other != 'error.html':
 			beta = Object(other+'html', context=context)
@@ -93,7 +99,7 @@ class Process:
 	def index(self, preferred, other='landing.html'):
 		authenticate = Authenticate(self.request)
 		if authenticate.user:
-			context = Context(Array('user'),Array(user_data[authenticate.user]))
+			context = Context(Array('user'),Array(User(user_data[authenticate.user])))
 		else:
 			context = Context(Array('user'), Array())
 		alpha = Object(preferred+'.html', context=context)
