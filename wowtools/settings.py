@@ -13,7 +13,7 @@ SECRET_KEY = 'n!&+!y85!&r4$k7kbgxp8z_2%b@a(^*lxmhwdqqh6c#j$pu42d'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['qtxr.pythonanywhere.com']
 
 
 # Application definition
