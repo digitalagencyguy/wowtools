@@ -40,11 +40,6 @@ var pressed=false,
 	prevCoords=[0,0],
 	prevRecord=[0,0],
 	canDrag;
-	};
-
-//Mouse/touch events
-var pressed=false,
-	prevCoords=[0,0];
 
 //Reroute event handlers
 var route={
