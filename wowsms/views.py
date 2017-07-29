@@ -8,37 +8,37 @@ def index(request):
 	context = response.context()
 	return render(request, template, context)
 
-def audience(request, user):
+def audience(request):
 	response = Request(request, 'audience')
 	template = response.template()
 	context = response.context()
 	return render(request, template, context)
 
-def settings(request, user):
+def settings(request):
 	response = Request(request, 'settings')
 	template = response.template()
 	context = response.context()
 	return render(request, template, context)
 
-def sequences(request, user):
+def sequences(request):
 	response = Request(request, 'sequences')
 	template = response.template()
 	context = response.context()
 	return render(request, template, context)
 
-def campaigns(request, user):
+def campaigns(request):
 	response = Request(request, 'campaigns')
 	template = response.template()
 	context = response.context()
 	return render(request, template, context)
 
-def sms(request, user):
+def sms(request):
 	response = Request(request, 'sms')
 	template = response.template()
 	context = response.context()
 	return render(request, template, context)
 
-def schedule(request, user):
+def schedule(request):
 	response = Request(request, 'schedule')
 	template = response.template()
 	context = response.context()
