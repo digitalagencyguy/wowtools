@@ -1,5 +1,7 @@
 
 
-#campaign-canvas {
-	margin: 30px;
-}
+#builder-canvas.dragging {
+	cursor: move;
+	cursor: grab;
+	cursor: -moz-grab;
+	cursor: -webkit-grab;}

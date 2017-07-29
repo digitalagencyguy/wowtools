@@ -6,8 +6,8 @@
 {% block content %}
 	<style>
 		.campaign-builder-phone {
-			width: 350px;
 			background: url('{% static "/campaign-builder-images/phone.png" %}');
+			width: 350px;
 			min-height: 700px;
 			background-size: 100% 100%;
 			margin-bottom: 40px;
@@ -15,7 +15,6 @@
 		.campaign-builder-interface {
 			width: 100%;
 			flex: 1;
-			background: url('{% static "/campaign-builder-images/interactive-area-bg.jpg" %}');
 			border: 3px solid #b0b0b0;
 			box-sizing: border-box;
 		}
@@ -23,6 +22,40 @@
 			background: url('{% static "campaign-builder-images/wait-button-bg.jpg" %}');
 			background-size: 100% 100%;
 			background-position: center;
+		}
+	</style>
+	<!-- PE's CSS -->
+	<style>
+		#builder-frame {
+		    position: absolute;
+		    width: 100%;
+		    height: 100%;
+		    overflow: hidden;
+		    font-size: 16px;
+		}
+
+		#builder-canvas {
+		    position: absolute;
+			background: url('{% static "/campaign-builder-images/interactive-area-bg.jpg" %}');
+		    width: 500em;
+		    height: 500em;
+		    left: -250em;
+		    top: -10em;
+		    margin-left: 50%;
+		}
+
+		#start-area {
+		    position: absolute;
+		    width: 100%;
+		    height: 5em;
+		    justify-content: center;
+		    top: 12em;
+		}
+
+		#start-button {
+		    width: 10em;
+		    height: 3em;
+		    background: red;
 		}
 	</style>
 	<!-- Campaign Builder -->
@@ -67,6 +100,15 @@
 				<!-- End Campaign Builder Controls (Top Part) -->
 				<!-- Campaign Builder Drag and Drop interface -->
 				<div class="campaign-builder-interface">
+					<div id="builder-frame">
+						<div id="builder-canvas">
+							<div id="start-area" class="d-flex">
+								<div id="start-button">
+
+								</div>
+							</div>
+						</div>
+					</div>
 					<div class='campaign-builder-buttons d-flex'>
 						<button class="schedule-btn">Schedule</button>
 						<button class="send-now">Send Now</button>
@@ -102,6 +144,11 @@
 		</div>
 	</div>
 	<!-- End Campaign Builder -->
+	<!-- Shape drag box -->
+	<div id="">
+		<svg id="msg_shadow" viewBox="0 0 400 100"></svg>
+	</div>
+	<!-- End shape drag box -->
 {% endblock %}
 {% block scripts %}
 	<script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/gojs/1.7.17/go.js'></script>
@@ -126,4 +173,5 @@
 			var textArea = $('<textarea />')
 		}
 	</script>
+	<script src='{% static "/js/picturelements/graph.js" %}'></script>
 {% endblock %}

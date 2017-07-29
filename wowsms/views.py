@@ -1,45 +1,48 @@
-import json
-from .data import user_data
-from .utils import Process
-from .utils import Context
-from .utils import Authenticate
+from .utils import Request
 from django.shortcuts import render
 from django.shortcuts import redirect
 
 def index(request):
-	response = Process(request).index('index')
-	return render(request, response.template, response.context)
+	response = Request(request, 'index', 'landing')
+	template = response.template()
+	context = response.context()
+	return render(request, template, context)
 
-def audience(request, user_id):
-	if request.method == 'GET':
-		response = Process(request, user_id).main('audience')
-		return render(request, response.template, response.context)
+def audience(request):
+	response = Request(request, 'audience')
+	template = response.template()
+	context = response.context()
+	return render(request, template, context)
 
-def settings(request, user_id):
-	if request.method == 'GET':
-		response = Process(request, user_id).main('settings')
-		return render(request,response.template, response.context)
+def settings(request):
+	response = Request(request, 'settings')
+	template = response.template()
+	context = response.context()
+	return render(request, template, context)
 
-def sequences(request, user_id):
-	if request.method == 'GET':
-		response = Process(request, user_id).main('sequences')
-		return render(request, response.template, response.context)
+def sequences(request):
+	response = Request(request, 'sequences')
+	template = response.template()
+	context = response.context()
+	return render(request, template, context)
 
-def campaigns(request, user_id):
-	if request.method == 'GET':
-		response = Process(request, user_id).main('campaigns')
-		return render(request, response.template, response.context)
+def campaigns(request):
+	response = Request(request, 'campaigns')
+	template = response.template()
+	context = response.context()
+	return render(request, template, context)
 
-def sms(request, user_id):
-	if request.method == 'GET':
-		response = Process(request, user_id).main('sms')
-		return render(request, response.template, response.context)
+def sms(request):
+	response = Request(request, 'sms')
+	template = response.template()
+	context = response.context()
+	return render(request, template, context)
 
-
-def schedule(request, user_id):
-	if request.method == 'GET':
-		response = Process(request, user_id).main('schedule')
-		return render(request, response.template, response.context)
+def schedule(request):
+	response = Request(request, 'schedule')
+	template = response.template()
+	context = response.context()
+	return render(request, template, context)
 
 def logout(request):
 	request.session.clear()
@@ -48,13 +51,5 @@ def logout(request):
 def login(request):
 	request.session['user'] = '4224'
 	return redirect('/')
-
-def me(request):
-	user = Authenticate(request).user
-	destination = request.GET.get('dest')
-	if user:
-		return redirect('/{}/{}'.format(user,destination))
-	else:
-		return redirect('/')
 
 #$kil1ion
