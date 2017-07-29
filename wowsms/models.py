@@ -6,7 +6,7 @@ class Customer(models.Model):
 
 	firstname = models.TextField()
 	lastname = models.TextField()
-	credit = models.IntegerField()
+	credit = models.FloatField()
 	queue = models.IntegerField()
 	trial = models.BooleanField()
 	mobile = models.TextField()
@@ -22,3 +22,4 @@ class Customer(models.Model):
 	class Meta:
 
 		db_table = 'customers'
+		ordering = ['firstname','lastname']
