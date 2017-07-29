@@ -26,55 +26,48 @@
 	</style>
 	<!-- PE's CSS -->
 	<style>
-<<<<<<< HEAD
 		.campaign-builder-interface {
-		    font-size: 16px;
+			font-size: 16px;
 		}
 
-=======
->>>>>>> 5828c4b9ff8fd10ef3ab13e710d9e91ae8afb4f6
 		#builder-frame {
-		    position: absolute;
-		    width: 100%;
-		    height: 100%;
-		    overflow: hidden;
-<<<<<<< HEAD
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			overflow: hidden;
 		}
 
 		#overlay-box {
-		    position: absolute;
+			position: absolute;
 			pointer-events: none;
-		    width: 100%;
-		    height: 100%;
+			width: 100%;
+			height: 100%;
 			z-index: 10;
 		}
 
 		#overlay-box > * {
 			pointer-events: auto;
-=======
-		    font-size: 16px;
->>>>>>> 5828c4b9ff8fd10ef3ab13e710d9e91ae8afb4f6
+			font-size: 16px;
 		}
 
 		#builder-canvas {
-		    position: absolute;
+			position: absolute;
 			background: url('{% static "/campaign-builder-images/interactive-area-bg.jpg" %}');
-		    width: 500em;
-		    height: 500em;
-		    left: -250em;
-		    top: -10em;
-		    margin-left: 50%;
-<<<<<<< HEAD
-		    touch-action:none;
-		    cursor: default;
-		    cursor: -moz-grab;
-		    cursor: -webkit-grab;
+			width: 500em;
+			height: 500em;
+			left: -250em;
+			top: -10em;
+			margin-left: 50%;
+			touch-action:none;
+			cursor: default;
+			cursor: -moz-grab;
+			cursor: -webkit-grab;
 		}
 
 		#builder-canvas.dragging, #shadow-objects svg {
-		    cursor: move;
-		    cursor: -moz-grabbing;
-		    cursor: -webkit-grabbing;
+			cursor: move;
+			cursor: -moz-grabbing;
+			cursor: -webkit-grabbing;
 		}
 
 		#builder-canvas svg {
@@ -85,68 +78,62 @@
 
 		.module {
 			cursor: default;
-=======
->>>>>>> 5828c4b9ff8fd10ef3ab13e710d9e91ae8afb4f6
 		}
 
 		#start-area {
-		    position: absolute;
-		    width: 100%;
-<<<<<<< HEAD
-=======
-		    height: 5em;
->>>>>>> 5828c4b9ff8fd10ef3ab13e710d9e91ae8afb4f6
-		    justify-content: center;
-		    top: 12em;
+			position: absolute;
+			width: 100%;
+			height: 5em;
+			justify-content: center;
+			top: 12em;
 		}
 
 		#start-button {
-<<<<<<< HEAD
-		    position: relative;
-		    width: 8em;
-		    height: 2em;
-		    background: #2f64a4;
-		    border-radius: 1em;
-		    overflow: hidden;
+			position: relative;
+			width: 8em;
+			height: 2em;
+			background: #2f64a4;
+			border-radius: 1em;
+			overflow: hidden;
 		}
 
 		#start-lbl {
-		    display: flex;
-		    position: absolute;
-		    width: 75%;
-		    height: 100%;
-		    background: white;
-		    align-items: center;
-		    justify-content: center;
-		    font-size: 120%;
-		    line-height: 1;
+			display: flex;
+			position: absolute;
+			width: 75%;
+			height: 100%;
+			background: white;
+			align-items: center;
+			justify-content: center;
+			font-size: 120%;
+			line-height: 1;
 		}
 
 		.blue-border {
-		    border: 2px solid #2f64a4;
+			border: 2px solid #2f64a4;
 		}
 
 		.settings-button {
-		    position: relative;
-		    float: right;
-		    background: #2f64a6;
-		    height: 100%;
-		    width: 2em;
-		    cursor: pointer;
+			position: relative;
+			float: right;
+			background: #2f64a6;
+			height: 100%;
+			width: 2em;
+			cursor: pointer;
 		}
 
 		/*Shadow objects*/
 		#shadow-objects svg {
 			display: none;
 			position: absolute;
-		    stroke: rgba(50, 220, 20,0.5);
-		    stroke-width: 0.15;
-		    fill: rgba(50, 220, 20, 0.2);
+			stroke: rgba(50, 220, 20,0.5);
+			stroke-width: 0.15;
+			fill: rgba(50, 220, 20, 0.2);
 		}
 
 		#shadow-objects svg.error{
-	    stroke: rgba(220, 20, 20, 0.5);
-	    fill: rgba(220, 20, 20, 0.2);
+		stroke: rgba(220, 20, 20, 0.5);
+		fill: rgba(220, 20, 20, 0.2);
 		}
 
 		#shadow-rect {
@@ -184,11 +171,9 @@
 				-ms-transform: scale(0);
 				transform: scale(0);
 			}
-=======
-		    width: 10em;
-		    height: 3em;
-		    background: red;
->>>>>>> 5828c4b9ff8fd10ef3ab13e710d9e91ae8afb4f6
+			width: 10em;
+			height: 3em;
+			background: red;
 		}
 	</style>
 	<!-- Campaign Builder -->
@@ -235,7 +220,6 @@
 				<!-- End Campaign Builder Controls (Top Part) -->
 				<!-- Campaign Builder Drag and Drop interface -->
 				<div class="campaign-builder-interface">
-<<<<<<< HEAD
 					<div id="overlay-box">
 						<div id="shadow-objects">
 							<svg viewBox="-1 -1 28 10" id="shadow-rect">
@@ -263,13 +247,11 @@
 								<div id="start-button" class="blue-border module">
 									<div id="start-lbl">START</div>
 									<div class="settings-button"></div>
-=======
 					<div id="builder-frame">
 						<div id="builder-canvas">
 							<div id="start-area" class="d-flex">
 								<div id="start-button">
 
->>>>>>> 5828c4b9ff8fd10ef3ab13e710d9e91ae8afb4f6
 								</div>
 							</div>
 						</div>
@@ -319,7 +301,6 @@
 	<script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/gojs/1.7.17/go.js'></script>
 	<script type='text/javascript' src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	<script type='text/javascript' src='https://code.jquery.com/ui/1.12.1/jquery-ui.js'></script>
-<<<<<<< HEAD
 	<script>
 		(function() {
 			var smsMessage = $($('#newSMSMessage')[0]),
@@ -340,8 +321,6 @@
 		}
 	</script>
 	<script src='{% static "/js/picturelements/graph.js" %}'></script>
-=======
 	<script src='{% static "/js/picturelements/graph.js" %}'></script>
 	<script src='{% static "/js/campaign-builder.js" %}'></script>
->>>>>>> 5828c4b9ff8fd10ef3ab13e710d9e91ae8afb4f6
 {% endblock %}
