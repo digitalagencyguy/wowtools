@@ -132,8 +132,8 @@
 		}
 
 		#shadow-objects svg.error{
-		stroke: rgba(220, 20, 20, 0.5);
-		fill: rgba(220, 20, 20, 0.2);
+			stroke: rgba(220, 20, 20, 0.5);
+			fill: rgba(220, 20, 20, 0.2);
 		}
 
 		#shadow-rect {
@@ -171,9 +171,6 @@
 				-ms-transform: scale(0);
 				transform: scale(0);
 			}
-			width: 10em;
-			height: 3em;
-			background: red;
 		}
 	</style>
 	<!-- Campaign Builder -->
@@ -247,11 +244,6 @@
 								<div id="start-button" class="blue-border module">
 									<div id="start-lbl">START</div>
 									<div class="settings-button"></div>
-					<div id="builder-frame">
-						<div id="builder-canvas">
-							<div id="start-area" class="d-flex">
-								<div id="start-button">
-
 								</div>
 							</div>
 						</div>
@@ -291,16 +283,30 @@
 		</div>
 	</div>
 	<!-- End Campaign Builder -->
-	<!-- Shape drag box -->
-	<div id="">
-		<svg id="msg_shadow" viewBox="0 0 400 100"></svg>
-	</div>
-	<!-- End shape drag box -->
 {% endblock %}
 {% block scripts %}
 	<script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/gojs/1.7.17/go.js'></script>
 	<script type='text/javascript' src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	<script type='text/javascript' src='https://code.jquery.com/ui/1.12.1/jquery-ui.js'></script>
+	<script>
+		(function() {
+			var smsMessage = $($('#newSMSMessage')[0]),
+				wait = $($('#wait')[0]);
+			smsMessage.on({
+				dblclick: function() {
+					alert("Create new SMS message")
+				}
+			})
+			wait.on({
+				dblclick: function() {
+					alert("Create a new WAIT command")
+				}
+			})
+		})();
+		function editName(element) {
+			var textArea = $('<textarea />')
+		}
+	</script>
 	<script src='{% static "/js/picturelements/graph.js" %}'></script>
 	<script src='{% static "/js/picturelements/graph.js" %}'></script>
 	<script src='{% static "/js/campaign-builder.js" %}'></script>
