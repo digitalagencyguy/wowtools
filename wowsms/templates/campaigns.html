@@ -301,25 +301,6 @@
 	<script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/gojs/1.7.17/go.js'></script>
 	<script type='text/javascript' src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	<script type='text/javascript' src='https://code.jquery.com/ui/1.12.1/jquery-ui.js'></script>
-	<script>
-		(function() {
-			var smsMessage = $($('#newSMSMessage')[0]),
-				wait = $($('#wait')[0]);
-			smsMessage.on({
-				dblclick: function() {
-					alert("Create new SMS message")
-				}
-			})
-			wait.on({
-				dblclick: function() {
-					alert("Create a new WAIT command")
-				}
-			})
-		})();
-		function editName(element) {
-			var textArea = $('<textarea />')
-		}
-	</script>
 	<script src='{% static "/js/picturelements/graph.js" %}'></script>
 	<script src='{% static "/js/picturelements/graph.js" %}'></script>
 	<script src='{% static "/js/campaign-builder.js" %}'></script>
