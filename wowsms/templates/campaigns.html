@@ -84,7 +84,9 @@
 						</button>
 						<div class='campaign-details-campaign-builder'>
 							<div class="campaign-details-header d-flex">
-								<span id='campaign-name'>Campaign Name <i class="fa fa-pencil" id='edit-campaign-name' onclick='editName("#campaign-name")'></i></span>
+								<span>
+								<input type='text' name='campaign-name' id='campaign-name' value='Campaign Name'>
+								<i class="fa fa-pencil" id='edit-campaign-name' style='margin-left: 10px; margin-right: 10px'></i>
 								<a href="#" class='copy-webhook'>Copy Webhook</a>
 							</div>
 							<div class="campaign-details-content d-flex">
@@ -136,7 +138,7 @@
 					<p>Perfect. What's on the agenda today?</p>
 				</div>
 				<div class='campaign-builder-message message-sent'>
-					<p>Nothing cuz ur a cunt</p>
+					<p>Nothing much man, just heading to the city to grab a drink with PE.</p>
 				</div>
 				<div class="clearfix"></div>
 				<!-- End Message Sent -->
@@ -154,24 +156,6 @@
 	<script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/gojs/1.7.17/go.js'></script>
 	<script type='text/javascript' src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	<script type='text/javascript' src='https://code.jquery.com/ui/1.12.1/jquery-ui.js'></script>
-	<script>
-		(function() {
-			var smsMessage = $($('#newSMSMessage')[0]),
-				wait = $($('#wait')[0]);
-			smsMessage.on({
-				dblclick: function() {
-					alert("Create new SMS message")
-				}
-			})
-			wait.on({
-				dblclick: function() {
-					alert("Create a new WAIT command")
-				}
-			})
-		})();
-		function editName(element) {
-			var textArea = $('<textarea />')
-		}
-	</script>
 	<script src='{% static "/js/picturelements/graph.js" %}'></script>
+	<script src='{% static "/js/campaign-builder.js" %}'></script>
 {% endblock %}

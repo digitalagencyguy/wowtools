@@ -28,11 +28,4 @@ class Request:
 			return self.secondary
 		else:
 			return self.primary
-		
-
-		
-
-
-
-		
-
+	

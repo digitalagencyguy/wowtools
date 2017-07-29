@@ -1,13 +1,17 @@
 from .utils import Request
 from django.shortcuts import render
 from django.shortcuts import redirect
+from django.views.decorators.cache import cache_page as store
 
+
+@store(60 * 15)
 def index(request):
 	response = Request(request, 'index', 'landing')
 	template = response.template()
 	context = response.context()
 	return render(request, template, context)
 
+@store(60 * 15)
 def audience(request):
 	response = Request(request, 'audience')
 	template = response.template()
