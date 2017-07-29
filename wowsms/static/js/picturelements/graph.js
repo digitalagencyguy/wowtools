@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 //Various commonly referenced nodes
 var scene=document.getElementById("builder-canvas");
 
