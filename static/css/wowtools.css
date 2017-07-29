@@ -700,7 +700,87 @@ html {
 	border: 0;
 	padding: 0;
 }
-
+/**
+ * Invisible Button Audience-2 Sync
+ */
+.invisible-button {
+  background-color: Transparent;background-repeat:no-repeat;
+  border: none;
+  cursor:pointer;
+  overflow: hidden;
+  outline:none;
+}
+/**
+* Audience Sync Modal
+*/
+#audienceSyncModal form {
+	max-width: 100%;
+	width: 100%;
+}
+#audienceSyncModal .individual-audience-sync label,
+#audienceSyncModal .individual-audience-sync input {
+  margin-right: 15px;
+  height: 32.5px;
+  font-size: 14px;
+  line-height: 32.5px;
+  width: auto;
+}
+.individual-audience-sync ul {
+	margin-left: 0;
+	text-align: right;
+	max-width: 35px;
+	padding-left: 0;
+}
+.individual-audience-sync ul li {
+	display: inline-block;
+}
+.individual-audience-sync input {
+	box-sizing: border-box;
+	padding-left: 10px;
+}
+.individual-audience-sync .invalid-input {
+	border: 2px solid #ff4136;
+}
+.individual-audience-sync label {
+  white-space: nowrap;
+}
+.individual-audience-sync select {
+	height: 32.5px;
+	line-height: 32.5px;
+	width: auto;
+	flex: 1;
+	margin-right: 10px;
+}
+.individual-audience-sync button {
+	width: 35px;
+	height: 35px;
+	line-height: 35px;
+	padding: 0;
+	border: 0;
+	background: transparent;
+	color: #fff;
+	cursor: pointer;
+}
+.individual-audience-sync button.trash {
+	background: #ff4136;
+}
+.individual-audience-sync button.plus {
+	background: #27D23f;
+}
+.individual-audience-sync .submit-btn {
+	float: right;
+	margin-top: 20px;
+	background: #27D23f;
+	height: 40px;
+	width: 150px;
+	line-height: 40px;
+	text-transform: uppercase;
+	color: #fff;
+	cursor: pointer;
+	font-weight: bolder;
+	border: 0;
+	padding: 0;
+}
 /**
  * Audience Table
  */

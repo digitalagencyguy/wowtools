@@ -618,6 +618,42 @@ var Audience2 = {
 	},
 
 	/**
+	 * Handles behaviour of pressing the plus button on the
+	 * individual audience page but only within the modal object
+	 */
+	addIndividualAudienceRowModal: function(counter) {
+		event.preventDefault();
+		counter = counter + 1;
+
+		// Turn the current add row button into a trash button
+		$('.individual-audience-sync ul li.contains-plus').hide();
+		$('.individual-audience-sync ul li.contains-trash').show();
+
+		// Append a row
+		$('#individual-audience-sync-app').append(
+			'<div class="d-flex individual-audience-sync" id="modal-row-' + counter + '">' +
+				'<label>First Name</label>' +
+				'<input type="text" name="#">' +
+				'<label>Last Name</label>' +
+				'<input type="text" name="#">' +
+				'<label>Mobile</label>' +
+					'<select>' +
+							'<option value="+61">+61</option>' +
+					'</select>' +
+				'<input type="text" name="#">' +
+				'<ul>' +
+					'<li class="contains-trash" style="display:none;">' +
+						'<button class="trash" onclick="Audience2.removeIndividualAudienceRowModal(' + counter + ');"><i class="fa fa-minus"></i></button>' +
+					'</li>' +
+					'<li class="contains-plus">' +
+						'<button class="plus" onclick="Audience2.addIndividualAudienceRowModal(' + counter + ');"><i class="fa fa-plus"></i></button>' +
+					'</li>' +
+				'</ul>' +
+			'</div>'
+		);
+	},
+
+	/**
 	 * Handles behaviour when pressing the minus button
 	 * on the individual audience page
 	 */
@@ -630,6 +666,27 @@ var Audience2 = {
 			var counter = counter - 1;
 			if(counter > 0) {
 				$('#row-' + counter + ' ul.d-flex').append(
+					'<li>' +
+						'<button class="plus" onclick="Audience2.addIndividualAudienceRow(' + counter + ');"><i class="fa fa-plus"></i></button>' +
+					'</li>'
+				);
+			}
+		}
+	},
+
+	/**
+	 * Handles behaviour when pressing the minus button
+	 * on the individual audience page but only within the modal
+	 */
+	removeIndividualAudienceRowModal: function(counter) {
+		event.preventDefault();
+		$('#modal-row-' + counter).remove();
+
+		var counter = counter + 1;
+		if(! $('#modal-row-' + counter).length) {
+			var counter = counter - 1;
+			if(counter > 0) {
+				$('#modal-row-' + counter + ' ul.d-flex').append(
 					'<li>' +
 						'<button class="plus" onclick="Audience2.addIndividualAudienceRow(' + counter + ');"><i class="fa fa-plus"></i></button>' +
 					'</li>'

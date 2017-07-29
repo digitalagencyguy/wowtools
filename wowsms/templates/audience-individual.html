@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% block content %}
+<!-- Audience Individual Add -->
+<div class="audience-individual-add">
+	<div class="container">
+		<div class="col">
+			<h2>Adding Audience</h2>
+		</div>
+		<hr>
+		<div class='contains-individual-add-audience-rows'>
+			<!-- Audience2 Sync -->
+			<div class="d-flex">
+				<div class="d-flex audience-sync-form sync-container">
+					<button class="invisible-button modal-toggle" data-modal-function="audienceSyncModal">
+						<div class="sync-indicator">
+							<div class="slide"></div>
+							<span>No</span>
+						</div>
+					</button>
+					<p>sync this contact with Active Campaign</p>
+				</div>
+			</div>
+			<!-- End Audience2 Sync -->
+			<form action='#' class='add-audience-form'>
+				<div class='add-audience-individual-rows'>
+					<!-- Individual Add Audience Row -->
+					<div class="d-flex individual-add-audience">
+						<label>First Name</label>
+						<input type="text" name="#">
+						<label>Last Name</label>
+						<input type="text" name="#">
+						<label>Mobile</label>
+						<select>
+							<option value="+61">+61</option>
+						</select>
+						<input type="text" name="#">
+						<label>Tags</label>
+						<input type="text" name="#">
+						<ul></ul>
+					</div>
+					<!-- End Individual Add Audience Row -->
+					<!-- Individual Add Audience Row -->
+					<div class="d-flex individual-add-audience" id='row-1'>
+						<label>First Name</label>
+						<input type="text" name="#">
+						<label>Last Name</label>
+						<input type="text" name="#">
+						<label>Mobile</label>
+						<select>
+							<option value="+61">+61</option>
+						</select>
+						<input type="text" name="#">
+						<label>Tags</label>
+						<input type="text" name="#">
+						<ul class='d-flex'>
+							<li class="contains-trash" style='display:none;'>
+								<button class="delete-individual-add-audience trash" onclick="Audience2.removeIndividualAudienceRow(1);"><i class="fa fa-minus"></i></button>
+							</li>
+							<li>
+								<button class='plus' onclick="Audience2.addIndividualAudienceRow(1);"><i class="fa fa-plus"></i></button>
+							</li>
+						</ul>
+					</div>
+					<!-- End Individual Add Audience Row -->
+				</div>
+				<!-- Continue Button -->
+				<button class='submit-btn'>Continue</button>
+				<div class='clearfix'></div>
+			</form>
+		</div>
+	</div>
+</div>
+<!-- End Audience Individual Add -->
+{% endblock %}
+{% block modalContent %}
+<div class="wowtools-modal" id='audienceSyncModal'>
+	<div class="d-flex">
+		<h4>2 Active Campaigs sync issues found</h4>
+	</div>
+	<form action="#" method="POST">
+		<div id='individual-audience-sync-app'>
+			<!-- Individual Audience Sync Row -->
+			<div class="d-flex individual-audience-sync" id='modal-row-1'>
+				<label>First Name</label>
+				<input type="text" name="#">
+				<label>Last Name</label>
+				<input type="text" name="#" class='invalid-input'>
+				<label>Mobile</label>
+				<select class='invalid-input'>
+					<option value="+61">+61</option>
+				</select>
+				<input type="text" name="#">
+				<ul>
+					<li class="contains-trash" style='display:none;'>
+						<button class="trash" onclick="Audience2.removeIndividualAudienceRowModal(1);"><i class="fa fa-minus"></i></button>
+					</li>
+					<li class="contains-plus">
+						<button class='plus' onclick="Audience2.addIndividualAudienceRowModal(1);"><i class="fa fa-plus"></i></button>
+					</li>
+				</ul>
+			</div>
+			<!-- End Individual Audience Sync Row -->
+		</div>
+		<!-- Finish Button -->
+		<div class="individual-audience-sync">
+			<button class='submit-btn'>Finish</button>
+		</div>
+		<!-- End Individual Audience Sync Row -->
+	</form>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+	Site.init('audience2');
+</script>
+{% endblock %}
