@@ -93,7 +93,6 @@ function down(evt){
 
 function move(evt){
 	if (pressed&&canDrag) drag(evt);
-	if (pressed) drag(evt);
 	if (routeMode.move) routeMode.move(evt);
 }
 
