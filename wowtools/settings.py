@@ -89,14 +89,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-CACHES = {
-   'default': {
-      'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-      'LOCATION': '127.0.0.1:8000',
-   }
-}
-
-
 PASSWORD_HASHERS = [
     'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
     'django.contrib.auth.hashers.BCryptPasswordHasher',
