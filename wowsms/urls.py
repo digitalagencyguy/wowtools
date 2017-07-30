@@ -10,5 +10,6 @@ urlpatterns = [
 	url('sms/?$', views.sms, name='sms'),
 	url('schedule/?$', views.schedule, name='schedule'),
 	url('logout/?$',views.logout, name='logout'),
-	url('login/?$',views.login, name='login')
+	url('login/?$',views.login, name='login'),
+	url('register/?$', views.register, name='register')
 ]
