@@ -4,6 +4,14 @@ no-padding no-margin full-width full-height
 {% endblock %}
 {% block content %}
 <!-- Settings -->
+<style>
+	.hide-user {
+		display: none !important;
+	}
+	.unhide-user {
+		display: flex !important;
+	}
+</style>
 <div class="settings">
 	{% csrf_token %}
 	<!-- Settings top header -->
@@ -247,9 +255,9 @@ no-padding no-margin full-width full-height
 						<div class="col">
 							<div class="add-user-top-right">
 								<div class='d-flex'>
-									<button class="add-user-btn" onclick='addUser()'>Add User</button>
+									<button class="add-user-btn" id='add-user'>Add User</button>
 									<div class="search-users">
-										<input type="text" name="" placeholder="Search Users...">
+										<input type="text" name="user-search" placeholder="Search Users..." id='search-users'>
 										<i class="fa fa-search"></i>
 									</div>
 								</div>
@@ -257,75 +265,24 @@ no-padding no-margin full-width full-height
 							<div class='col'>
 								<p>Do you have any other staff or team members that you would like notifications to be emailed to:</p>
 							</div>
-							<div class='users-fields'>
-								<div class="users-field d-flex">
+							<div class='users-fields' id='users-field'>
+								<div class="users-field d-flex user" id='user-field'>
 									<div class="col">
 										<label>First Name</label>
-										<input type="text" name="#" id='userFirstName1'>
+										<input type="text" name="#" id='userFirstName1' oninput='validateName(this)'>
 									</div>
 									<div class="col">
 										<label>Last Name</label>
-										<input type="text" name="#" id='userLastName1'>
+										<input type="text" name="#" id='userLastName1' oninput='validateName(this)'>
 									</div>
 									<div class="col">
 										<label>Email address</label>
-										<input type="text" name="#" id='userEmail1'>
+										<input type="text" name="#" id='userEmail1' oninput='validateEmail(this)'>
 									</div>
 									<div class="col user-settings-options">
 										<ul>
-											<li>
-												<button class='trash'><i class="fa fa-trash"></i></button>
-											</li>
-											<li>
-												<button class='edit'><i class="fa fa-pencil"></i></button>
-											</li>
-										</ul>
-									</div>
-								</div>
-								<div class="users-field d-flex">
-									<div class="col">
-										<label>First Name</label>
-										<input type="text" name="#" id='userFirstName2'>
-									</div>
-									<div class="col">
-										<label>Last Name</label>
-										<input type="text" name="#" id='userLastName2'>
-									</div>
-									<div class="col">
-										<label>Email address</label>
-										<input type="text" name="#" id='userEmail2'>
-									</div>
-									<div class="col user-settings-options">
-										<ul>
-											<li>
-												<button class='trash'><i class="fa fa-trash"></i></button>
-											</li>
-											<li>
-												<button class='edit'><i class="fa fa-pencil"></i></button>
-											</li>
-										</ul>
-									</div>
-								</div>
-								<div class="users-field d-flex">
-									<div class="col">
-										<label>First Name</label>
-										<input type="text" name="firstname" id='userFirstName3'>
-									</div>
-									<div class="col">
-										<label>Last Name</label>
-										<input type="text" name="lastname" id='userLastName3'>
-									</div>
-									<div class="col">
-										<label>Email address</label>
-										<input type="text" name="email" id='userEmail3'>
-									</div>
-									<div class="col user-settings-options">
-										<ul>
-											<li>
-												<button class='trash'><i class="fa fa-trash"></i></button>
-											</li>
-											<li>
-												<button class='edit'><i class="fa fa-pencil"></i></button>
+											<li onclick='deleteUser(this)'>
+												<button class='trash'><i class="fa fa-trash" id='delete-user'></i></button>
 											</li>
 										</ul>
 									</div>
@@ -366,8 +323,8 @@ no-padding no-margin full-width full-height
 									</div>
 									<div class="google-account-information">
 										<span class='google-account-status'>Google Account Connected</span>
-										<span class="google-account-name">Nathan Hague</span>
-										<span class="google-account-email">australiawow@gmail.com</span>
+										<span class="google-account-name">{{ user.firstname }} {{ user.lastname }}</span>
+										<span class="google-account-email">{{ user.gmail }}</span>
 										<a href="#">change</a>
 									</div>
 								</div>

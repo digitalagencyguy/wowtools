@@ -38,4 +38,8 @@ def login(request):
 	request.session['user'] = '1'
 	return redirect('/')
 
+def register(request):
+	response = Request(request, 'register', 'landing', False)
+	return render(request, response.template, response.context)
+
 #$kil1ion

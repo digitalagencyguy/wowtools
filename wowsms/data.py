@@ -16,6 +16,7 @@ USER = {
 		'zipCode': 52242,
 		'country': 'US',
 		'credit': 5.23,
-		'queue': 444
+		'queue': 444,
+		'gmail': 'w.hicks917@gmail.com',
 	}
 }
