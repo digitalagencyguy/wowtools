@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load cache %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -64,17 +65,17 @@
 				<div class="sidebar-information">
 					<img src="http://via.placeholder.com/100x100">
 					<span class="sidebar-business-name">Business Name</span>
-					<span class="sidebar-person-name" id='name'>{{ user.firstname}} {{ user.lastname }}</span>
+					<span class="sidebar-person-name" id='name'>{{ user.firstname }} {{ user.lastname }}</span>
 				</div>
 				<hr>
 				<nav>
 					<ul>
 						<li>
 							<a href="/sms">Buy SMS</a>
-							<span class='credit-remaining'>(Credit Remaining: {{ user.sms }})</span>
+							<span class='credit-remaining'>(Credit Remaining: ${{ user.credit }})</span>
 						</li>
 						<li>
-							<a href='/schedule'>Schedule ({{ user.inQueue }})</a>
+							<a href='/schedule'>Schedule ({{ user.queue }})</a>
 						</li>
 						<li>
 							<a href="/campaigns">Campaigns</a>

@@ -5,3 +5,19 @@
 	cursor: grab;
 	cursor: -moz-grab;
 	cursor: -webkit-grab;}
+
+#campaign-name {
+	height: 20px;
+	border: none;
+	width: 250px;
+	text-align: center;
+	font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+	background: transparent;
+	color: white;
+	font-size: 16px;
+	font-style: italic;
+}
+
+#campaign-name:focus {
+	outline: none;
+}
