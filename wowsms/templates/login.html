@@ -1,15 +1,40 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <html>
 <head>
 	<title>Login</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-	<script src="{% static 'css/login.css' %}"></script>
+	<link rel="{% static 'css/login.css' %}">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="{% static 'css/wowtools.css' %}">
+	<script src="{% static 'js/utils.js' %}"></script>
 </head>
 <body>
-	<form action='/api/v1/login' method='post'>
-		<input type='text' name='name' placeholder="Username">
-		<input type='text' name='password' placeholder="Password">
-	</form>
+	<section id="wrapper" class="login-register">
+		<div class="login-box">
+			<div class="white-box">
+				<h1>Sign up for WOW!SMS</h1>
+				<form action='/api/v1/login' method='post'>
+					<h3 class="box-title">Register</h3>
+					<div class='form-group'>
+						<div class='col-xs-12'>
+							<input type='text' name='name' placeholder="Username">
+						</div>
+					</div>
+					<div class='form-group'>
+						<div class='col-xs-12'>
+							<input type='text' name='password' placeholder="Password">
+						</div>
+					</div>
+					<div class="form-group text-center m-t-20">
+						<div class="col-xs-12">
+							<button class="btn btn-login btn-block" type="submit">Login</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</section>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
