@@ -1,8 +1,5 @@
 {%extends "base.html" %}
-{% block css %}
 {% load staticfiles %}
-	<link rel='stylesheet' href='{% static "/css/campaign-builder.css" %}'>
-{% endblock %}
 {% block content %}
 	<style>
 		.campaign-builder-phone {
@@ -23,39 +20,171 @@
 			background-size: 100% 100%;
 			background-position: center;
 		}
-	</style>
-	<!-- PE's CSS -->
-	<style>
+		.campaign-builder-interface {
+			font-size: 16px;
+		}
+
 		#builder-frame {
-		    position: absolute;
-		    width: 100%;
-		    height: 100%;
-		    overflow: hidden;
-		    font-size: 16px;
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			overflow: hidden;
+		}
+
+		#overlay-box {
+			position: absolute;
+			pointer-events: none;
+			width: 100%;
+			height: 100%;
+			z-index: 10;
+		}
+
+		#overlay-box > * {
+			pointer-events: auto;
+			font-size: 16px;
 		}
 
 		#builder-canvas {
-		    position: absolute;
+			position: absolute;
 			background: url('{% static "/campaign-builder-images/interactive-area-bg.jpg" %}');
-		    width: 500em;
-		    height: 500em;
-		    left: -250em;
-		    top: -10em;
-		    margin-left: 50%;
+			width: 500em;
+			height: 500em;
+			left: -250em;
+			top: -10em;
+			margin-left: 50%;
+			touch-action:none;
+			cursor: default;
+			cursor: -moz-grab;
+			cursor: -webkit-grab;
+		}
+
+		#builder-canvas.dragging, #shadow-objects svg {
+			cursor: move;
+			cursor: -moz-grabbing;
+			cursor: -webkit-grabbing;
+		}
+
+		#builder-canvas svg {
+			width: 100%;
+			height: 100%;
+			pointer-events: none;
+		}
+
+		.module {
+			cursor: default;
 		}
 
 		#start-area {
-		    position: absolute;
-		    width: 100%;
-		    height: 5em;
-		    justify-content: center;
-		    top: 12em;
+			position: absolute;
+			width: 100%;
+			justify-content: center;
+			top: 12em;
 		}
 
 		#start-button {
-		    width: 10em;
-		    height: 3em;
-		    background: red;
+			position: relative;
+			width: 8em;
+			height: 2em;
+			background: #2f64a4;
+			border-radius: 1em;
+			overflow: hidden;
+		}
+
+		#start-lbl {
+			display: flex;
+			position: absolute;
+			width: 75%;
+			height: 100%;
+			background: white;
+			align-items: center;
+			justify-content: center;
+			font-size: 120%;
+			line-height: 1;
+		}
+
+		.blue-border {
+			border: 2px solid #2f64a4;
+		}
+
+		.settings-button {
+			position: relative;
+			float: right;
+			background: #2f64a6;
+			height: 100%;
+			width: 2em;
+			cursor: pointer;
+		}
+
+		/*Shadow objects*/
+		#shadow-objects svg {
+			display: none;
+			position: absolute;
+			stroke: rgba(50, 220, 20,0.5);
+			stroke-width: 0.15;
+			fill: rgba(50, 220, 20, 0.2);
+		}
+
+		#shadow-objects svg.error{
+			stroke: rgba(220, 20, 20, 0.5);
+			fill: rgba(220, 20, 20, 0.2);
+		}
+
+		#shadow-rect {
+			width: 28em;
+			height: 10em;
+			margin: -5em -14em;
+		}
+
+		#shadow-rhombus {
+			width: 10em;
+			height: 8em;
+			margin: -4em -5em;
+		}
+
+		#shadow-circle {
+			width: 10em;
+			height: 10em;
+			margin: -5em;
+		}
+
+		.popout{
+			animation: pop 300ms forwards 1;
+		}
+
+		@keyframes pop{
+			20%{
+				-webkit-transform: scale(1.2);
+				-moz-transform: scale(1.2);
+				-ms-transform: scale(1.2);
+				transform: scale(1.2);
+			}
+			100%{
+				-webkit-transform: scale(0);
+				-moz-transform: scale(0);
+				-ms-transform: scale(0);
+				transform: scale(0);
+			}
+		}
+		#builder-canvas.dragging {
+			cursor: move;
+			cursor: grab;
+			cursor: -moz-grab;
+			cursor: -webkit-grab;}
+
+		#campaign-name {
+			height: 20px;
+			border: none;
+			width: 250px;
+			text-align: center;
+			font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+			background: transparent;
+			color: white;
+			font-size: 16px;
+			font-style: italic;
+		}
+
+		#campaign-name:focus {
+			outline: none;
 		}
 	</style>
 	<!-- Campaign Builder -->
@@ -84,7 +213,9 @@
 						</button>
 						<div class='campaign-details-campaign-builder'>
 							<div class="campaign-details-header d-flex">
-								<span id='campaign-name'>Campaign Name <i class="fa fa-pencil" id='edit-campaign-name' onclick='editName("#campaign-name")'></i></span>
+								<span>
+								<input type='text' name='campaign-name' id='campaign-name' value='Campaign Name'>
+								<i class="fa fa-pencil" id='edit-campaign-name' style='margin-left: 10px; margin-right: 10px'></i>
 								<a href="#" class='copy-webhook'>Copy Webhook</a>
 							</div>
 							<div class="campaign-details-content d-flex">
@@ -100,11 +231,33 @@
 				<!-- End Campaign Builder Controls (Top Part) -->
 				<!-- Campaign Builder Drag and Drop interface -->
 				<div class="campaign-builder-interface">
+					<div id="overlay-box">
+						<div id="shadow-objects">
+							<svg viewBox="-1 -1 28 10" id="shadow-rect">
+								<rect width="26" height="8"></rect>
+							</svg>
+							<svg viewBox="-1 -1 10 8" id="shadow-rhombus">
+								<path d="M0 3 l4 3 l4 -3 l-4 -3 z"></path>
+							</svg>
+							<svg viewBox="-1 -1 10 10" id="shadow-circle">
+								<circle cx="4" cy="4" r="4"></circle>
+							</svg>
+						</div>
+					</div>
 					<div id="builder-frame">
-						<div id="builder-canvas">
-							<div id="start-area" class="d-flex">
-								<div id="start-button">
-
+						<div id="builder-canvas" class="grab">
+							<svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg" height="500" width="500">
+								<defs>
+									<pattern id="backgrid" x="0" y="0" width="0.002" height="0.002">
+										<rect x="0" y="0" width="1" height="1" fill="white" stroke="#eee" stroke-width="0.1"></rect>
+									</pattern>
+								</defs>
+								<rect fill="url(#backgrid)" width="500" height="500"></rect>
+							</svg>
+							<div id="start-area" class="d-flex inert">
+								<div id="start-button" class="blue-border module">
+									<div id="start-lbl">START</div>
+									<div class="settings-button"></div>
 								</div>
 							</div>
 						</div>
@@ -136,7 +289,7 @@
 					<p>Perfect. What's on the agenda today?</p>
 				</div>
 				<div class='campaign-builder-message message-sent'>
-					<p>Nothing cuz ur a cunt</p>
+					<p>Nothing much man, just heading to the city to grab a drink with PE.</p>
 				</div>
 				<div class="clearfix"></div>
 				<!-- End Message Sent -->
@@ -144,11 +297,6 @@
 		</div>
 	</div>
 	<!-- End Campaign Builder -->
-	<!-- Shape drag box -->
-	<div id="">
-		<svg id="msg_shadow" viewBox="0 0 400 100"></svg>
-	</div>
-	<!-- End shape drag box -->
 {% endblock %}
 {% block scripts %}
 	<script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/gojs/1.7.17/go.js'></script>
@@ -174,4 +322,6 @@
 		}
 	</script>
 	<script src='{% static "/js/picturelements/graph.js" %}'></script>
+	<script src='{% static "/js/picturelements/graph.js" %}'></script>
+	<script src='{% static "/js/campaign-builder.js" %}'></script>
 {% endblock %}
