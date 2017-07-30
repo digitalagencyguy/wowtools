@@ -7,6 +7,7 @@ class Customer(models.Model):
 	credit = models.FloatField()
 	queue = models.IntegerField()
 	trial = models.BooleanField()
+	countryCode = models.IntegerField(default=61)
 	mobile = models.TextField()
 	businessName = models.TextField()
 	businessAddress = models.TextField()
