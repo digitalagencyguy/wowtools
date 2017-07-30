@@ -1,5 +1,8 @@
 {%extends "base.html" %}
+{% block css %}
 {% load staticfiles %}
+	<link rel='stylesheet' href='{% static "/css/campaign-builder.css" %}'>
+{% endblock %}
 {% block content %}
 	<style>
 		.campaign-builder-phone {
@@ -20,8 +23,14 @@
 			background-size: 100% 100%;
 			background-position: center;
 		}
+	</style>
+	<!-- PE's CSS -->
+	<style>
 		.campaign-builder-interface {
 			font-size: 16px;
+			-webkit-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
 		}
 
 		#builder-frame {
@@ -58,7 +67,7 @@
 			cursor: -webkit-grab;
 		}
 
-		#builder-canvas.dragging, #shadow-objects svg {
+		#builder-canvas.dragging, #shadow-objects svg, #builder-canvas.dragging .module {
 			cursor: move;
 			cursor: -moz-grabbing;
 			cursor: -webkit-grabbing;
@@ -68,10 +77,6 @@
 			width: 100%;
 			height: 100%;
 			pointer-events: none;
-		}
-
-		.module {
-			cursor: default;
 		}
 
 		#start-area {
@@ -103,7 +108,11 @@
 		}
 
 		.blue-border {
-			border: 2px solid #2f64a4;
+			border: 0.1em solid #2f64a4;
+		}
+
+		.module.error .blue-border, .blue-border.error {
+			border-color: #dc3c3c;
 		}
 
 		.settings-button {
@@ -113,6 +122,53 @@
 			height: 100%;
 			width: 2em;
 			cursor: pointer;
+		}
+
+		.module.error .settings-button {
+			background: #dc3c3c;
+		}
+
+		.error svg {
+			stroke: #dc3c3c;
+		}
+
+		.module.closest-elem .blue-border, .blue-border.closest-elem {
+			border-color: #0dc5ff;
+		}
+
+		.closest-elem .settings-button {
+			background: #0dc5ff;
+		}
+
+		.closest-elem svg {
+			stroke: #0dc5ff;
+		}
+
+		.settings-button.rounded {
+			position: absolute;
+			height: 2em;
+			border-radius: 0 0.3em 0.3em 0;
+			top: 0;
+			right: 0;
+		}
+
+		.settings-button.circle {
+			height: 2em;
+			border-radius: 50%;
+		}
+
+		#line-area {
+			position: absolute;
+			top: 0;
+			z-index: 10001;
+			stroke-width: 0.1;
+			stroke: #8ed586;
+			fill: none;
+		}
+
+		#line-area circle{
+			fill: #8ed586;
+			stroke: none;
 		}
 
 		/*Shadow objects*/
@@ -130,9 +186,9 @@
 		}
 
 		#shadow-rect {
-			width: 28em;
+			width: 30em;
 			height: 10em;
-			margin: -5em -14em;
+			margin: -5em -15em;
 		}
 
 		#shadow-rhombus {
@@ -151,6 +207,71 @@
 			animation: pop 300ms forwards 1;
 		}
 
+		#guideline{
+			display: none;
+			position: absolute;
+			height: 100%;
+			margin-left: -0.05em;
+			left: 250em;
+			top: 0;
+			border-left: 0.1em dashed #0dc5ff;
+		}
+
+		/*Modules*/
+		.module{
+			position: absolute;
+			cursor: default;
+		}
+
+		.module.message{
+			width: 28em;
+			height: 8em;
+		}
+
+		.module.wait{
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 10em;
+			height: 8em;
+		}
+
+		.module.joiner{
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 8em;
+			height: 8em;
+			background: white;
+			border-radius: 50%;
+		}
+
+		.msg-box{
+			position: absolute;
+			box-sizing: border-box;
+			width: 26em;
+			height: 100%;
+			background: white;
+			border-radius: 0.3em 0 0.3em 0.3em;
+			overflow: auto;
+		}
+
+		.msg-content {
+			padding: 0.5em;
+			height: 100%;
+			font-size: 90%;
+			outline: none;
+		}
+
+		.module-rhombus{
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			fill: white;
+			stroke: #2f64a4;
+			stroke-width: 0.14;
+		}
+
 		@keyframes pop{
 			20%{
 				-webkit-transform: scale(1.2);
@@ -165,26 +286,11 @@
 				transform: scale(0);
 			}
 		}
-		#builder-canvas.dragging {
-			cursor: move;
-			cursor: grab;
-			cursor: -moz-grab;
-			cursor: -webkit-grab;}
 
-		#campaign-name {
-			height: 20px;
-			border: none;
-			width: 250px;
-			text-align: center;
-			font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
-			background: transparent;
-			color: white;
-			font-size: 16px;
-			font-style: italic;
-		}
-
-		#campaign-name:focus {
-			outline: none;
+		#testdiv{
+			position: fixed;
+			pointer-events: none;
+			background: rgba(255,0,0,0.5);
 		}
 	</style>
 	<!-- Campaign Builder -->
@@ -233,8 +339,8 @@
 				<div class="campaign-builder-interface">
 					<div id="overlay-box">
 						<div id="shadow-objects">
-							<svg viewBox="-1 -1 28 10" id="shadow-rect">
-								<rect width="26" height="8"></rect>
+							<svg viewBox="-1 -1 30 10" id="shadow-rect">
+								<path d="M0 0 l28 0 l0 2 l-2 0 l0 6 l-26 0 z"></path>
 							</svg>
 							<svg viewBox="-1 -1 10 8" id="shadow-rhombus">
 								<path d="M0 3 l4 3 l4 -3 l-4 -3 z"></path>
@@ -254,6 +360,8 @@
 								</defs>
 								<rect fill="url(#backgrid)" width="500" height="500"></rect>
 							</svg>
+							<svg id="line-area" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg" height="500" width="500"></svg>
+							<div id="guideline"></div>
 							<div id="start-area" class="d-flex inert">
 								<div id="start-button" class="blue-border module">
 									<div id="start-lbl">START</div>
@@ -297,6 +405,14 @@
 		</div>
 	</div>
 	<!-- End Campaign Builder -->
+	<!-- Buffers -->
+	<div style="display: none">
+		<div id="rhombus-buffer">
+			<svg viewBox="-1 -1 10 8" class="module-rhombus">
+				<path d="M0 3 l4 3 l4 -3 l-4 -3 z"></path>
+			</svg>
+		</div>
+	</div>
 {% endblock %}
 {% block scripts %}
 	<script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/gojs/1.7.17/go.js'></script>
@@ -321,7 +437,6 @@
 			var textArea = $('<textarea />')
 		}
 	</script>
-	<script src='{% static "/js/picturelements/graph.js" %}'></script>
 	<script src='{% static "/js/picturelements/graph.js" %}'></script>
 	<script src='{% static "/js/campaign-builder.js" %}'></script>
 {% endblock %}
