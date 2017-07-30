@@ -93,7 +93,6 @@ function down(evt){
 
 function move(evt){
 	if (pressed&&canDrag) drag(evt);
-	if (pressed) drag(evt);
 	if (routeMode.move) routeMode.move(evt);
 }
 
@@ -159,7 +158,7 @@ function dragButton(evt){
 	var pos=pxToEm(getCoordsOffs(evt)),
 		dom=moveData.dom;
 
-	dom.style.left=(Math.round(pos[0]-cOffset.x%1+3/em)+cOffset.x%1-3/em)+"em";
+	dom.style.left=(Math.round(pos[0]-cOffset.x%1)+cOffset.x%1-3/em)+"em";
 	dom.style.top=(Math.round(pos[1]-cOffset.y%1)+cOffset.y%1)+"em";
 	checkValidPlace(moveData.dom);
 }
