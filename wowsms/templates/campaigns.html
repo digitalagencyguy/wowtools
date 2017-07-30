@@ -1,8 +1,4 @@
 {%extends "base.html" %}
-{% block css %}
-{% load staticfiles %}
-	<link rel='stylesheet' href='{% static "/css/campaign-builder.css" %}'>
-{% endblock %}
 {% block content %}
 	<style>
 		.campaign-builder-phone {
@@ -23,9 +19,6 @@
 			background-size: 100% 100%;
 			background-position: center;
 		}
-	</style>
-	<!-- PE's CSS -->
-	<style>
 		.campaign-builder-interface {
 			font-size: 16px;
 		}
@@ -170,6 +163,27 @@
 				-ms-transform: scale(0);
 				transform: scale(0);
 			}
+		}
+		#builder-canvas.dragging {
+			cursor: move;
+			cursor: grab;
+			cursor: -moz-grab;
+			cursor: -webkit-grab;}
+
+		#campaign-name {
+			height: 20px;
+			border: none;
+			width: 250px;
+			text-align: center;
+			font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+			background: transparent;
+			color: white;
+			font-size: 16px;
+			font-style: italic;
+		}
+
+		#campaign-name:focus {
+			outline: none;
 		}
 	</style>
 	<!-- Campaign Builder -->
