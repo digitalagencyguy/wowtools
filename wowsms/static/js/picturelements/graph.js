@@ -114,6 +114,8 @@ function drag(evt){
 	//Update prevRecord
 	getCoords(evt);
 	scene.classList.add("dragging");
+	document.body.classList.add("mobile-drag");
+	evt.preventDefault();
 	if (routeMode.drag)
 		routeMode.drag(evt);
 }
@@ -121,6 +123,7 @@ function drag(evt){
 function up(evt){
 	pressed=false;
 	scene.classList.remove("dragging");
+	document.body.classList.remove("mobile-drag");
 	if (routeMode.up)
 		routeMode.up(evt);
 	clearCE();
@@ -229,6 +232,7 @@ function checkValidPlace(el,onlyOverlap){
 		if (!onlyOverlap&&diff<(el.border?-1:0)*em)
 			return false;
 	}
+
 	var ce=getClosestElem(el);
 	if (!ce)
 		return false;
@@ -288,7 +292,7 @@ function getClosestElem(elem){
 	}
 
 	//Create an element and check if it can be placed between the two modules
-	//without overlapping other elements,and if it does, it means a line can 
+	//without overlapping other elements. If it does, it means a line can 
 	//be drawn there.
 	var testItem=document.createElement("div");
 	testItem.id="testdiv";
@@ -327,6 +331,7 @@ function clearCE(){
 	var closest=document.getElementsByClassName("closest-elem")[0];
 	if (closest) closest.classList.remove("closest-elem");
 	document.getElementById("guideline").style.display="none";
+	scene.classList.remove("graph-error");
 }
 
 function connectPoints(){
@@ -343,8 +348,8 @@ function connectModules(svg,module){
 		output=pxToEm([mbcr.left+mbcr.width/2,mbcr.top+mbcr.height-(module.dom.border?em:0)]).map(Math.round),
 		connections=[],
 		minTop=Infinity,
-		minLeft=Infinity,
-		maxRight=0;
+		minLeft=output[0],
+		maxRight=output[0];
 
 	//Calculate connection points
 	for (var i=0;i<module.children.length;i++){
@@ -408,8 +413,19 @@ function drawCircle(svg,coords){
 	svg.appendChild(c);
 }
 
+
+//-----------utils-----------
+
 Math.hypot2=function(a,b){
 	return Math.sqrt(a*a+b*b);
+};
+
+Array.clone=function(arr){
+	var out=[];
+	for (var i=0;i<arr.length;i++){
+		out.push(Array.isArray(arr[i])?Array.clone(arr[i]):arr[i]);
+	}
+	return out;
 };
 
 
@@ -423,7 +439,7 @@ function Sequence(dom){
 
 function createModule(evt,md,parent){
 	var module=new md.module();
-	module.build(createWrapper(evt,md));
+	module.build(createWrapper(evt,md,module));
 	module.parent=parent;
 	module.children=[];
 	module.dom.treeNode=module;
@@ -431,21 +447,27 @@ function createModule(evt,md,parent){
 	connectPoints();
 }
 
-function createWrapper(evt,md){
+function createWrapper(evt,md,module){
 	var coords=pxToEm(getCoordsOffs(evt,scene)),
 		wrapper=document.createElement("div");
 
 	wrapper.className="module "+md.name;
-	wrapper.style.left=(Math.round(coords[0])-md.w/2)+"em";
-	wrapper.style.top=(Math.round(coords[1])-md.h/2)+"em";
+	var x=(Math.round(coords[0])-md.w/2),
+		y=(Math.round(coords[1])-md.h/2);
+	wrapper.style.left=x+"em";
+	wrapper.style.top=y+"em";
+	module.coordinates=[x,y];
 
 	wrapper.addEventListener("mousedown",pickup);
+	wrapper.addEventListener("touchstart",pickup);
 
 	function pickup(evt){
 		curOffs=pxToEm(getCoordsOffs(evt,wrapper)).map(Math.round);
-		moveData={dom:wrapper};
+		moveData=module;
 		wrapper.style.zIndex="10000";
 		routeMode=route.dragModule;
+		prevCoords=Array.clone(module.coordinates);
+		document.body.classList.add("mobile-drag");
 	}
 
 	scene.appendChild(wrapper);
@@ -492,15 +514,50 @@ function Joiner(){
 
 function dragModule(evt){
 	var offset=pxToEm(getCoordsOffs(evt,scene)).map(Math.round);
-	moveData.dom.style.left=offset[0]-curOffs[0]+"em";
-	moveData.dom.style.top=offset[1]-curOffs[1]+"em";
-	checkValidPlace(moveData.dom,true);
-	connectPoints();
+	var dx=offset[0]-curOffs[0]-moveData.coordinates[0],
+		dy=offset[1]-curOffs[1]-moveData.coordinates[1];
+
+	if (dx||dy){
+		moveTree(moveData,dx,dy);
+		if (checkTree(moveData)){
+			connectPoints();
+			//Make sure the guideline refers to the move object.
+			checkValidPlace(moveData.dom,true);
+		}
+		else
+			scene.classList.add("graph-error");
+	}
+}
+
+function moveTree(module,dx,dy){
+	var mc=module.coordinates;
+	mc[0]+=dx;
+	mc[1]+=dy;
+
+	module.dom.style.left=mc[0]+"em";
+	module.dom.style.top=mc[1]+"em";
+
+	for (var i=0;i<module.children.length;i++){
+		moveTree(module.children[i],dx,dy);
+	}
+}
+
+function checkTree(module){
+	var valid=!!checkValidPlace(module.dom,true);
+	for (var i=0;i<module.children.length;i++){
+		valid&=checkTree(module.children[i]);
+	}
+	return valid;
 }
 
 function dropModule(evt){
 	moveData.dom.style.zIndex=null;
 	routeMode=route.dragScene
+	if (scene.classList.contains("graph-error")){
+		var mc=moveData.coordinates;
+		moveTree(moveData,prevCoords[0]-mc[0],prevCoords[1]-mc[1]);
+		connectPoints();
+	}
 }
 
 //-------Message specific-------
