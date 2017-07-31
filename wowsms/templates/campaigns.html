@@ -26,11 +26,14 @@
 	</style>
 	<!-- PE's CSS -->
 	<style>
-		.campaign-builder-interface {
-			font-size: 16px;
+		.dashboard-container{
 			-webkit-user-select: none;
 			-moz-user-select: none;
 			-ms-user-select: none;
+		}
+
+		.campaign-builder-interface {
+			font-size: 16px;
 		}
 
 		#builder-frame {
@@ -65,6 +68,10 @@
 			cursor: default;
 			cursor: -moz-grab;
 			cursor: -webkit-grab;
+		}
+
+		.mobile-drag, .mobile-drag * {
+			touch-action: none;
 		}
 
 		#builder-canvas.dragging, #shadow-objects svg, #builder-canvas.dragging .module {
@@ -112,7 +119,7 @@
 		}
 
 		.module.error .blue-border, .blue-border.error {
-			border-color: #dc3c3c;
+			border-color: #dc3c3c !important;
 		}
 
 		.settings-button {
@@ -125,11 +132,11 @@
 		}
 
 		.module.error .settings-button {
-			background: #dc3c3c;
+			background: #dc3c3c !important;
 		}
 
 		.error svg {
-			stroke: #dc3c3c;
+			stroke: #dc3c3c !important;
 		}
 
 		.module.closest-elem .blue-border, .blue-border.closest-elem {
@@ -164,6 +171,11 @@
 			stroke-width: 0.1;
 			stroke: #8ed586;
 			fill: none;
+		}
+
+		.graph-error #line-area{
+			opacity: 0.5;
+			z-index: 0;
 		}
 
 		#line-area circle{
