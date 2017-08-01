@@ -1,16 +1,17 @@
 //Various commonly referenced nodes
 var scene=document.getElementById("builder-canvas"),
-	sBtn=document.getElementById("start-button"),
+	sBtn=document.getElementById("start-button-wrapper"),
 	frame=document.getElementById("builder-frame");
 
 //Draggable items data
 var moduleData=[
 		{
 			name:"message",
-			w:28,
-			h:8,
+			w:30,
+			h:10,
 			dom:document.getElementById("shadow-rect"),
-			module:Message
+			module:Message,
+			preventEvents:true
 		},
 		{
 			name:"wait",
@@ -21,8 +22,8 @@ var moduleData=[
 		},
 		{
 			name:"joiner",
-			w:8,
-			h:8,
+			w:10,
+			h:10,
 			dom:document.getElementById("shadow-circle"),
 			module:Joiner
 		}
@@ -38,14 +39,20 @@ var em=16,
 	curOffs=[];
 
 //Graph data structure
-var seq=new Sequence(sBtn);
+var seq=new Sequence(sBtn),
+	verticals=[];
 sBtn.treeNode=seq;
+
+//Misc module vars
+var validTags=["firstname","First Name","lastname","Last Name","date/time","Date/Time","company","Company"];
 
 //Mouse/touch events
 var pressed=false,
 	prevCoords=[0,0],
 	prevRecord=[0,0],
-	canDrag;
+	canDrag,
+	oldMode,
+	editMode="move";
 
 //Reroute event handlers
 var route={
@@ -64,6 +71,10 @@ var route={
 		dragModule:{
 			drag:dragModule,
 			up:dropModule
+		},
+		resizeMessage:{
+			drag:resizeMessage,
+			up:endResize
 		}
 	},
 	routeMode=route.dragScene;
@@ -78,9 +89,9 @@ function addEventListeners(){
 			buttons[index].addEventListener("touchstart",selectButton);
 
 			function selectButton(evt){
+				setEditMode("move");
 				moveData=moduleData[index];
 				moveData.dom.style.display="block";
-				moveData.dom.border=true;
 				routeMode=route.dragButton;
 				dragButton(evt);
 			}
@@ -93,6 +104,7 @@ function addEventListeners(){
 	document.body.addEventListener("touchmove",move);
 	document.body.addEventListener("mouseup",up);
 	document.body.addEventListener("touchend",up);
+	document.body.addEventListener("dblclick",dblclick);
 }
 
 //Event handlers
@@ -127,6 +139,11 @@ function up(evt){
 	if (routeMode.up)
 		routeMode.up(evt);
 	clearCE();
+}
+
+function dblclick(evt){
+	if (editMode=="remove")
+		removeElem(evt);
 }
 
 function checkDraggable(evt){
@@ -196,7 +213,7 @@ function dragButton(evt){
 	var pos=pxToEm(getCoordsOffs(evt)),
 		dom=moveData.dom;
 
-	dom.style.left=(Math.round(pos[0]-cOffset.x%1)+cOffset.x%1-3/em)+"em";
+	dom.style.left=(Math.round(pos[0]-cOffset.x%1)+cOffset.x%1)+"em";
 	dom.style.top=(Math.round(pos[1]-cOffset.y%1)+cOffset.y%1)+"em";
 	checkValidPlace(moveData.dom);
 }
@@ -215,7 +232,7 @@ function dropButton(evt){
 
 function checkValidPlace(el,onlyOverlap){
 	var top=el.getBoundingClientRect().top,
-		elems=document.querySelectorAll("#start-button, .module");
+		elems=document.getElementsByClassName("module");
 
 	clearCE();
 		
@@ -227,10 +244,10 @@ function checkValidPlace(el,onlyOverlap){
 			return false;
 		if (elems[i].classList.contains("message"))
 			continue;
-		var bcr=elems[i].getBoundingClientRect(),
+		/*var bcr=elems[i].getBoundingClientRect(),
 			diff=top-(bcr.top+bcr.height);
-		if (!onlyOverlap&&diff<(el.border?-1:0)*em)
-			return false;
+		if (!onlyOverlap&&diff<-1*em)
+			return false;*/
 	}
 
 	var ce=getClosestElem(el);
@@ -241,7 +258,7 @@ function checkValidPlace(el,onlyOverlap){
 }
 
 function checkOverlap(elem,ignore,ignore2){
-	var elems=document.querySelectorAll("#start-button, .module");
+	var elems=document.getElementsByClassName("module");
 	for (var i=0;i<elems.length;i++){
 		if (elems[i]==ignore||elems[i]==ignore2)
 			continue;
@@ -259,7 +276,7 @@ function overlap(elem,elem2,shortTest){
 	  	right=Math.min(rect.right,rect2.right);
   if (shortTest&&top<bottom&&left<right)
   	return true;
-  var maxSpacing=(2-(elem.border?1:0)-(elem2.border?1:0))*em;
+  var maxSpacing=0;
   if (!shortTest&&top-bottom<maxSpacing&&left-right<maxSpacing) return true;
   return false
 }
@@ -268,9 +285,8 @@ function checkInLine(){
 
 }
 
-
 function getClosestElem(elem){
-	var elems=document.querySelectorAll("#start-button, .module"),
+	var elems=document.getElementsByClassName("module"),
 		bcr=elem.getBoundingClientRect(),
 		candidates=[],
 		finalCand=null,
@@ -285,9 +301,8 @@ function getClosestElem(elem){
 			data={
 				dom:elems[i],
 				vert:bcr.top-(ebcr.top+ebcr.height)
-			},
-			minSpacing=(2-(elem.border?1:0)-(elems[i].border?1:0))*em;
-		if (data.vert>=minSpacing)
+			}
+		if (data.vert>=0)
 			candidates.push(data);
 	}
 
@@ -327,6 +342,37 @@ function getClosestElem(elem){
 	return null;
 }
 
+function checkSlices(module){
+	module.dom.classList.remove("error");
+	var allClear=checkSlice(module);
+	for (var i=0;i<module.children.length;i++){
+		allClear&=checkSlices(module.children[i]);
+	}
+	return allClear;
+}
+
+function checkSlice(module){
+	if (!module.coordinates)
+		return true;
+	var minX=module.coordinates[0],
+		maxX=module.coordinates[0]+module.size[0],
+		bottom=module.coordinates[1]+module.size[1]-1,
+		slices=[];
+	for (var i=0;i<verticals.length;i++){
+		var vertX=verticals[i][0][0];
+		if (vertX<=minX||vertX>=maxX)
+			continue;
+		var y1=Math.max(verticals[i][0][1],module.coordinates[1]+1),
+			y2=Math.min(verticals[i][1][1],bottom);
+
+		if (y1>=module.coordinates[1]&&y2<=bottom&&y2-y1>0){
+			module.dom.classList.add("error");
+			return false;
+		}
+	}
+	return true;
+}
+
 function clearCE(){
 	var closest=document.getElementsByClassName("closest-elem")[0];
 	if (closest) closest.classList.remove("closest-elem");
@@ -336,6 +382,7 @@ function clearCE(){
 
 function connectPoints(){
 	var svg=document.getElementById("line-area");
+	verticals=[];
 	svg.innerHTML="";
 	connectModules(svg,seq);
 }
@@ -345,7 +392,7 @@ function connectModules(svg,module){
 		return;
 
 	var mbcr=relativeBCR(module.dom,scene),
-		output=pxToEm([mbcr.left+mbcr.width/2,mbcr.top+mbcr.height-(module.dom.border?em:0)]).map(Math.round),
+		output=pxToEm([mbcr.left+mbcr.width/2,mbcr.top+mbcr.height-em]).map(Math.round),
 		connections=[],
 		minTop=Infinity,
 		minLeft=output[0],
@@ -354,7 +401,7 @@ function connectModules(svg,module){
 	//Calculate connection points
 	for (var i=0;i<module.children.length;i++){
 		var bcr=relativeBCR(module.children[i].dom,scene),
-			coords=pxToEm([bcr.left+bcr.width/2,bcr.top+(module.children[i].dom.border?em:0)]).map(Math.round);
+			coords=pxToEm([bcr.left+bcr.width/2,bcr.top+em]).map(Math.round);
 		if (coords[1]<minTop)
 			minTop=coords[1];
 
@@ -397,8 +444,11 @@ function drawPath(svg,c1,c2,noDots){
 	if (c1[0]!=c2[0]&&c1[1]!=c2[1]){
 		var offs=Math.round((c2[1]-c1[1])/2);
 		d+="L"+c1[0]+" "+(c1[1]+offs);
+		verticals.push([c1,[c1[0],c1[1]+offs]]);
 		d+="L"+c2[0]+" "+(c1[1]+offs);
-	}
+		verticals.push([[c2[0],c1[1]+offs],c2]);
+	}else if (c1[1]!=c2[1])
+		verticals.push([c1,c2]);
 
 	d+="L"+c2[0]+" "+c2[1];
 	path.setAttribute("d",d);
@@ -447,55 +497,96 @@ function createModule(evt,md,parent){
 	connectPoints();
 }
 
+function addFA(iconData){
+	var iElem=document.createElement("i");
+	iElem.className="fa "+iconData;
+	console.log(iElem);
+	return iElem;
+}
+
 function createWrapper(evt,md,module){
 	var coords=pxToEm(getCoordsOffs(evt,scene)),
 		wrapper=document.createElement("div");
 
-	wrapper.className="module "+md.name;
+	wrapper.className="module standard-module inert "+md.name;
 	var x=(Math.round(coords[0])-md.w/2),
 		y=(Math.round(coords[1])-md.h/2);
 	wrapper.style.left=x+"em";
 	wrapper.style.top=y+"em";
 	module.coordinates=[x,y];
+	module.size=[md.w,md.h];
 
-	wrapper.addEventListener("mousedown",pickup);
-	wrapper.addEventListener("touchstart",pickup);
-
-	function pickup(evt){
-		curOffs=pxToEm(getCoordsOffs(evt,wrapper)).map(Math.round);
-		moveData=module;
-		wrapper.style.zIndex="10000";
-		routeMode=route.dragModule;
-		prevCoords=Array.clone(module.coordinates);
-		document.body.classList.add("mobile-drag");
+	if (!md.preventEvents){
+		wrapper.addEventListener("mousedown",function(evt){pickup(evt,module);});
+		wrapper.addEventListener("touchstart",function(evt){pickup(evt,module);});
 	}
 
 	scene.appendChild(wrapper);
 	return wrapper;
 }
 
+function pickup(evt,module){
+	curOffs=pxToEm(getCoordsOffs(evt,module.dom)).map(Math.round);
+	moveData=module;
+	module.dom.style.zIndex="10000";
+	routeMode=route.dragModule;
+	prevCoords=Array.clone(module.coordinates);
+	document.body.classList.add("mobile-drag");
+}
+
 function Message(){
 	this.build=function(wrapper){
-		var box=document.createElement("div");
+		var box=document.createElement("div"),
+			module=this;
 		box.className="msg-box blue-border";
 		wrapper.appendChild(box);
 		var content=document.createElement("div");
 		content.className="msg-content";
 		content.setAttribute("contenteditable","");
 		box.appendChild(content);
+		var resize=document.createElement("div");
+		resize.className="resize";
+		resize.addEventListener("mousedown",function(evt){startResize(evt,module);});
+		resize.addEventListener("touchstart",function(evt){startResize(evt,module);});
+		box.appendChild(resize);
 		var btn=document.createElement("div");
 		btn.className="settings-button rounded";
+		btn.appendChild(addFA("fa-tag fa-lg"));
 		wrapper.appendChild(btn);
+		var mov=document.createElement("div");
+		mov.className="settings-button movebox";
+		mov.appendChild(addFA("fa-bars fa-lg"));
+		mov.addEventListener("mousedown",function(evt){pickup(evt,module);});
+		mov.addEventListener("touchstart",function(evt){pickup(evt,module);});
+		wrapper.appendChild(mov);
 		this.dom=wrapper;
+		this.dom.addEventListener("keydown",function(){
+			setTimeout(function(){
+				addTag(module);
+			},1);
+		});
+	};
+
+	this.getContent=function(){
+		var nodes=this.dom.getElementsByClassName("msg-content")[0].childNodes,
+		out="";
+		for (var i=0;i<nodes.length;i++){
+			if (nodes[i].tagName)
+				out+="<"+nodes[i].getAttribute("data-tag")+">";
+			else
+				out+=nodes[i].data;
+		}
+		this.plaintext=out;
+		return out;
 	};
 }
 
 function Wait(){
 	this.build=function(wrapper){
-		wrapper.border=true;
 		wrapper.innerHTML=document.getElementById("rhombus-buffer").innerHTML;
 		var btn=document.createElement("div");
 		btn.className="settings-button circle";
+		btn.appendChild(addFA("fa-cog fa-lg"));
 		btn.onclick=function(){alert("GOT HERE!");}
 		wrapper.appendChild(btn);
 		this.dom=wrapper;
@@ -504,9 +595,12 @@ function Wait(){
 
 function Joiner(){
 	this.build=function(wrapper){
-		wrapper.classList.add("blue-border");
+		var circle=document.createElement("div");
+		circle.className="blue-border inner-circle";
+		wrapper.appendChild(circle);
 		var btn=document.createElement("div");
 		btn.className="settings-button circle";
+		btn.appendChild(addFA("fa-cog fa-lg"));
 		wrapper.appendChild(btn);
 		this.dom=wrapper;
 	};
@@ -519,13 +613,23 @@ function dragModule(evt){
 
 	if (dx||dy){
 		moveTree(moveData,dx,dy);
-		if (checkTree(moveData)){
-			connectPoints();
+		checkAll(moveData);
+	}
+}
+
+function checkAll(module){
+	if (checkTree(module)){
+		connectPoints();
+		if (checkSlices(seq)){
 			//Make sure the guideline refers to the move object.
-			checkValidPlace(moveData.dom,true);
-		}
-		else
+			checkValidPlace(module.dom,true);
+		}else{
+			clearCE();
 			scene.classList.add("graph-error");
+		}
+	}else{
+		clearCE();
+		scene.classList.add("graph-error");
 	}
 }
 
@@ -556,6 +660,9 @@ function dropModule(evt){
 	if (scene.classList.contains("graph-error")){
 		var mc=moveData.coordinates;
 		moveTree(moveData,prevCoords[0]-mc[0],prevCoords[1]-mc[1]);
+		var errors=document.getElementsByClassName("module error");
+		for (var i=0;i<errors.length;i++)
+			errors[i].classList.remove("error");
 		connectPoints();
 	}
 }
@@ -568,6 +675,104 @@ Message.prototype.addTag=function(type){
 	this.dom.getElementsByClassName("msg-content")[0].appendChild(tag);
 };
 
+function addTag(module){
+	var ce=module.dom.getElementsByClassName("msg-content")[0];
+	for (var i=0;i<validTags.length;i+=2){
+		var span=" <span class='green-tag' id='added_span' data-tag='"+validTags[i]+"' contenteditable='false' spellcheck='false'>"+validTags[i+1]+"</span> ",
+		reg=new RegExp("(\\s+)?&lt;"+validTags[i]+"&gt;\\1?","gi");
+		if (reg.test(ce.innerHTML)){
+			var range = document.createRange(),
+				sel = window.getSelection();
+			ce.innerHTML=ce.innerHTML.replace(reg,span);
+			var spanEl=document.getElementById("added_span");
+			range.setStart(spanEl.nextSibling,1);
+			range.collapse(true);
+			sel.removeAllRanges();
+			sel.addRange(range);
+			spanEl.removeAttribute("id");
+		}
+	}
+}
+
+function startResize(evt,module){
+	oldMode=routeMode;
+	routeMode=route.resizeMessage;
+	moveData={
+		module:module,
+		startSize:Array.clone(module.size)
+	};
+	pressed=true;
+	canDrag=true;
+	module.dom.style.zIndex="10000";
+	evt.stopPropagation();
+}
+
+function resizeMessage(evt){
+	var coords=pxToEm(getCoordsOffs(evt,scene)).map(Math.round),
+		cr=moveData.module.coordinates,
+		w=Math.max(coords[0]-cr[0]+3,12),
+		h=Math.max(coords[1]-cr[1]+1,6);
+
+	setMsgSize(moveData.module,w,h);
+	checkAll(moveData.module);
+}
+
+function setMsgSize(module,w,h){
+	var dom=module.dom,
+		ce=dom.getElementsByClassName("msg-box")[0];
+
+	dom.style.width=w+"em";
+	dom.style.height=h+"em";
+	ce.style.width=(w-4)+"em";
+	ce.style.height=(h-2)+"em";
+	module.size=[w,h];
+}
+
+function endResize(){
+	routeMode=oldMode;
+	var errors=document.getElementsByClassName("module error");
+	for (var i=0;i<errors.length;i++)
+		errors[i].classList.remove("error");
+
+	if (scene.classList.contains("graph-error")){
+		var ss=moveData.startSize;
+		setMsgSize(moveData.module,ss[0],ss[1]);
+	}
+
+	connectPoints();
+	moveData.module.dom.style.zIndex=null;
+}
+
+//-------Edit mode specific-------
+function setEditMode(mode){
+	editMode=mode;
+	frame.setAttribute("data-mode",mode);
+	var sel=document.getElementsByClassName("mode-item selected")[0];
+	if (sel)
+		sel.classList.remove("selected");
+	document.getElementById(mode+"-mode").classList.add("selected");
+}
+
+function removeElem(evt){
+	if (evt.target.classList.contains("standard-module"))
+		removeModule(evt.target.treeNode);
+}
+
+function removeModule(module){
+	scene.removeChild(module.dom);
+	var children=module.parent.children;
+	for (var i=0;i<children.length;i++){
+		if (children[i]==module){
+			children.splice(i,1);
+			break;
+		}
+	}
+	for (var i=0;i<module.children.length;i++){
+		module.children[i].parent=module.parent;
+	}
+	module.parent.children=children.concat(module.children);
+	connectPoints();
+}
 
 //-------TO BE EXECUTED LAST ON LOAD-------
 addEventListeners();
