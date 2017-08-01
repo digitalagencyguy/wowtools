@@ -36,6 +36,12 @@ def register(request):
 	if response['status']['success'] == False:
 		return redirect('/error')
 	request.session['user'] = response['User']
+	request.session['business'] = response['BusinessAddress']
+	request.session['calendar'] = response['googleCalendar']
+	request.session['sendout'] = response['sendoutTimes']
+	request.session['contacts'] = response['contacts']
+	request.session['managers'] = response['managers']
+	request.session['status'] = response['status']
 	return redirect('/')
 
 def login(request):
@@ -45,4 +51,10 @@ def login(request):
 	if response['status']['success'] == False:
 		return redirect('/error')
 	request.session['user'] = response['User']
+	request.session['business'] = response['BusinessAddress']
+	request.session['calendar'] = response['googleCalendar']
+	request.session['sendout'] = response['sendoutTimes']
+	request.session['contacts'] = response['contacts']
+	request.session['managers'] = response['managers']
+	request.session['status'] = response['status']
 	return redirect('/')

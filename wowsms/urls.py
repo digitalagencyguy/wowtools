@@ -11,5 +11,6 @@ urlpatterns = [
 	url('^schedule/?$', views.schedule, name='schedule'),
 	url('^logout/?$',views.logout, name='logout'),
 	url('^login/?$',views.login, name='login'),
-	url('^register/?$', views.register, name='register')
+	url('^register/?$', views.register, name='register'),
+	url('^error/?$', views.error, name='error')
 ]

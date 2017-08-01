@@ -47,4 +47,7 @@ def register(request):
 		return redirect('/')
 	return render(request,'register.html')
 
+def error(request):
+	return render(request, 'error.html')
+
 #$kil1ion

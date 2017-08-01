@@ -1,26 +1,29 @@
+import json
+
 class Model:
 
 	def __init__(self, json_):
 		for key in json_:
-			setattr(self, key, json_[key])
+			if type(json_) == list:
+				for item in json_:
+					for key in item:
+						setattr(self, key, item[key])
+			else:
+				setattr(self, key, json_[key])
 
 class Data:
 
 	def __init__(self, request):
-		self.request = request
-		self.user = request.session.get('user')
-
-	@property
-	def customer(self):
-		if self.user:
-			return Model(self.user)
-		else:
-			return None
+		categories = ['user', 'contacts', 'business', 'sendout', 'calendar', 'managers', 'status', 'contacts']
+		for category in categories:
+			if request.session.get(category):
+				setattr(self, category, Model(request.session[category]))
+			else:
+				setattr(self, category, None)
 
 class Request:
 
 	def __init__(self, request, primary, secondary='error', login_required=True):
-		self.request = request
 		self.primary = primary + '.html'
 		self.secondary = secondary + '.html'
 		self.login_required = login_required
@@ -29,9 +32,11 @@ class Request:
 
 	@property
 	def context(self):
-		context = {
-			'user': self.data.customer
-		}
+		context = {}
+		properties = [prop for prop in dir(self.data) if not prop.startswith('__')]
+		for prop in properties:
+			context[prop] = getattr(self.data, prop)
+		print(context)
 		return context
 
 	@property
