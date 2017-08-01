@@ -32,6 +32,7 @@ var moduleData=[
 
 //Canvas variables
 var em=16,
+	zoomLvl=10,
 	cOffset={
 		x:-250,
 		y:-10
@@ -40,7 +41,8 @@ var em=16,
 
 //Graph data structure
 var seq=new Sequence(sBtn),
-	verticals=[];
+	verticals=[],
+	horizontals=[];
 sBtn.treeNode=seq;
 
 //Misc module vars
@@ -146,6 +148,15 @@ function dblclick(evt){
 		removeElem(evt);
 }
 
+function initScene(){
+	var top=Math.round(relativeBCR(scene,frame).top/16+250)+20;
+	cOffset.y=-top-10;
+	scene.style.top=cOffset.y+"em";
+	var sa=document.getElementById("start-area");
+	sa.style.top=(top-7)+"em";
+	sa.style.display="block";
+}
+
 function checkDraggable(evt){
 	if (!routeMode.context) return true;
 	var elem=evt.target;
@@ -210,11 +221,14 @@ function dragScene(evt){
 }
 
 function dragButton(evt){
-	var pos=pxToEm(getCoordsOffs(evt)),
+	var bcr=relativeBCR(scene,frame),
+		xO=1+(bcr.left/em),
+		yO=1+(bcr.top/em),
+		pos=pxToEm(getCoordsOffs(evt)),
 		dom=moveData.dom;
 
-	dom.style.left=(Math.round(pos[0]-cOffset.x%1)+cOffset.x%1)+"em";
-	dom.style.top=(Math.round(pos[1]-cOffset.y%1)+cOffset.y%1)+"em";
+	dom.style.left=(Math.round(pos[0]-xO)+xO)+"em";
+	dom.style.top=(Math.round(pos[1]-yO)+yO)+"em";
 	checkValidPlace(moveData.dom);
 }
 
@@ -230,7 +244,7 @@ function dropButton(evt){
 	},300);
 }
 
-function checkValidPlace(el,onlyOverlap){
+function checkValidPlace(el){
 	var top=el.getBoundingClientRect().top,
 		elems=document.getElementsByClassName("module");
 
@@ -250,7 +264,7 @@ function checkValidPlace(el,onlyOverlap){
 			return false;*/
 	}
 
-	var ce=getClosestElem(el);
+	var ce=getClosestElem(el,!el.classList.contains("module"));
 	if (!ce)
 		return false;
 	el.classList.remove("error");
@@ -285,12 +299,16 @@ function checkInLine(){
 
 }
 
-function getClosestElem(elem){
+function getClosestElem(elem,isButton){
 	var elems=document.getElementsByClassName("module"),
 		bcr=elem.getBoundingClientRect(),
 		candidates=[],
 		finalCand=null,
 		minLen=Infinity;
+
+	//Check for illegal line interection
+	if (!elem.classList.contains("module")&&!checkXYSlice(elem,true))
+		return null;
 
 	//Find candidates by vertical position
 	main:
@@ -305,7 +323,6 @@ function getClosestElem(elem){
 		if (data.vert>=0)
 			candidates.push(data);
 	}
-
 	//Create an element and check if it can be placed between the two modules
 	//without overlapping other elements. If it does, it means a line can 
 	//be drawn there.
@@ -318,12 +335,19 @@ function getClosestElem(elem){
 			w=Math.abs(halves[0]-halves[1]),
 			h=candidates[i].vert;
 
+		//If the parent node has children, it means the connection will be a straight line.
+		//Ergo, you only need to check elements that overlap this theoretical line.
+		if (candidates[i].dom.treeNode.children.length){
+			testItem.style.width=2*em+"px";
+			testItem.style.left=(halves[0]-em)+"px";
+		}else{
+			testItem.style.width=w+"px";
+			testItem.style.left=Math.min.apply(this,halves)+"px";
+		}
 		testItem.style.top=(cbcr.top+cbcr.height)+"px";
-		testItem.style.left=Math.min.apply(this,halves)+"px";
-		testItem.style.width=w+"px";
 		testItem.style.height=h+"px";
 
-		if (checkOverlap(testItem,candidates[i].dom,elem)&&Math.hypot2(w,h)<minLen){
+		if (checkOverlap(testItem,candidates[i].dom,elem)&&Math.hypot2(w,h)<minLen){	//&&checkSlice(testItem,true)
 			finalCand=candidates[i].dom;
 			minLen=Math.hypot2(w,h);
 		}
@@ -344,14 +368,15 @@ function getClosestElem(elem){
 
 function checkSlices(module){
 	module.dom.classList.remove("error");
-	var allClear=checkSlice(module);
+	var allClear=checkXYSlice(module);
 	for (var i=0;i<module.children.length;i++){
 		allClear&=checkSlices(module.children[i]);
 	}
 	return allClear;
 }
 
-function checkSlice(module){
+/*function checkSlice(module,noError){
+	module=conformModule(module);
 	if (!module.coordinates)
 		return true;
 	var minX=module.coordinates[0],
@@ -366,11 +391,55 @@ function checkSlice(module){
 			y2=Math.min(verticals[i][1][1],bottom);
 
 		if (y1>=module.coordinates[1]&&y2<=bottom&&y2-y1>0){
-			module.dom.classList.add("error");
+			if (!noError)
+				module.dom.classList.add("error");
 			return false;
 		}
 	}
 	return true;
+}*/
+
+function checkXYSlice(module,noError){
+	module=conformModule(module);
+	if (!module.coordinates)
+		return true;
+	if (!checkSlice(module,verticals,[0,1])||!checkSlice(module,horizontals,[1,0])){
+		if (!noError)
+			module.dom.classList.add("error");
+		return false;
+	}
+	return true;
+}
+
+function checkSlice(module,coords,checkOrder){
+	var c1=checkOrder[0],
+		c2=checkOrder[1],
+		min=module.coordinates[c1],
+		max=module.coordinates[c1]+module.size[c1],
+		far=module.coordinates[c2]+module.size[c2]-1
+	for (var i=0;i<coords.length;i++){
+		var common=coords[i][0][c1];
+		if (common<=min||common>=max)
+			continue;
+		var a=Math.max(coords[i][0][c2],module.coordinates[c2]+1),
+			b=Math.min(coords[i][1][c2],far);
+		if (a>=module.coordinates[c2]&&b<=far&&b-a>0){
+			return false;
+		}
+	}
+	return true;
+}
+
+function conformModule(module){
+	if (module instanceof Node){
+		var bcr=relativeBCR(module,scene);
+		var mod={
+			coordinates:pxToEm([bcr.left,bcr.top]).map(Math.round),
+			size:pxToEm([bcr.width,bcr.height]).map(Math.round)
+		};
+		return mod;
+	}
+	return module;
 }
 
 function clearCE(){
@@ -383,6 +452,7 @@ function clearCE(){
 function connectPoints(){
 	var svg=document.getElementById("line-area");
 	verticals=[];
+	horizontals=[];
 	svg.innerHTML="";
 	connectModules(svg,seq);
 }
@@ -432,6 +502,8 @@ function connectModules(svg,module){
 	}
 }
 
+//DrawPath draws the actual SVG paths and pushes coordinates to two arrays for
+//intersection detection later on. See: checkSlices, checkXYSlice, checkSlice 
 function drawPath(svg,c1,c2,noDots){
 	noDots=noDots || [false,false];
 	if (!noDots[0])
@@ -444,11 +516,14 @@ function drawPath(svg,c1,c2,noDots){
 	if (c1[0]!=c2[0]&&c1[1]!=c2[1]){
 		var offs=Math.round((c2[1]-c1[1])/2);
 		d+="L"+c1[0]+" "+(c1[1]+offs);
-		verticals.push([c1,[c1[0],c1[1]+offs]]);
 		d+="L"+c2[0]+" "+(c1[1]+offs);
+		verticals.push([c1,[c1[0],c1[1]+offs]]);
 		verticals.push([[c2[0],c1[1]+offs],c2]);
+		horizontals.push([[c1[0],c1[1]+offs],[c2[0],c1[1]+offs]]);
 	}else if (c1[1]!=c2[1])
 		verticals.push([c1,c2]);
+	else if (c1[0]!=c2[0])
+		horizontals.push([c1,c2]);
 
 	d+="L"+c2[0]+" "+c2[1];
 	path.setAttribute("d",d);
@@ -494,7 +569,9 @@ function createModule(evt,md,parent){
 	module.children=[];
 	module.dom.treeNode=module;
 	parent.children.push(module);
-	connectPoints();
+	setTimeout(function(){
+		connectPoints();
+	},300);
 }
 
 function addFA(iconData){
@@ -516,16 +593,18 @@ function createWrapper(evt,md,module){
 	module.coordinates=[x,y];
 	module.size=[md.w,md.h];
 
-	if (!md.preventEvents){
-		wrapper.addEventListener("mousedown",function(evt){pickup(evt,module);});
-		wrapper.addEventListener("touchstart",function(evt){pickup(evt,module);});
-	}
-
 	scene.appendChild(wrapper);
 	return wrapper;
 }
 
+function addModuleEvents(elem,module){
+	elem.addEventListener("mousedown",function(evt){pickup(evt,module);});
+	elem.addEventListener("touchstart",function(evt){pickup(evt,module);});
+}
+
 function pickup(evt,module){
+	if (editMode!="move")
+		return;
 	curOffs=pxToEm(getCoordsOffs(evt,module.dom)).map(Math.round);
 	moveData=module;
 	module.dom.style.zIndex="10000";
@@ -556,8 +635,7 @@ function Message(){
 		var mov=document.createElement("div");
 		mov.className="settings-button movebox";
 		mov.appendChild(addFA("fa-bars fa-lg"));
-		mov.addEventListener("mousedown",function(evt){pickup(evt,module);});
-		mov.addEventListener("touchstart",function(evt){pickup(evt,module);});
+		addModuleEvents(mov,module);
 		wrapper.appendChild(mov);
 		this.dom=wrapper;
 		this.dom.addEventListener("keydown",function(){
@@ -584,6 +662,7 @@ function Message(){
 function Wait(){
 	this.build=function(wrapper){
 		wrapper.innerHTML=document.getElementById("rhombus-buffer").innerHTML;
+		addModuleEvents(wrapper.getElementsByTagName("path")[0],this);
 		var btn=document.createElement("div");
 		btn.className="settings-button circle";
 		btn.appendChild(addFA("fa-cog fa-lg"));
@@ -597,6 +676,7 @@ function Joiner(){
 	this.build=function(wrapper){
 		var circle=document.createElement("div");
 		circle.className="blue-border inner-circle";
+		addModuleEvents(circle,this);
 		wrapper.appendChild(circle);
 		var btn=document.createElement("div");
 		btn.className="settings-button circle";
@@ -774,5 +854,13 @@ function removeModule(module){
 	connectPoints();
 }
 
+function zoom(dir,abs){
+	zoomLvl=abs || Math.min(Math.max(zoomLvl+dir,2),25);
+	document.getElementById("zoom-info").innerHTML=zoomLvl+"0%";
+	em=16*(zoomLvl/10);
+	document.getElementsByClassName("campaign-builder-interface")[0].style.fontSize=em+"px";
+}
+
 //-------TO BE EXECUTED LAST ON LOAD-------
 addEventListeners();
+initScene();
