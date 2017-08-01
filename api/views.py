@@ -35,12 +35,8 @@ def register(request):
 	response = Request(newUserUrl, request.POST).response
 	if response['status']['success'] == False:
 		return redirect('/error')
+	print(response)
 	request.session['user'] = response['User']
-	request.session['business'] = response['BusinessAddress']
-	request.session['calendar'] = response['googleCalendar']
-	request.session['sendout'] = response['sendoutTimes']
-	request.session['contacts'] = response['contacts']
-	request.session['managers'] = response['managers']
 	request.session['status'] = response['status']
 	return redirect('/')
 
