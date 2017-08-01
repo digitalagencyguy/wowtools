@@ -1,25 +1,48 @@
 from django.shortcuts import render
+from django.shortcuts import redirect
 from django.shortcuts import HttpResponse
-from django.views.decorators.http import require_http_methods as route
-from .utils import Response
+from .utils import Request
+from.utils import Model
+import json
 
-@route(["GET"])
+
+globalBaseUrl = 'http://api.wowsms.io/v1/'
+
+def new(url):
+	return globalBaseUrl + url
+
+newUserUrl = new('entity/new')
+loginUserUrl = new('entity/login')
+
+
 def apiTest(request):
-	message = Response(request.POST)
+	print('api Test')
+	message = "API is up and running"
 	return HttpResponse(message)
 
-
-@route(["POST"])
 def details(request):
-	message = Response(request.POST)
-	return HttpResponse(message)
+	pass
 
-@route(["POST"])
 def apiKey(request):
-	message = Response(request.POST)
-	return HttpResponse(message)
+	pass
 
-@route(["POST"])
 def subscriptions(request):
-	message = Response(request.POST)
-	return HttpResponse(message)
+	pass
+
+def register(request):
+	if request.method == 'GET':
+		return redirect('/register')
+	response = Request(newUserUrl, request.POST).response
+	if response['status']['success'] == False:
+		return redirect('/error')
+	request.session['user'] = response['User']
+	return redirect('/')
+
+def login(request):
+	if request.method == 'GET':
+		return redirect('/login')
+	response = Request(loginUserUrl, request.POST).response
+	if response['status']['success'] == False:
+		return redirect('/error')
+	request.session['user'] = response['User']
+	return redirect('/')

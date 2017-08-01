@@ -1,5 +1,3 @@
-from .data import USER
-
 class Model:
 
 	def __init__(self, json_):
@@ -15,9 +13,7 @@ class Data:
 	@property
 	def customer(self):
 		if self.user:
-			thing = USER.get(self.user)
-			obj = Model(thing)
-			return obj
+			return Model(self.user)
 		else:
 			return None
 

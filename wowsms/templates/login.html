@@ -15,25 +15,26 @@
 			<div class="white-box">
 				<h1>Welcome to WOW!SMS</h1>
 				<form action='/api/v1/login' method='post'>
+					{% csrf_token %}
 					<h3 class="box-title">Login</h3>
 					<div class='form-group'>
 						<div class='col-xs-12'>
-							<input type='text' name='name' placeholder="Username">
+							<input type='text' id='email' name='email' placeholder="Email">
 						</div>
 					</div>
 					<div class='form-group'>
 						<div class='col-xs-12'>
-							<input type='text' name='password' placeholder="Password">
+							<input type='password' id='password' name='password' placeholder="Password">
 						</div>
 					</div>
 					<div class="form-group text-center m-t-20">
 						<div class="col-xs-12">
-							<button class="btn btn-login btn-block" type="submit">Login</button>
+							<button class="btn btn-login btn-block" type="submit" id='login'>Login</button>
 						</div>
 					</div>
 					<div class="form-group m-b-0">
 						<div class="col-sm-12 text-center">
-							<p>Don't have an account yet? <a href="login.html"><b>Sign up for one now!</b></a></p>
+							<p>Don't have an account yet? <a href="/register"><b>Sign up for one now!</b></a></p>
 						</div>
 					</div>
 				</form>
@@ -44,5 +45,23 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 	<script src="{% static 'js/login.js' %}"></script>
+	<script>
+		(function() {
+			var login = $('#login'),
+				password = $('#password'),
+				email = $('#email');
+			login.on('click', function() {
+				data = {
+					'email': email.val(),
+					'password': password.val(),
+					'csrfmiddlewaretoken': "{{ csrf_token }}"
+				}
+				console.log(data)
+				$.post('/api/v1/login', data, function(data, response) {
+					console.log(data)
+				})
+			})
+		})();
+	</script>
 </body>
 </html>
