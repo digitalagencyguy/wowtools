@@ -1,0 +1,536 @@
+{% extends 'base.html' %}
+{% block modalContent %}
+<div class="wowtools-modal" id='onboardingModal'>
+	<div class='step-container table' style='margin-bottom:0;'>
+		<!-- Home Step -->
+		<div class='step first-step table' id='home-step' style='margin-bottom:0;' data-next-step="onboarding2" data-prev-step="home-step">
+			<div class='table' style='margin-bottom: 0;height:100%;'>
+				<div class='table-cell'>
+					<h1 style='margin-top:140px;'>Welcome</h1>
+					<p>Ok, before you can use the system, we need to get a few things done</p>
+					<script>
+						function onBoardingStepOne() {
+							$('.next-btn').show();
+							$('.next-btn').text('Continue');
+						}
+					</script>
+					<button class='onboarding-continue-lg-btn step-btn' 
+						data-next-step='onboarding2' 
+						data-back-step='home-step'
+						onclick="onBoardingStepOne();"
+						>
+					Get Started
+					</button>
+				</div>
+			</div>
+		</div>
+		<!-- End Home Step -->
+		<!-- Details Step -->
+		<div class='step contains-form onboarding-step' 
+			id='onboarding2' 
+			style='margin-bottom:0;' 
+			data-next-step="onboarding3" 
+			data-prev-step="home-step"
+			data-form="onboardingDetailsForm"
+			>
+			<script>
+				function submitOnBoardingDetailsForm() {
+					event.preventDefault();
+				
+					// AJAX Call can go here
+					alert("Submit Details Form");
+				
+					// Show next step
+					Modal.stepAction('onboarding3');
+				
+					// Change "target" form of the continue button
+					Modal.changeContinueToSubmit();
+				
+					// Show the skip button
+					$('.skip-btn').show();
+				
+					// Show the back button
+					$('.back-btn').show();
+				
+					return false;
+				}
+				
+				function findBusinessAddress() {
+					event.preventDefault();
+					alert("Finding Address");
+					return false;
+				}
+			</script>
+			<form action="#" id='onboardingDetailsForm' onsubmit="return submitOnBoardingDetailsForm();">
+				<div class="form-row">
+					<div class="d-flex">
+						<label>First Name</label>
+						<input type="text" name="firstName">
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="d-flex">
+						<label>Last Name</label>
+						<input type="text" name="lastName">
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="d-flex contains-select">
+						<label>Mobile</label>
+						<select name="#" id="#">
+							<option value="61">61</option>
+						</select>
+						<input type="text" name="lastName">
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="d-flex">
+						<label>Business Name</label>
+						<input type="text" name="businessName">
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="d-flex">
+						<label>Business address</label>
+						<input type="text" name="businessAddress">
+						<button onclick="return findBusinessAddress();">find</button>
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="d-flex">
+						<label></label>
+						<div class="business-address-row">
+							<label>Street 1</label>
+							<input type="text" name="businessAddressStreet1" id="">
+						</div>
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="d-flex">
+						<label></label>
+						<div class="business-address-row">
+							<label>Street 2</label>
+							<input type="text" name="businessAddressStreet2" id="">
+						</div>
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="d-flex">
+						<label></label>
+						<div class="business-address-row">
+							<label>Town, Suburb</label>
+							<input type="text" name="businessAddressTownSuburb" id="">
+						</div>
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="d-flex">
+						<label></label>
+						<div class="business-address-row">
+							<label>Zip Code</label>
+							<input type="text" name="zipCode" id="">
+						</div>
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="d-flex">
+						<label></label>
+						<div class="business-address-row">
+							<select name="#" id="#">
+								<option value="Australia">Australia</option>
+							</select>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+		<!-- End Details Step -->
+		<!-- Connect Google Account Step -->
+		<div class="step contains-form" 
+			id='onboarding3'
+			data-next-step='onboarding4'
+			data-prev-step='onboarding2'
+			data-form="googleAccountForm"
+			>
+			<script>
+				function submitGoogleAccountForm() {
+					event.preventDefault();
+				
+					alert("Submit Google Account Form");
+				
+					// Show next step
+					Modal.stepAction('onboarding4');
+				
+					// Change "target" form of the continue button
+					Modal.changeContinueToSubmit();
+				
+					return false;
+				}
+			</script>
+			<form action="#" id='googleAccountForm' onsubmit="return submitGoogleAccountForm();">
+				<p>Connect your Google account</p>
+				<a href="#">
+				<img src="{% static 'images/google-sign-in.jpg' %}">
+				</a>
+				<p style='padding-top:40px;'>Select which calendar you would like to use:</p>
+				<select name="#" id="#">
+					<option value="#">Select an option</option>
+				</select>
+			</form>
+		</div>
+		<!-- End Connect Google Account Step -->
+		<!-- Time Slot Setup Step -->
+		<div class="step contains-form" 
+			id='onboarding4'
+			data-next-step='onboarding5'
+			data-prev-step='onboarding3'
+			data-form="timeSlotForm"
+			>
+			<script>
+				function submitTimeSlotForm() {
+					event.preventDefault();
+				
+					alert("Submit Time Slot Form");
+				
+					// Show next step
+					Modal.stepAction('onboarding5');
+				
+					// Change "target" of the continue button
+					Modal.changeContinueToSubmit();
+				
+					return false;
+				}
+			</script>
+			<form action="#" id='timeSlotForm' onsubmit='return submitTimeSlotForm()' style='padding-bottom:30px;'>
+				<div class="form-row">
+					<div class="d-flex">
+						<label>What will your time slots be called:</label>
+						<input type="text" name="timeSlotName">
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="d-flex">
+						<label>What duration are your time slots:</label>
+						<input type="text" name="timeSlotDuration" style='width:80px;flex:0;'>
+						<span style='flex:1;height:40px;line-height: 40px;text-align: left;margin-left:10px;'>mins</span>
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="d-flex">
+						<label>Can one time slot be booked multiple times:</label>
+						<select name="#">
+							<option value="Yes">Yes</option>
+							<option value="No">No</option>
+						</select>
+					</div>
+				</div>
+				<p style='text-align:left;font-size:14px;'>What days of week and hours can be booked:</p>
+				<div id="daysOfWeekAndHoursBookedOnboarding">
+					<div class="d-flex" id='headerRow'>
+						<label></label>
+						<p>from:</p>
+						<p>to:</p>
+						<p>exclude</p>
+						<p>from:</p>
+						<p>to:</p>
+					</div>
+					<div class="d-flex">
+						<label>
+						<input type="checkbox" name="#" id="#">
+						<span>Monday</span>
+						</label>
+						<input type="text" name="#" id="#">
+						<input type="text" name="#" id="#">
+						<p></p>
+						<input type="text" name="#" id="#">
+						<input type="text" name="#" id="#">
+					</div>
+					<div class="d-flex">
+						<label>
+						<input type="checkbox" name="#" id="#">
+						<span>Tuesday</span>
+						</label>
+						<input type="text" name="#" id="#">
+						<input type="text" name="#" id="#">
+						<p></p>
+						<input type="text" name="#" id="#">
+						<input type="text" name="#" id="#">
+					</div>
+					<div class="d-flex">
+						<label>
+						<input type="checkbox" name="#" id="#">
+						<span>Wednesday</span>
+						</label>
+						<input type="text" name="#" id="#">
+						<input type="text" name="#" id="#">
+						<p></p>
+						<input type="text" name="#" id="#">
+						<input type="text" name="#" id="#">
+					</div>
+					<div class="d-flex">
+						<label>
+						<input type="checkbox" name="#" id="#">
+						<span>Thursday</span>
+						</label>
+						<input type="text" name="#" id="#">
+						<input type="text" name="#" id="#">
+						<p></p>
+						<input type="text" name="#" id="#">
+						<input type="text" name="#" id="#">
+					</div>
+					<div class="d-flex">
+						<label>
+						<input type="checkbox" name="#" id="#">
+						<span>Friday</span>
+						</label>
+						<input type="text" name="#" id="#">
+						<input type="text" name="#" id="#">
+						<p></p>
+						<input type="text" name="#" id="#">
+						<input type="text" name="#" id="#">
+					</div>
+					<div class="d-flex">
+						<label>
+						<input type="checkbox" name="#" id="#">
+						<span>Saturday</span>
+						</label>
+						<input type="text" name="#" id="#">
+						<input type="text" name="#" id="#">
+						<p></p>
+						<input type="text" name="#" id="#">
+						<input type="text" name="#" id="#">
+					</div>
+					<div class="d-flex">
+						<label>
+						<input type="checkbox" name="#" id="#">
+						<span>Sunday</span>
+						</label>
+						<input type="text" name="#" id="#">
+						<input type="text" name="#" id="#">
+						<p></p>
+						<input type="text" name="#" id="#">
+						<input type="text" name="#" id="#">
+					</div>
+				</div>
+			</form>
+		</div>
+		<!-- End Time Slot Setup Step -->
+		<!-- Watershed Step -->
+		<div class="step contains-form" 
+			id='onboarding5'
+			data-next-step='onboarding6'
+			data-prev-step='onboarding4'
+			data-form='watershedForm'
+			>
+			<script>
+				function submitWatershedForm() {
+					event.preventDefault();
+					alert("Submit Watershed Form");
+					Modal.stepAction('onboarding6');
+					Modal.changeContinueToSubmit();
+					return false;
+				}
+			</script>
+			<form action="#" id='watershedForm' onsubmit='return submitWatershedForm()'>
+				<p style='text-align:left'>By default, sms will be sent around the clock. Did you want to set an earliest and latest time for sms to be sent (better experience for your audience):</p>
+				<label class='d-flex'>
+				<span>Earliest Time</span>
+				<input type="text" name="earliestTime" value="08:30">
+				</label>
+				<label class='d-flex'>
+				<span>Latest Time</span>
+				<input type="text" name="latestTime" value="18:30">
+				</label>
+			</form>
+		</div>
+		<!-- End Watershed Step -->
+		<!-- Staff Step -->
+		<div class="step contains-form" 
+			id='onboarding6'
+			data-next-step='onboarding7'
+			data-prev-step='onboarding5'
+			data-form='staffForm'
+			>
+			<script>
+				function submitStaffForm() {
+					event.preventDefault();
+					alert("Submit Staff Form");
+					Modal.stepAction('onboarding7');
+					Modal.changeContinueToSubmit();
+					return false;
+				}
+			</script>
+			<form action="#" id='staffForm' onsubmit='return submitStaffForm()'>
+				<p style='text-align:left'>Do you have any other staff or team members that you would like notifications to be emailed to:</p>
+				<!-- Add User Rows -->
+				<div class='add-user-individual-rows'>
+					<!-- Individual Add User Row -->
+					<div class="d-flex individual-add-audience individual-add-user" id='row-1'>
+						<div class='col'>
+							<label>First Name</label>
+							<input type="text" name="#">
+						</div>
+						<div class='col'>
+							<label>Last Name</label>
+							<input type="text" name="#">
+						</div>
+						<div class='col'>
+							<label>Email Address</label>
+							<input type="email" name="#">
+						</div>
+						<ul class='d-flex'>
+							<li class="contains-trash" style='display:none;'>
+								<button class="delete-individual-add-audience trash" onclick="removeUserRow(1);"><i class="fa fa-minus"></i></button>
+							</li>
+							<li>
+								<button class='plus' onclick="addUserRow(1);"><i class="fa fa-plus"></i></button>
+							</li>
+						</ul>
+					</div>
+					<!-- End Individual Add User Row -->
+				</div>
+				<!-- End Add User Rows -->
+			</form>
+		</div>
+		<!-- End Staff Step -->
+		<!-- Active Campaign Step -->
+		<div class="step contains-form"
+			id='onboarding7'
+			data-next-step='closeModal'
+			data-prev-step='onboarding6'
+			data-form='ACFormOnboarding'
+			>
+			<script>
+				function submitACStep() {
+					event.preventDefault();
+					alert("Submit AC Form");
+					// Close the modal
+					Modal.closeModal();
+					return false;
+				}
+				function checkACAPIKey() {
+					event.preventDefault();
+					alert("Checking...");
+				}
+			</script>
+			<form action="#" id='ACFormOnboarding' onsubmit='return submitACStep()'>
+				<h1 style='margin-top:140px;'>Finally</h1>
+				<p>Last thing: What is your Active Campaign API key:</p>
+				<div class="d-flex">
+					<input type="text" name="ACApiKey">
+					<button type="submit" onclick="return checkACAPIKey();">check</button>
+				</div>
+			</form>
+		</div>
+		<!-- End Active Campaign Step -->
+	</div>
+	<!-- Modal Actions -->
+	<div class="modal-actions">
+		<button class="back-btn" data-next-step="closeModal" style='display:none;'>Back</button>
+		<button class="skip-btn" style='display:none;'>Skip</button>
+		<button class="next-btn no-change-text-btn" style='display:none;'>Continue</button>
+	</div>
+	<!-- End Modal Actions -->
+	<!-- Back to Dashboard Button -->
+	<div class="back-to-dashboard-button">
+		<button class="back-to-dashboard-btn">Back to Dashboard</button>
+	</div>
+	<!-- End Back to Dashboard Button -->
+</div>
+{% endblock %}
+{% block scripts %}
+<!-- Only run this script if the user hasn't gone through on boarding yet -->
+<script>
+	// Shows the Modal container
+	Modal.toggleModal('onboardingModal');
+</script>
+<script>
+	Modal.initModal();
+	$(".wowtools-modal.table").css('padding-top', 0);
+	$('.back-btn').on('click', function() {
+		// Change "target" form of the continue button
+		Modal.changeContinueToSubmit();
+	
+		if($("#onboarding2").hasClass('active')) {
+			$('.back-btn').hide();
+			$('.skip-btn').hide();
+		}
+	});
+	$('.skip-btn').on('click', function() {
+		Modal.stepAction($('.step.active').attr('data-next-step'));
+		Modal.changeContinueToSubmit();
+	
+		if($("#onboarding7").hasClass('active')) {
+			$('.next-btn').text('Finished');
+			$('.skip-btn').hide();
+		}
+	});
+	$('.next-btn').on('click', function() {
+		if($("#onboarding7").hasClass('active')) {
+			$('.next-btn').text('Finished');
+			$('.skip-btn').hide();
+		}
+	});
+</script>
+<script>
+	/**
+	 * Handles behaviour of pressing the plus button on the
+	 * add user step of the onboarding process
+	 */
+	function addUserRow(counter) {
+		event.preventDefault();
+		counter = counter + 1;
+	
+		// Turn the current add row button into a trash button
+		$('.individual-add-user ul li button.plus').hide();
+		$('.individual-add-user ul li.contains-trash').show();
+	
+		// Append a row
+		$('.add-user-individual-rows').append(
+			'<div class="d-flex individual-add-audience individual-add-user" id="row-' + counter + '">' + 
+				"<div class='col'>" +
+					"<label>First Name</label>" +
+					'<input type="text" name="#">' +
+				'</div>' +
+				"<div class='col'>" + 
+					'<label>Last Name</label>' +
+					'<input type="text" name="#">' + 
+				'</div>' + 
+				"<div class='col'>" + 
+					'<label>Email Address</label>' +
+					'<input type="email" name="#">' +
+				'</div>' +
+				"<ul class='d-flex'>" +
+					'<li class="contains-trash" style="display:none;">' +
+						'<button class="delete-individual-add-audience trash" onclick="removeUserRow(' + counter + ');"><i class="fa fa-minus"></i></button>' +
+					'</li>' +
+					'<li>' +
+						"<button class='plus' onclick='addUserRow(" + counter + ");'><i class='fa fa-plus'></i></button>" + 
+					'</li>' +
+				'</ul>' +
+			'</div>'
+		);
+	}
+	
+	/**
+	 * Handles behaviour when pressing the minus button
+	 * on the individual audience page
+	 */
+	function removeUserRow (counter) {
+		event.preventDefault();
+		$('#row-' + counter).remove();
+	
+		counter++;
+		if(! $('#row-' + counter).length) {
+			counter--;
+			if(counter > 0) {
+				$('#row-' + counter + ' ul.d-flex').append(
+					'<li>' +
+						'<button class="plus" onclick="Audience2.addIndividualAudienceRow(' + counter + ');"><i class="fa fa-plus"></i></button>' +
+					'</li>'
+				);
+			}
+		}
+	}
+</script>
+{% endblock %}

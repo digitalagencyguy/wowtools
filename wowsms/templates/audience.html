@@ -499,14 +499,32 @@
 		</div>
 		<!-- End Home Step -->
 		<!-- Connect Active Campaign Step -->
+		<script>
+			function submitConnectACForm() {
+				event.preventDefault();
+				alert("Submitting AC List Sync");
+				Modal.stepAction('successful-ac-sync');
+
+				// Hide buttons
+				$('.back-btn').hide();
+				$('.next-btn').hide();
+
+				// Hide the "Bulk Add Contacts" title
+				$('.wowtools-modal h2').hide();
+
+				// Show the back to dashboard button
+				$('.back-to-dashboard-button').show();
+				return false;
+			}
+		</script>
 		<div class='step contains-form' id='connect-active-campaign-step' 
 			data-next-step="active-campaign-success-step" 
 			data-prev-step="home-step"
 			data-form="connectACForm"
-			>
+		>
 			<div class="active-campaign-list-sync">
 				<p>Select which Active Campaign list to sync to:</p>
-				<form action='#' id='connectACForm' method='POST'>
+				<form action='#' id='connectACForm' method='POST' onsubmit="return submitConnectACForm();">
 					<select id='connectACFormACList'>
 						<option value="">Select an Option</option>
 					</select>
@@ -529,7 +547,50 @@
 		</div>
 		<!-- End Successful AC Syncing -->
 		<!-- Bulk CSV Form -->
-		<form action='#' id='csvForm' method='POST'>
+		<script>
+			function bulkCSVForm() {
+				event.preventDefault();
+				alert("Submitting CSV Form");
+
+				// Format the back button to become a cancel button
+				$('.back-btn').addClass('cancel-btn');
+				$('.back-btn').text('Cancel');
+
+				// Temporarily hide the next button
+				$('.next-btn').css('display', 'none');
+
+				// Progress bar
+				Modal.stepAction('upload-progress-bar-step');
+
+				// Mock progress bar completion (5 seconds)
+				$progressBarCompletion = setTimeout(function() {
+					alert('Submitted CSV Form');
+
+					// Successful upload
+					Modal.stepAction('successful-bulk-upload');
+
+					// Hide buttons
+					$('.back-btn').hide();
+					$('.next-btn').hide();
+
+					// Hide the "Bulk Add Contacts" title
+					$('.wowtools-modal h2').hide();
+
+					// Show the back to dashboard button
+					$('.back-to-dashboard-button').show();
+				}, 3000);
+
+				$('.cancel-btn').click(function() {
+					// If cancel button is pressed, abort AJAX call i.e.
+					// var xhr = $.ajax();
+					// xhr.abort();
+					$('.next-btn').show(); // Show the next button again
+					clearTimeout($progressBarCompletion);
+				});
+				return false;
+			}
+		</script>
+		<form action='#' id='csvForm' method='POST' onsubmit="return bulkCSVForm();">
 			<!-- Bulk CSV Upload Step -->
 			<div class="step" id="upload-csv-step" 
 				data-next-step="agree-to-legal-step" 

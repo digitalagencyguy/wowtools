@@ -26,11 +26,6 @@ var Site = {
 			case 'sequences':
 				Sequences.init();
 				break;
-
-			case 'pricingCalculator':
-				// Show the pricing calculator modal by default
-				Modal.toggleModal('smsPricingCalculator');
-				break;
 		}
 	}
 };
@@ -95,7 +90,7 @@ var Modal = {
 	 */
 	changeContinueToSubmit: function() {
 		$('.next-btn').attr('data-next-step', $('.step.contains-form.active').attr('data-form'));
-		if( ! $('.next-btn').hasClass('payment-btn')) {
+		if( ! $('.next-btn').hasClass('payment-btn') && ! $('.next-btn').hasClass('no-change-text-btn') ) {
 			$('.next-btn').text('Upload');
 		}
 		$('.next-btn').addClass('submit-btn');
@@ -263,272 +258,7 @@ var Forms = {
 	 * Form submission event
 	 */
 	submitForm: function( $formName ) {
-		switch($formName) {
-			/**
-			 * Audience page
-			 */
-			// Audience page CSV form
-			case 'csvForm':
-				AudienceForms.CSVFormSubmission();
-				break;
-
-			// Audience page connect Active Campaign Form
-			case 'connectACForm':
-				AudienceForms.ACFormSubmission();
-				break;
-
-			/**
-			 * SMS page
-			 */
-			// Purchase 1000 messages at $100
-			case 'buy1000Form':
-				SMSForms.buy1000FormSubmission();
-				break;
-
-			case 'buy5000Form':
-				SMSForms.buy5000FormSubmission();
-				break;
-
-			case 'buy36Form':
-				SMSForms.buy36FormSubmission();
-				break;
-
-			case 'buy47Form':
-				SMSForms.buy47FormSubmission();
-				break;
-
-			case 'buy425Form':
-				SMSForms.buy425FormSubmission();
-				break;
-		}
-	},
-};
-
-// All forms on the Audience page
-var AudienceForms = {
-	/**
-	 * CSV Form Submission (Audience Page)
-	 */
-	CSVFormSubmission: function() {
-		alert('Submitting CSV Form (Event)');
-
-		/**
-		 * AJAX Call
-		 */
-		var CSVFormData = [
-			'uploadCSVCountry',
-			'uploadCSVFile',
-			'uploadCSVAudienceName',
-			'uploadCSVActiveList',
-			'uploadCSVTags',
-			'uploadCSVAgree',
-		];
-		var CSVFormDestination = 'api/v1/audience/bulkAddUploadCSV';
-
-		// AJAX Call
-		sendRequest(CSVFormData, CSVFormDestination);
-
-		// Format the back button to become a cancel button
-		$('.back-btn').addClass('cancel-btn');
-		$('.back-btn').text('Cancel');
-
-		// Temporarily hide the next button
-		$('.next-btn').hide();
-
-		// Progress bar
-		Modal.stepAction('upload-progress-bar-step');
-
-		// Mock progress bar completion (5 seconds)
-		$progressBarCompletion = setTimeout(function() {
-			alert('Submitted CSV Form');
-
-			// Successful upload
-			Modal.stepAction('successful-bulk-upload');
-
-			// Hide buttons
-			$('.back-btn').hide();
-			$('.next-btn').hide();
-
-			// Hide the "Bulk Add Contacts" title
-			$('.wowtools-modal h2').hide();
-
-			// Show the back to dashboard button
-			$('.back-to-dashboard-button').show();
-		}, 3000);
-
-		$('.cancel-btn').click(function() {
-			// If cancel button is pressed, abort AJAX call i.e.
-			// var xhr = $.ajax();
-			// xhr.abort();
-			$('.next-btn').show(); // Show the next button again
-			clearTimeout($progressBarCompletion);
-		});
-	},
-
-	/**
-	 * Connecting Active Campaign Form Submission (Audience Page)
-	 */
-	ACFormSubmission: function() {
-		alert("Submitting Active Campaign Form (Event)");
-
-		/**
-		 * AJAX Call
-		 */
-		var ACFormData = [
-			'connectACFormACList'
-		];
-		var ACFormDestination = 'api/v1/audience/bulkAddActiveCampaign';
-
-		// AJAX Call
-		sendRequest(ACFormData, ACFormDestination);
-
-		alert("Submitted AC Form");
-
-		// Assume a successful AJAX call
-		Modal.stepAction('successful-ac-sync');
-
-		// Hide buttons
-		$('.back-btn').hide();
-		$('.next-btn').hide();
-
-		// Hide the "Bulk Add Contacts" title
-		$('.wowtools-modal h2').hide();
-
-		// Show the back to dashboard button
-		$('.back-to-dashboard-button').show();
-	},
-};
-
-// All forms on the SMS page
-var SMSForms = {
-	/**
-	 * Shows the Stripe overlay
-	 */
-	Stripe: function() {
-		// Shows the Stripe overlay
-		$('.wowtools-modal').hide();
-		$('.modal-container').fadeIn(200);
-		$('.stripe-overlay').show();
-
-		// Pretend a Stripe payment happened
-
-		// Fade out
-		setTimeout(function() {
-			// Modal.closeModal();
-			$('.stripe-overlay').hide();
-		}, 3000);
-	},
-
-	/**
-	 * Shows the success modal
-	 */
-	Success: function() {
-		$('.wowtools-modal').hide();
-		$("#success-modal .first-step").addClass('active');
-		$("#success-modal .back-to-dashboard-button").show();
-
-		// TODO: Remove the delay in the final site to be replaced with AJAX success
-		$('#success-modal').delay(3000).fadeIn(200);
-	},
-
-	/**
-	 * Performs buy 5000 form action
-	 */
-	buy5000FormSubmission: function() {
-		// Modal.closeModal();
-		// Fade out modals
-		$('.wowtools-modal').fadeOut(200);
-		/**
-		 * Stripe related code goes here
-		 */
-		SMSForms.Stripe();
-		alert('Stripe payment completed - $400');
-		/**
-		 * Stripe payment completed, show success screen
-		 */
-		SMSForms.Success();
-	},
-
-	/**
-	 * Performs buy 1000 form action
-	 */
-	buy1000FormSubmission: function() {
-		// Modal.closeModal();
-		// Fade out modals
-		$('.wowtools-modal').fadeOut(200);
-		/**
-		 * Stripe related code goes here
-		 */
-		SMSForms.Stripe();
-		alert('Stripe payment completed - $100');
-		/**
-		 * Stripe payment completed, show success screen
-		 */
-		SMSForms.Success();
-	},
-
-	/**
-	 * Performs buy 36 form action
-	 */
-	buy36FormSubmission: function() {
-		// Modal.closeModal();
-		// Fade out modals
-		$('.wowtools-modal').fadeOut(200);
-		/**
-		 * Stripe related code goes here
-		 */
-		SMSForms.Stripe();
-		alert('Stripe payment completed - $36');
-		/**
-		 * Stripe payment completed, show success screen
-		 */
-		SMSForms.Success();
-	},
-
-	/**
-	 * Performs buy 47 Monthly form action
-	 */
-	buy47FormSubmission: function() {
-		// Modal.closeModal();
-		// Fade out modals
-		$('.wowtools-modal').fadeOut(200);
-		/**
-		 * Stripe related code goes here
-		 */
-		SMSForms.Stripe();
-		alert('Stripe payment completed - $47/month');
-		/**
-		 * Stripe payment completed, show success screen
-		 */
-		SMSForms.Success();
-	},
-
-	/**
-	 * Performs buy 425 Yearly form action
-	 */
-	buy425FormSubmission: function() {
-		// Modal.closeModal();
-		// Fade out modals
-		$('.wowtools-modal').fadeOut(200);
-		/**
-		 * Stripe related code goes here
-		 */
-		SMSForms.Stripe();
-		alert('Stripe payment completed - $425/year');
-		/**
-		 * Stripe payment completed, show success screen
-		 */
-		SMSForms.Success();
-	},
-
-	/**
-	 * Checks prices after discount coupon is applied 
-	 */
-	checkPricesAfterDiscount: function() {
-		/**
-		 * Replace with production code
-		 */
-		alert('Checking price after discount...');
+		$('#' + $formName).submit();
 	},
 };
 
@@ -618,6 +348,42 @@ var Audience2 = {
 	},
 
 	/**
+	 * Handles behaviour of pressing the plus button on the
+	 * individual audience page but only within the modal object
+	 */
+	addIndividualAudienceRowModal: function(counter) {
+		event.preventDefault();
+		counter = counter + 1;
+
+		// Turn the current add row button into a trash button
+		$('.individual-audience-sync ul li.contains-plus').hide();
+		$('.individual-audience-sync ul li.contains-trash').show();
+
+		// Append a row
+		$('#individual-audience-sync-app').append(
+			'<div class="d-flex individual-audience-sync" id="modal-row-' + counter + '">' +
+				'<label>First Name</label>' +
+				'<input type="text" name="#">' +
+				'<label>Last Name</label>' +
+				'<input type="text" name="#">' +
+				'<label>Mobile</label>' +
+					'<select>' +
+							'<option value="+61">+61</option>' +
+					'</select>' +
+				'<input type="text" name="#">' +
+				'<ul>' +
+					'<li class="contains-trash" style="display:none;">' +
+						'<button class="trash" onclick="Audience2.removeIndividualAudienceRowModal(' + counter + ');"><i class="fa fa-minus"></i></button>' +
+					'</li>' +
+					'<li class="contains-plus">' +
+						'<button class="plus" onclick="Audience2.addIndividualAudienceRowModal(' + counter + ');"><i class="fa fa-plus"></i></button>' +
+					'</li>' +
+				'</ul>' +
+			'</div>'
+		);
+	},
+
+	/**
 	 * Handles behaviour when pressing the minus button
 	 * on the individual audience page
 	 */
@@ -630,6 +396,27 @@ var Audience2 = {
 			var counter = counter - 1;
 			if(counter > 0) {
 				$('#row-' + counter + ' ul.d-flex').append(
+					'<li>' +
+						'<button class="plus" onclick="Audience2.addIndividualAudienceRow(' + counter + ');"><i class="fa fa-plus"></i></button>' +
+					'</li>'
+				);
+			}
+		}
+	},
+
+	/**
+	 * Handles behaviour when pressing the minus button
+	 * on the individual audience page but only within the modal
+	 */
+	removeIndividualAudienceRowModal: function(counter) {
+		event.preventDefault();
+		$('#modal-row-' + counter).remove();
+
+		var counter = counter + 1;
+		if(! $('#modal-row-' + counter).length) {
+			var counter = counter - 1;
+			if(counter > 0) {
+				$('#modal-row-' + counter + ' ul.d-flex').append(
 					'<li>' +
 						'<button class="plus" onclick="Audience2.addIndividualAudienceRow(' + counter + ');"><i class="fa fa-plus"></i></button>' +
 					'</li>'
