@@ -1,5 +1,8 @@
 {%extends "base.html" %}
+{% block css %}
 {% load staticfiles %}
+	<link rel='stylesheet' href='{% static "/css/campaign-builder.css" %}'>
+{% endblock %}
 {% block content %}
 	<style>
 		.campaign-builder-phone {
@@ -20,8 +23,18 @@
 			background-size: 100% 100%;
 			background-position: center;
 		}
+	</style>
+	<!-- PE's CSS -->
+	<style>
+		.dashboard-container{
+			-webkit-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+		}
+
 		.campaign-builder-interface {
 			font-size: 16px;
+			transition: font-size 200ms;
 		}
 
 		#builder-frame {
@@ -36,12 +49,11 @@
 			pointer-events: none;
 			width: 100%;
 			height: 100%;
-			z-index: 10;
+			z-index: 14000;
 		}
 
 		#overlay-box > * {
 			pointer-events: auto;
-			font-size: 16px;
 		}
 
 		#builder-canvas {
@@ -50,15 +62,20 @@
 			width: 500em;
 			height: 500em;
 			left: -250em;
-			top: -10em;
+			top: -250em;
 			margin-left: 50%;
+			margin-top: 50%;
 			touch-action:none;
 			cursor: default;
 			cursor: -moz-grab;
 			cursor: -webkit-grab;
 		}
 
-		#builder-canvas.dragging, #shadow-objects svg {
+		.mobile-drag, .mobile-drag * {
+			touch-action: none;
+		}
+
+		#builder-canvas.dragging, #shadow-objects svg, #builder-canvas.dragging .module {
 			cursor: move;
 			cursor: -moz-grabbing;
 			cursor: -webkit-grabbing;
@@ -70,15 +87,92 @@
 			pointer-events: none;
 		}
 
-		.module {
+		#menu-box{
+			display: none;
+			position: absolute;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			background: rgba(0,0,0,0.5);
 			cursor: default;
+			z-index: 12000;
 		}
 
+		i {
+			pointer-events: none;
+		}
+
+		/*----------------Modes----------------*/	
+		#mode-box {
+			position: absolute;
+			z-index: 11000;
+		}
+
+		#zoom-box {
+			position: absolute;
+			right: 0;
+			top: 0;
+			z-index: 11000;
+		}
+
+		.mode-item, .zoom-item {
+			position: relative;
+			float: left;
+			width: 32px;
+			height: 32px;
+			font-size: 15px;
+			background: #eee;
+			border-radius: 0 0 4px 4px;
+			color: #888;
+			text-align: center;
+			line-height: 30px;
+			cursor: pointer !important;
+			box-sizing: content-box;
+			border-bottom: 1px solid #b0b0b0;
+			border-right: 1px solid #b0b0b0;
+			transition: padding 300ms;
+		}
+
+		.zoom-item {
+			border-left: 1px solid #b0b0b0;
+			line-height: 29px;
+			margin-right: -1px;
+		}
+
+		#zoom-info {
+			width: 50px;
+			height: 25px;
+			line-height: 25px;
+		}
+
+		.mode-item.selected{
+			background: #2f64a4;
+			border-color: #1a1a73;
+			color: #eee;
+			padding-top: 5px;
+		}
+
+		#builder-frame[data-mode="remove"] .standard-module:hover {
+			opacity: 0.5;
+			cursor: pointer;
+		}
+
+		#builder-frame[data-mode="remove"] .standard-module:hover * {
+			pointer-events: none !important;
+		}
+
+
+
 		#start-area {
+			display: none;
 			position: absolute;
 			width: 100%;
 			justify-content: center;
-			top: 12em;
+			animation: popin 300ms forwards 1;
+		}
+
+		#start-button-wrapper{
+			padding: 1em 0;
 		}
 
 		#start-button {
@@ -100,10 +194,11 @@
 			justify-content: center;
 			font-size: 120%;
 			line-height: 1;
+			border-radius: 1em 0 0 1em;
 		}
 
 		.blue-border {
-			border: 2px solid #2f64a4;
+			border: 0.1em solid #2f64a4;
 		}
 
 		.settings-button {
@@ -112,7 +207,79 @@
 			background: #2f64a6;
 			height: 100%;
 			width: 2em;
-			cursor: pointer;
+			cursor: pointer !important;
+			text-align: center;
+			line-height: 1.85em;
+			color: white;
+		}
+
+		#start-button .settings-button {
+			line-height: 1.65em;
+			background: none;
+		}
+
+		.module.error .blue-border, .blue-border.error {
+			border-color: #dc3c3c !important;
+		}
+
+		.module.error .settings-button {
+			background: #dc3c3c !important;
+		}
+
+		.module.error .movebox {
+			background: #9c4747 !important;
+			color:white;
+		}
+
+		.error svg {
+			stroke: #dc3c3c !important;
+		}
+
+		.module.closest-elem .blue-border, .blue-border.closest-elem {
+			border-color: #0dc5ff;
+		}
+
+		.closest-elem .settings-button, .closest-elem #start-button {
+			background: #0dc5ff;
+		}
+
+		.closest-elem .movebox {
+			background: #38a2c3;
+			color: white;
+		}
+
+		.closest-elem svg {
+			stroke: #0dc5ff;
+		}
+
+		.settings-button.rounded {
+			position: relative;
+			height: 2em;
+			border-radius: 0 0.3em 0.3em 0;
+		}
+
+		.settings-button.circle {
+			height: 2em;
+			border-radius: 50%;
+		}
+
+		#line-area {
+			position: absolute;
+			top: 0;
+			z-index: 10001;
+			stroke-width: 0.1;
+			stroke: #8ed586;
+			fill: none;
+		}
+
+		.graph-error #line-area{
+			opacity: 0.5;
+			z-index: 0;
+		}
+
+		#line-area circle{
+			fill: #8ed586;
+			stroke: none;
 		}
 
 		/*Shadow objects*/
@@ -130,9 +297,9 @@
 		}
 
 		#shadow-rect {
-			width: 28em;
+			width: 30em;
 			height: 10em;
-			margin: -5em -14em;
+			margin: -5em -15em;
 		}
 
 		#shadow-rhombus {
@@ -151,8 +318,135 @@
 			animation: pop 300ms forwards 1;
 		}
 
+		#guideline{
+			display: none;
+			position: absolute;
+			height: 100%;
+			margin-left: -0.05em;
+			left: 250em;
+			top: 0;
+			border-left: 0.1em dashed #0dc5ff;
+		}
+
+		/*Modules*/
+		.module{
+			position: absolute;
+			animation: popin 300ms forwards 1;
+		}
+
+		.module > * {
+			cursor:default;
+		}
+
+		.module.message{
+			width: 30em;
+			height: 10em;
+			padding: 1em;
+			box-sizing: border-box;
+		}
+
+		.module.wait{
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 10em;
+			height: 8em;
+		}
+
+		.module.joiner{
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 10em;
+			height: 10em;
+			padding: 1em;
+			box-sizing: border-box;
+		}
+
+		.inner-circle{
+			position: absolute;
+			width: 8em;
+			height: 8em;
+			background: white;
+			border-radius: 50%;
+		}
+
+		.msg-box{
+			position: absolute;
+			box-sizing: border-box;
+			width: 26em;
+			height: 8em;
+			background: white;
+			border-radius: 0.3em 0 0.3em 0.3em;
+			overflow: auto;
+		}
+
+		.movebox{
+			position: relative;
+			width: 2em;
+			height: 2em;
+			background: #ccc;
+			float: right;
+			clear: both;
+			border-radius: 0 0.3em 0.3em 0;
+			color: #888;
+		}
+
+		.resize {
+			position: absolute;
+			bottom: 0;
+			right: 0;
+			border: 0.5em solid #ddd;
+			border-top-color: transparent;
+			border-left-color: transparent;
+			cursor: se-resize;
+		}
+
+		.msg-content {
+			padding: 0.5em;
+			height: 100%;
+			font-size: 90%;
+			outline: none;
+			white-space: pre-wrap;
+			word-break: break-all;
+		}
+
+		.green-tag {
+			background: #8ed586;
+			font-weight: 500;
+			padding: 0 0.5em 0.2em;
+			border-radius: 1em;
+			white-space: nowrap;
+		}
+
+		.module-rhombus{
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			fill: white;
+			stroke: #2f64a4;
+			stroke-width: 0.14;
+		}
+
+		.module-rhombus path {
+			pointer-events: auto !important;
+		}
+
+		/*Menu area*/
+
+		.menu {
+		    position: absolute;
+	    	background: white;
+		}
+
 		@keyframes pop{
-			20%{
+			0%{
+				-webkit-transform: scale(1);
+				-moz-transform: scale(1);
+				-ms-transform: scale(1);
+				transform: scale(1);
+			}
+			30%{
 				-webkit-transform: scale(1.2);
 				-moz-transform: scale(1.2);
 				-ms-transform: scale(1.2);
@@ -165,26 +459,32 @@
 				transform: scale(0);
 			}
 		}
-		#builder-canvas.dragging {
-			cursor: move;
-			cursor: grab;
-			cursor: -moz-grab;
-			cursor: -webkit-grab;}
 
-		#campaign-name {
-			height: 20px;
-			border: none;
-			width: 250px;
-			text-align: center;
-			font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
-			background: transparent;
-			color: white;
-			font-size: 16px;
-			font-style: italic;
+		@keyframes popin{
+			0%{
+				-webkit-transform: scale(0);
+				-moz-transform: scale(0);
+				-ms-transform: scale(0);
+				transform: scale(0);
+			}
+			70%{
+				-webkit-transform: scale(1.2);
+				-moz-transform: scale(1.2);
+				-ms-transform: scale(1.2);
+				transform: scale(1.2);
+			}
+			100%{
+				-webkit-transform: scale(1);
+				-moz-transform: scale(1);
+				-ms-transform: scale(1);
+				transform: scale(1);
+			}
 		}
 
-		#campaign-name:focus {
-			outline: none;
+		#testdiv{
+			position: fixed;
+			pointer-events: none;
+			background: rgba(255,0,0,0.5);
 		}
 	</style>
 	<!-- Campaign Builder -->
@@ -231,10 +531,32 @@
 				<!-- End Campaign Builder Controls (Top Part) -->
 				<!-- Campaign Builder Drag and Drop interface -->
 				<div class="campaign-builder-interface">
+					<div id="mode-box">
+						<div id="move-mode" class="mode-item selected" title="move mode" onclick="setEditMode('move')">
+							<i class="fa fa-arrows fa-lg"></i>
+						</div>
+						<div id="remove-mode" class="mode-item" title="delete elements" onclick="setEditMode('remove')">
+							<i class="fa fa-trash fa-lg"></i>
+						</div>
+						<div id="unlink-mode" class="mode-item" title="unlink elements" onclick="setEditMode('unlink')">
+							<i class="fa fa-chain-broken fa-lg"></i>
+						</div>
+					</div>
+					<div id="zoom-box">
+						<div class="zoom-item" onclick="zoom(1)">
+							<i class="fa fa-search-plus fa-lg"></i>
+						</div>
+						<div class="zoom-item" id="zoom-info" onclick="zoom(0,10)">
+							100%
+						</div>
+						<div class="zoom-item" onclick="zoom(-1)">
+							<i class="fa fa-search-minus fa-lg"></i>
+						</div>
+					</div>
 					<div id="overlay-box">
 						<div id="shadow-objects">
-							<svg viewBox="-1 -1 28 10" id="shadow-rect">
-								<rect width="26" height="8"></rect>
+							<svg viewBox="-1 -1 30 10" id="shadow-rect">
+								<path d="M0 0 l28 0 l0 4 l-2 0 l0 4 l-26 0 z"></path>
 							</svg>
 							<svg viewBox="-1 -1 10 8" id="shadow-rhombus">
 								<path d="M0 3 l4 3 l4 -3 l-4 -3 z"></path>
@@ -244,7 +566,7 @@
 							</svg>
 						</div>
 					</div>
-					<div id="builder-frame">
+					<div id="builder-frame" data-mode="move">
 						<div id="builder-canvas" class="grab">
 							<svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg" height="500" width="500">
 								<defs>
@@ -254,10 +576,19 @@
 								</defs>
 								<rect fill="url(#backgrid)" width="500" height="500"></rect>
 							</svg>
+							<svg id="line-area" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg" height="500" width="500"></svg>
+							<div id="menu-box">
+								<div></div>
+							</div>
+							<div id="guideline"></div>
 							<div id="start-area" class="d-flex inert">
-								<div id="start-button" class="blue-border module">
-									<div id="start-lbl">START</div>
-									<div class="settings-button"></div>
+								<div id="start-button-wrapper" class="module">
+									<div id="start-button" class="blue-border">
+										<div id="start-lbl">START</div>
+										<div class="settings-button">
+											<i class="fa fa-cog fa-lg"></i>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -297,6 +628,14 @@
 		</div>
 	</div>
 	<!-- End Campaign Builder -->
+	<!-- Buffers -->
+	<div style="display: none">
+		<div id="rhombus-buffer">
+			<svg viewBox="-1 -1 10 8" class="module-rhombus">
+				<path d="M0 3 l4 3 l4 -3 l-4 -3 z"></path>
+			</svg>
+		</div>
+	</div>
 {% endblock %}
 {% block scripts %}
 	<script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/gojs/1.7.17/go.js'></script>
@@ -321,7 +660,6 @@
 			var textArea = $('<textarea />')
 		}
 	</script>
-	<script src='{% static "/js/picturelements/graph.js" %}'></script>
 	<script src='{% static "/js/picturelements/graph.js" %}'></script>
 	<script src='{% static "/js/campaign-builder.js" %}'></script>
 {% endblock %}
