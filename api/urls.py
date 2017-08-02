@@ -3,8 +3,10 @@ from . import views
 
 
 urlpatterns = [
-	url(r'^$', views.apiTest, name='apiTest'),
-	url(r'settings/details/?$', views.details, name='settings-details'),
-	url(r'settings/apiKey/?$', views.apiKey, name='apiKey'),
-	url(r'settings/subscriptions/?$',views.subscriptions, name='subscriptions')
+	url('^$', views.apiTest, name='apiTest'),
+	url('settings/details/?$', views.details, name='settings_details'),
+	url('settings/apiKey/?$', views.apiKey, name='apiKey'),
+	url('settings/subscriptions/?$',views.subscriptions, name='subscriptions'),
+	url('register/?$', views.register, name='register'),
+	url('login/?$',views.login, name='login')
 ]

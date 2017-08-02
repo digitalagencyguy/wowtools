@@ -28,6 +28,71 @@ html {
 .full-height {
 	min-height: 100% !important;
 }
+
+/**
+ * Login and Register Pages
+ */
+.login-body {
+	background: #2F64A6;
+}
+.login-box {
+  width      : 400px;
+  margin     : 10% auto 0;
+  background : #fff;
+  border-radius: 10px;
+  -webkit-box-shadow: 1px 2px 5px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 1px 2px 5px 0px rgba(0,0,0,0.75);
+  box-shadow: 1px 2px 5px 0px rgba(0,0,0,0.75);
+}
+.white-box {
+  margin-bottom : 30px;
+  padding       : 25px;
+  border        : 1px solid #e5ebec;
+  border-radius : 10px;
+  background    : #fff;
+}
+.white-box .box-title {
+  margin      : 10px 0 12px;
+  font-size   : 18px;
+  font-weight : 600;
+}
+.white-box h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+.white-box .form-group {
+  margin-bottom : 17px;
+}
+.white-box .form-group input {
+  -webkit-transition: all 0s ease-in-out;
+  -o-transition: all 0s ease-in-out;
+  transition: all 0s ease-in-out;
+}
+.white-box .form-group button {
+  height: 50px;
+  line-height: 50px;
+  padding: 0;
+  text-transform: none;
+  cursor: pointer;
+  -webkit-transition: all 0s ease-in-out;
+  -o-transition: all 0s ease-in-out;
+  transition: all 0s ease-in-out;
+}
+.white-box .form-group .btn-login {
+  background: #65CC59;
+  color: #fff;
+}
+.white-box .form-control {
+  max-width        : 100%;
+  height           : 38px;
+  padding          : 7px 12px;
+  color            : #565656;
+  border           : 1px solid #e5ebec;
+  border-radius    : 0;
+  background-color : #fff;
+  box-shadow       : none;
+}
+
 /**
  * Styles used for each dashboard element
  */
@@ -2231,4 +2296,132 @@ html {
 }
 .campaign-builder-buttons .send-now {
 	background: #25D141;
+}
+/**
+ * Schedule page
+ */
+.scheduled-main {
+	flex: 1;
+	padding-top: 15px;
+	margin-bottom: 40px;
+}
+.scheduled-flex {
+	flex: 1;
+}
+.scheduled-nav-flex {
+	flex: 1;
+}
+.scheduled-nav-flex .nav-tabs .nav-item {
+	width: 12.5%;
+	box-sizing: border-box;
+}
+.scheduled-nav-flex .nav-tabs .nav-link {
+	background: #c0c0c0;
+	color: #fff;
+	border: 1px solid #dddddd;
+	text-align: center;
+	font-size: 14px;
+	border-radius: 0 !important;
+}
+.scheduled-nav-flex .nav-tabs .nav-item a {
+	height: 100%;
+}
+.scheduled-nav-flex .nav-tabs .nav-item a .table {
+	margin-bottom: 0;
+}
+.scheduled-nav-flex .nav-tabs .nav-link.active {
+	background: #1F65AC;
+	color: #fff;
+}
+.scheduled-table-row {
+	padding-top: 10px;
+	padding-bottom: 10px;
+	background: #F9FAFC;
+	border-bottom: 1px solid #c6d0e3;
+	padding: 15px 10px;
+	min-height: 60px;
+}
+.scheduled-table-row .col,
+.scheduled-table-row .col-5,
+.scheduled-table-row .checkbox-col {
+	align-items: center;
+	display: flex;
+	align-content: center;
+}
+.scheduled-table-header .checkbox-col p {
+	font-size: 20px;
+}
+.scheduled-table-row .checkbox-col p,
+.scheduled-table-header .checkbox-col p {
+	width: 100%;
+	text-align: center;
+}
+.scheduled-table-row ul {
+	margin-left: 0;
+	padding-left: 0;
+	margin-bottom: 0;
+	padding-bottom: 0;
+}
+.scheduled-table-row ul li {
+	display: inline-block;
+	margin-right: 2px;
+}
+.scheduled-table-row ul li button {
+	background: transparent;
+	border: 0;
+	font-size: 20px;
+}
+.scheduled-table-row ul li button.edit-btn {
+	color: #2F64A6;
+}
+.scheduled-table-row ul li button.trash-btn {
+	color: #ff4136;
+}
+.scheduled-table-row .options-col {
+	width: 80px;
+}
+.scheduled-table-row .checkbox-col {
+	width: 70px;
+}
+.scheduled-table-row p {
+	font-size: 13px;
+	margin-bottom: 0;
+}
+.scheduled-table-header {
+	padding: 7.5px 10px;
+	min-height: auto;
+	background: #2F64A6;
+}
+.scheduled-table-header p {
+	margin-bottom: 0;
+	padding-bottom: 0;
+	color: white;
+	font-weight: bolder;
+	font-size: 13px;
+}
+.new-sms .new-sms-btn {
+	background: #25D141;
+	margin-right: 10px;
+	margin-bottom: 15px;
+	border: 0;
+	color: #fff;
+	height: 35px;
+	line-height: 35px;
+	padding-left: 15px;
+	padding-right: 15px;
+	text-transform: uppercase;
+	cursor: pointer;
+}
+.new-sms .delete-sms-btn {
+	background:  #c0c0c0;
+	margin-right: 10px;
+	margin-bottom: 15px;
+	border: 0;
+	color: #fff;
+	height: 35px;
+	line-height: 35px;
+	padding-left: 15px;
+	padding-right: 15px;
+	text-transform: uppercase;
+	cursor: pointer;
 }

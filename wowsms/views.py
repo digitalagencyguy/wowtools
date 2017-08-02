@@ -1,6 +1,8 @@
 from .utils import Request
+from .utils import Model
 from django.shortcuts import render
 from django.shortcuts import redirect
+from django.shortcuts import HttpResponse
 
 def index(request):
 	response = Request(request, 'index', 'landing')
@@ -35,11 +37,17 @@ def logout(request):
 	return redirect('/')
 
 def login(request):
-	request.session['user'] = '1'
-	return redirect('/')
+	if request.session.get('user'):
+		return redirect('/')
+	response = Request(request, 'login', 'error', False)
+	return render(request, response.template, response.context)
 
 def register(request):
-	response = Request(request, 'register', 'landing', False)
-	return render(request, response.template, response.context)
+	if request.session.get('user'):
+		return redirect('/')
+	return render(request,'register.html')
+
+def error(request):
+	return render(request, 'error.html')
 
 #$kil1ion

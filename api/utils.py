@@ -1,9 +1,11 @@
 import json 
 import requests
 
-def Response(payload):
-	return json.dumps({'data': payload})
+class Model:
 
+	def __init__(self, json_):
+		for key in json_:
+			setattr(self, key, json_[key])
 
 #automatically process requests to the database
 class Request:
@@ -12,12 +14,12 @@ class Request:
 		self.url = url
 		self.payload = json.dumps(payload)
 		self.headers = headers
-		self.response = self.request()
 
-	def request(self):
+	@property
+	def response(self):
 		if json.loads(self.payload):
-			thing = requests.post(self.url,data=self.payload, headers=self.headers)
-			return thing
+			thing = requests.post(self.url, data=self.payload, headers=self.headers)
+			return json.loads(thing.content)
 		else:
 			thing = requests.get(self.url)
-			return thing
+			return json.loads(thing.content)

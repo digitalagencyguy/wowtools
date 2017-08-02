@@ -1,220 +1,116 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class='packages sms-section'>
-	<div class="sms-section-header">
-		<h2>Package Options</h2>
-	</div>
-	<div class="d-flex flex-row buy-sms">
-		<div class="col-4">
-			<div class="sms-individual">
-				<span class="sms-title">Wow 1000</span>
-				<h2>Buy 1000</h2>
-				<h3>SMS Messages</h3>
-				<hr>
-				<p>$100</p>
-				<hr>
-				<button type="button" class="btn btn-info btn-lg modal-toggle" data-modal-function="buy1000">buy $100</button>					
-			</div>
+<!-- SMS Pricing Calculator -->
+<div class="sms-pricing-calculator">
+	<div class="sms-pricing-calculator-content">
+		<div class="sms-pricing-calculator-instructions">
+			<p>How much credit do I need? Check with our <span id='pricing-calculator'>PRICING CALCULATOR!</span></p>
 		</div>
-		<div class="col-4">
-			<div class="sms-individual">
-				<span class="sms-title">Wow 5000</span>
-				<h2>Buy 5000</h2>
-				<h3>SMS Messages</h3>
-				<hr>
-				<p>$400</p>
-				<hr>
-				<button type="button" class="btn btn-info btn-lg modal-toggle" data-modal-function="buy5000">buy $400</button>	
-			</div>
+		<div class="sms-pricing-calculator-instructions">
+			<label>Credit Amount:</label>
+			<select name="#" id="#">
+				<option value="A$20">A$20</option>
+			</select>
 		</div>
-		<div class="col-4">
-			<div class="sms-individual">
-				<span class="sms-title">Wow Custom</span>
-				<h2>Buy Custom Amount</h2>
-				<h3>SMS Messages</h3>
-				<form>
-					How Many Messages:
-					<input type="number" name="quantity" min="1" value="300">
-				</form>
-				<hr>
-				<p>$36</p>
-				<hr>
-				<button type="button" class="btn btn-info btn-lg modal-toggle btn-different" data-modal-function="buy36">buy $36</button>	
+		<!-- TODO: Replace with pay with Stripe checkout button -->
+		<button style='margin:0 auto;cursor:pointer;margin-bottom:40px;margin-top: 0;display:block;'>Pay with Stripe Checkout</button>
+		<!-- End TODO -->
+		<div class="sms-pricing-calculator-instructions rest-assured-pricing-calculator">
+			<div class="d-flex">
+			{% load staticfiles %}
+				<img src='{% static "/sms-pricing-calculator-images/lock.jpg" %}' alt="Rest assured that WOWSMS does not store credit or debit card details on this website.">
+				<p>Rest assured that WOWSMS does not store credit or debit card details on this website. <br> All payment data is securely stored by third-party PCI-compliant payment gateways.</p>
 			</div>
 		</div>
 	</div>
 </div>
-<div class='packages sms-section'>
-	<div class="sms-section-header">
-		<h2>Subscription Options</h2>
-	</div>
-	<div class="d-flex justify-content-center flex-row buy-sms">
-		<div class="col-4">
-			<div class="sms-individual">
-				<span class="sms-title"></span>
-				<h2 class='sms-buy-monthly-h2'>Buy Monthly</h2>
-				<hr>
-				<p>$47/Mo</p>
-				<hr>
-				<button type="button" class="btn btn-info btn-lg modal-toggle" data-modal-function="buy47">buy $47</button>				
-			</div>
-		</div>
-		<div class="col-4">
-			<div class="sms-individual sms-best-value-sms-individual">
-				<span class="sms-title">Best Value</span>
-				<h2>Buy Annual</h2>
-				<h4>(25% Off)</h4>
-				<hr>
-				<p>$425/year</p>
-				<hr>
-				<button type="button" class="btn btn-info btn-lg modal-toggle sms-best-value-btn" data-modal-function="buy425">buy $47</button>			
-			</div>
-		</div>
-	</div>
-</div>
+<!-- End SMS Pricing Calculator -->
 {% endblock %}
 {% block modalContent %}
-<!-- Stripe Overlay -->
-<div class="stripe-overlay">
-	<h2>I AM A STRIPE OVERLAY</h2>
-	<p>A payment flow would be here</p>
-	<p>I will fade out in 3 seconds</p>
-</div>
-<!-- End Stripe Overlay -->
-<!-- Successful purchase modal -->
-<div class='wowtools-modal purchase-modal' id='success-modal'>
-	<div class="step first-step">
-		<div class="table">
-			<div class="table-cell">
-				<div class="successful-action">
-					<span>Subscription Confirmation Successful!</span>
-					<div class="modal-icon">
-						<i class="fa fa-check"></i>
+<div class='wowtools-modal sms-pricing-calculator-modal' id='smsPricingCalculator'>
+	<!-- Pricing Calculator Form -->
+	<form action="#">
+		<div class='d-flex flex-column sms-pricing-calculator-flex'>
+			<div class='sms-pricing-calculator-modal-header'>
+				<h2>Pricing Calculator</h2>
+				<button class='closeModal' onclick="event.preventDefault();Modal.closeModal();">
+				<i class="fa fa-times"></i>
+				</button>
+				<hr>
+			</div>
+			<div class="sms-pricing-calculator-modal-content">
+				<p>Use our pricing calculator to check how much WOWSMS credit you need to send specific amount of SMS to desired countries.</p>
+				<div class="pricing-calculator-modal-table">
+					<!-- Table Header -->
+					<div class="d-flex pricing-calculator-modal-table-header">
+						<div class="pricing-calculator-modal-table-destination-country">
+							<span>Destination Country</span>
+						</div>
+						<div class="pricing-calculator-modal-table-price-per-text">
+							<span>Price Per Text</span>
+						</div>
+						<div class="pricing-calculator-modal-table-number-of-texts">
+							<span>Number of texts</span>
+						</div>
+						<div class="pricing-calculator-modal-table-cost">
+							<span>Cost</span>
+						</div>
+						<div class="pricing-calculator-table-option"></div>
 					</div>
+					<!-- End Table Header -->
+					<!-- Table Row -->
+					<div class="d-flex pricing-calculator-modal-table-row">
+						<div class="pricing-calculator-modal-table-destination-country">
+							<select name="#" id="#">
+								<option value="Australia">Australia</option>
+							</select>
+						</div>
+						<div class="pricing-calculator-modal-table-price-per-text">
+							<span>A$0.082</span>
+						</div>
+						<div class="pricing-calculator-modal-table-number-of-texts">
+							<input type="text" name="#" id="#" value="1000">
+						</div>
+						<div class="pricing-calculator-modal-table-cost">
+							<span>A$82.00</span>
+						</div>
+						<div class="pricing-calculator-table-option">
+							<button onclick="event.preventDefault();">
+							<i class="fa fa-times"></i>
+							</button>
+						</div>
+					</div>
+					<!-- End Table Row -->
+					<!-- Total Cost Row -->
+					<div class="d-flex pricing-calculator-modal-table-row pricing-calculator-modal-table-total-cost-row">
+						<div class="pricing-calculator-modal-table-destination-country">
+							<a href="#" onclick="event.preventDefault();"><i class="fa fa-plus"></i> <em>Add another country</em></a>
+						</div>
+						<div class="pricing-calculator-modal-table-price-per-text"></div>
+						<div class="pricing-calculator-modal-table-number-of-texts" style='text-align:right;'>
+							<span><strong>Total Cost:</strong></span>
+						</div>
+						<div class="pricing-calculator-modal-table-cost">
+							<span>A$82.00</span>
+						</div>
+						<div class="pricing-calculator-table-option"></div>
+					</div>
+					<!-- End Total Cost Row -->
 				</div>
 			</div>
+			<div class="sms-pricing-calculator-modal-footer">
+				<hr>
+				<p>Suitable top up amount:</p>
+				<span>100 AUD</span>
+				<button onclick="event.preventDefault();">Continue</button>
+			</div>
 		</div>
-	</div>
-	<div class='back-to-dashboard-button'>
-		<button class="back-to-dashboard-btn">Back to dashboard</button>
-	</div>
+	</form>
+	<!-- End Pricing Calculator Form -->
 </div>
-<!-- Successful purchase modal -->
-<!-- Buy 1000 Modal -->
-<div class='wowtools-modal purchase-modal' id='buy1000'>
-	<button class="back-btn" data-next-step="closeModal">Back</button>
-	<div class='step first-step contains-form' id='buy100-home-step' 
-		data-prev-step="closeModal" 
-		data-next-step="closeModal"
-		data-form="buy1000Form"
-		>
-		<h2>Hey Nathan, you're buying:</h2>
-		<span class="sms-purchase-information">1000 Messages Pack at $100</span>
-		<div class="sms-how-many d-flex">
-			<form action='#' id='buy1000Form' method='POST'>
-				<label>How many packs:</label>
-				<select name="#">
-					<option value="1">1</option>
-				</select>
-			</form>
-		</div>
-	</div>
-	<button class="next-btn payment-btn">Pay $100</button>
-</div>
-<!-- End Buy 1000 modal -->
-<!-- Buy 5000 Modal -->
-<div class='wowtools-modal purchase-modal' id='buy5000'>
-	<button class="back-btn" data-next-step="closeModal">Back</button>
-	<div class='step first-step contains-form' id='buy100-home-step' 
-		data-prev-step="closeModal" 
-		data-next-step="closeModal"
-		data-form="buy5000Form"
-		>
-		<h2>Hey Nathan, you're buying:</h2>
-		<span class="sms-purchase-information">5000 Messages Pack at $400</span>
-		<div class="sms-how-many d-flex">
-			<form action='#' id='buy5000Form' method='POST'>
-				<label>How many packs:</label>
-				<select name="#">
-					<option value="1">1</option>
-				</select>
-			</form>
-		</div>
-	</div>
-	<button class="next-btn payment-btn">Pay $400</button>
-</div>
-<!-- End Buy 5000 modal -->
-<!-- Buy 36 Modal -->
-<div class='wowtools-modal purchase-modal' id='buy36'>
-	<button class="back-btn" data-next-step="closeModal">Back</button>
-	<div class='step first-step contains-form' id='buy100-home-step' 
-		data-prev-step="closeModal" 
-		data-next-step="closeModal"
-		data-form="buy36Form"
-		>
-		<h2>Hey Nathan, you're buying:</h2>
-		<span class="sms-purchase-information">36 Messages Pack at $36</span>
-		<div class="sms-how-many d-flex">
-			<form action='#' id='buy36Form' method='POST'>
-				<label>How many packs:</label>
-				<select name="#">
-					<option value="1">1</option>
-				</select>
-			</form>
-		</div>
-	</div>
-	<button class="next-btn payment-btn">Pay $36</button>
-</div>
-<!-- End Buy 36 modal -->
-<!-- Buy 47 Monthly Modal -->
-<div class='wowtools-modal purchase-modal' id='buy47'>
-	<button class="back-btn" data-next-step="closeModal">Back</button>
-	<div class='step first-step contains-form' id='buy100-home-step' 
-		data-prev-step="closeModal" 
-		data-next-step="closeModal"
-		data-form="buy47Form"
-		>
-		<h2>Hey Nathan, you're buying:</h2>
-		<span class="sms-purchase-information"> Monthly WOW!SMS at $47/month</span>
-		<div class="sms-discount d-flex">
-			<form class='monthly-wow-sms' action='#' id='buy47Form' method='POST'>
-				<label>Have a discount code? Enter it Here:</label>
-				<div class='d-flex'>
-					<input type="text" id="fname" name="fname">
-					<button class='apply-discount' type="submit">update price</button>
-				</div>
-			</form>
-		</div>
-	</div>
-	<button class="next-btn payment-btn">Pay $47/month</button>
-</div>
-<!-- End Buy 47 Monthly modal -->
-<!-- Buy 425 Yearly Modal -->
-<div class='wowtools-modal purchase-modal' id='buy425'>
-	<button class="back-btn" data-next-step="closeModal">Back</button>
-	<div class='step first-step contains-form' id='buy100-home-step' 
-		data-prev-step="closeModal" 
-		data-next-step="closeModal"
-		data-form="buy425Form"
-		>
-		<h2>Hey Nathan, you're buying:</h2>
-		<span class="sms-purchase-information"> Monthly WOW!SMS at $425/year</span>
-		<div class="sms-discount d-flex">
-			<form class='monthly-wow-sms' action='#' id='buy425Form' method='POST'>
-				<label>Have a discount code? Enter it Here:</label>
-				<div class='d-flex'>
-					<input type="text" id="fname" name="fname">
-					<button class='apply-discount' type="submit">update price</button>
-				</div>
-			</form>
-		</div>
-	</div>
-	<button class="next-btn payment-btn">Pay $425/month</button>
-</div>
-<!-- End Buy 425 Yearly modal -->
 {% endblock %}
 {% block scripts %}
 <script>
-	Site.init('sms');
+	Site.init('pricingCalculator');
 </script>
 {% endblock %}

@@ -2425,3 +2425,268 @@ html {
 	text-transform: uppercase;
 	cursor: pointer;
 }
+/**
+ * Campaign Builder Pills and Menus
+ */
+.trigger-menu-campaign-builder {
+	width: 200px;
+	float: left;
+}
+.trigger-menu-campaign-builder ul {
+	padding-left: 0;
+	margin-left: 0;
+	border: 1px solid #fff;
+	border-bottom: 0;
+}
+.trigger-menu-campaign-builder ul li {
+	display: block;
+	width: 100%;
+}
+.trigger-menu-campaign-builder ul li button {
+	background: #2F64A6;
+	color: #fff;
+	border: 0;
+	width: 100%;
+	text-align: left;
+	box-sizing: border-box;
+	padding-left: 15px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	display: flex;
+	position: relative;
+	border-bottom: 1px solid #fff;
+	cursor: pointer;
+}
+.trigger-menu-campaign-builder .trigger-more {
+	position: absolute;
+	right: 0;
+	line-height: 25px;
+	margin-right: 10px;
+	font-size: 25px;
+}
+.trigger-menu-campaign-builder ul li button p {
+	display: inline-block;
+	line-height: 22.5px;
+	margin-bottom: 0;
+	font-size: 14px;
+}
+.trigger-menu-campaign-builder .circle-indicator {
+	display: inline-block;
+	width: 17.5px;
+	height: 17.5px;
+	margin-top: 2.5px;
+	background: #fff;
+	border-radius: 9999px;
+	margin-right: 20px;
+	margin-bottom: 0;
+}
+.trigger-menu-campaign-builder .circle-indicator.blue-circle-indicator {
+	background: rgba(98, 172, 241, 1);
+}
+.trigger-menu-campaign-builder .circle-indicator.green-circle-indicator {
+	background: rgba(111, 178, 74, 1);
+}
+.trigger-menu-campaign-builder .circle-indicator.orange-circle-indicator {
+	background: rgba(207, 110, 37, 1);
+}
+.trigger-menu-campaign-builder .circle-indicator.brown-circle-indicator {
+	background: rgba(99, 73, 35, 1);
+}
+.trigger-menu-campaign-builder .circle-indicator.dark-purple-circle-indicator {
+	background: rgba(80, 11, 89, 1);
+}
+.trigger-menu-campaign-builder .circle-indicator.light-purple-circle-indicator {
+	background: rgba(218, 2, 251, 1);
+}
+.trigger-menu-campaign-builder .circle-indicator.yellow-circle-indicator {
+	background: yellow;
+}
+.trigger-menu-campaign-builder .circle-indicator.grey-circle-indicator {
+	background: rgba(159, 148, 154, 1);
+}
+.send-next-message-when-menu {
+	float: left;
+	margin-left: 5px;
+	width: 315px;
+	border: 1px solid #e0e0e0;
+}
+.send-next-message-when-menu h2 {
+	background: #000;
+	color: #fff;
+	font-size: 17px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-left: 10px;
+	box-sizing: border-box;
+	margin-bottom: 0;
+}
+.send-next-message-when-content-row {
+	background: #fff;
+	box-sizing: border-box;
+	padding: 20px;
+	padding-top: 20px;
+	padding-bottom: 5px;
+	position: relative;
+}
+.send-next-message-when-content-row-content {
+	width: 90%;
+}
+.send-next-message-when-content-row-content span {
+	padding-left: 5px;
+	line-height: 30px;
+	display: block;
+	width: 15%;
+	font-size: 14px;
+	text-align: left;
+	box-sizing: border-box;
+}
+.send-next-message-when-content-row-content .d-flex {
+	margin-bottom: 15px;
+}
+.send-next-message-when-pill {
+	width: 85%;
+	display: flex;
+}
+.send-next-message-when-pill p {
+	flex: 1;
+	color: #fff;
+	background: #000;
+	box-sizing: border-box;
+	height: 30px;
+	line-height: 30px;
+	padding-left: 15px;
+	border-top-left-radius: 99px;
+	border-bottom-left-radius: 99px;
+	font-size: 15px;
+	margin-bottom: 0;
+}
+.send-next-message-when-pill button {
+	border: 0;
+	padding: 0;
+	background: #ff4136;
+	width: 30px;
+	line-height: 20px;
+	height: 30px;
+	color: #fff;
+	border-top-right-radius: 99px;
+	border-bottom-right-radius: 99px;
+	cursor: pointer;
+}
+.send-next-message-when-pill.blue-send-next-message-when-pill p {
+	background: rgba(97, 171, 243, 1);
+}
+.send-next-message-when-pill.green-send-next-message-when-pill p {
+	background: rgba(111, 178, 74, 1);
+}
+.send-next-message-when-pill.orange-send-next-message-when-pill p {
+	background: rgba(207, 110, 37, 1);
+}
+.send-next-message-when-pill.brown-send-next-message-when-pill p {
+	background: rgba(99, 73, 35, 1);
+}
+.send-next-message-when-pill.dark-purple-send-next-message-when-pill p {
+	background: rgba(80, 11, 89, 1);
+}
+.send-next-message-when-pill.light-purple-send-next-message-when-pill p {
+	background: rgba(218, 2, 251, 1);
+}
+.send-next-message-when-pill.yellow-send-next-message-when-pill p {
+	background: yellow;
+}
+.send-next-message-when-pill.grey-send-next-message-when-pill p {
+	background: rgba(159, 148, 154, 1);
+}
+.delete-send-next-message-when-content-btn button {
+	position: absolute;
+	right: 0;
+	top: 50%;
+	border-radius: 9999px;
+	border: 0;
+	width: 30px;
+	height: 30px;
+	margin-top: -15px;
+	line-height: 28px;
+	color: #fff;
+	margin-right: 10px;
+	background: red;
+	text-align: center;
+	cursor: pointer;
+}
+.send-next-message-when-and-or-btn {
+	width: 50%;
+	background: #a0a0a0;
+	color: #fff;
+	border: 0;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	cursor: pointer;
+}
+.send-next-message-when-and-or-btn.active {
+	background: #2F64A6;
+}
+.bordered-pills {
+	border: 1px solid #000;
+	box-sizing: border-box;
+	padding: 15px;
+	padding-bottom: 0;
+	margin-bottom: 15px;
+	position: relative;
+}
+.bordered-pills .close-option {
+	display: block;
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 25px;
+	height: 25px;
+	background: #000;
+	color: #fff;
+	border-radius: 9999px;
+	border: 0;
+	font-size: 15px;
+	text-align: center;
+	padding: 0;
+	line-height: 25px;
+	margin-top: -12.5px;
+	margin-right: -12.5px;
+	cursor: pointer;
+}
+.bordered-pills .timer-option {
+	display: block;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	width: 25px;
+	height: 25px;
+	background: #000;
+	color: #fff;
+	border-radius: 9999px;
+	border: 0;
+	font-size: 15px;
+	text-align: center;
+	padding: 0;
+	line-height: 25px;
+	margin-bottom: -12.5px;
+	margin-right: -12.5px;
+	cursor: pointer;
+}
+.bordered-pills .send-next-message-when-pill p {
+	font-size: 13px;
+}
+.grey-bordered-pills {
+	border: 1px solid #a0a0a0;
+}
+.send-next-message-when-done-btn {
+	background: rgb(123, 208, 49);
+	color: #fff;
+	height: 50px;
+	line-height: 50px;
+	text-align: center;
+	border: 0;
+	width: 100%;
+	padding: 0;
+	text-transform: uppercase;
+	margin-top: 10px;
+	font-size: 20px;
+	cursor: pointer;
+}
