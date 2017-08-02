@@ -33,9 +33,8 @@ def register(request):
 	if request.method == 'GET':
 		return redirect('/register')
 	response = Request(newUserUrl, request.POST).response
-	if response['status']['success'] == False:
+	if not response['status']['success']:
 		return redirect('/error')
-	print(response)
 	request.session['user'] = response['User']
 	request.session['status'] = response['status']
 	return redirect('/')
