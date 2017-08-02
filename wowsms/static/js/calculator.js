@@ -1,3 +1,7 @@
+var map = {
+	'us': .00
+}
+
 function calculatorDisplay() {
 	var pricingCalculatorSpan = $('#pricing-calculator'),
 		node = $('#base-modal'),
@@ -49,7 +53,7 @@ function addCountry() {
 			pricePerText = $(children[3]);
 		pricePerText.html("<span class='row-cost'>$0.082</span>");
 		numberOfTexts.html('<input type="text" name="#" id="#" value="1" class="texts">');
-		row.after(newRow);
+		row.before(newRow);
 		calculateCost();
 		deleteCountry();
 		Cost();
