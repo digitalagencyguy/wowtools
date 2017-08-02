@@ -8,11 +8,14 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="{% static 'css/wowtools.css' %}">
 	<script src="{% static 'js/utils.js' %}"></script>
+	{% block css %}
+	<link rel='stylesheet' href='{% static "/css/login.css" %}'>
+	{% endblock %}
 </head>
 <body class='login-body'>
 	<section id="wrapper" class="login-register">
 		<div class="login-box">
-			<div class="white-box">
+			<div class="white-box text-center">
 				<h1>Welcome to WOW!SMS</h1>
 				<form action='/api/v1/login' method='post'>
 					{% csrf_token %}
@@ -20,11 +23,13 @@
 					<div class='form-group'>
 						<div class='col-xs-12'>
 							<input type='text' id='email' name='email' placeholder="Email" style='width: 100%; border: 1px solid lightgray; text-align: center'>
+							<p id='email-error-message' class='error-message'></p>
 						</div>
 					</div>
 					<div class='form-group'>
 						<div class='col-xs-12'>
 							<input type='password' id='password' name='password' placeholder="Password" style='width: 100%; border: 1px solid lightgray; text-align: center'>
+							<p id='password-error-message' class='error-message'></p>
 						</div>
 					</div>
 					<div class="form-group text-center m-t-20">
@@ -44,7 +49,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
-	<script src="{% static 'js/login.js' %}"></script>
+	<script src="{% static '/js/login.js' %}"></script>
 	<script>
 		(function() {
 			var login = $('#login'),
@@ -56,7 +61,6 @@
 					'password': password.val(),
 					'csrfmiddlewaretoken': "{{ csrf_token }}"
 				}
-				console.log(data)
 				$.post('/api/v1/login', data, function(data, response) {
 					console.log(data)
 				})

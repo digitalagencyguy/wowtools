@@ -16,8 +16,6 @@
 
 	<script src="{% static 'js/utils.js' %}"></script>
 
-	{% block css %}{% endblock %}
-
 </head>
 <body class='login-body'>
 	<section id="wrapper" class="login-register">
@@ -67,36 +65,6 @@
 		</div>
 	</section>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-	<script>
-		function Register() {
-			var firstname = $('#firstname'),
-				lastname = $('#lastname'),
-				email = $('#email'),
-				password = $('#password'),
-				verifyPassword = $('#passwordVerification'),
-				csrfmiddlewaretoken = "{{ csrf_token }}";
-			if (password.val() != verifyPassword.val()) {
-				return false
-			}
-			else {
-				data = {
-					'firstname': firstname.val(),
-					'lastname': lastname.val(),
-					'email': email.val(),
-					'password': password.val(),
-					'csrfmiddlewaretoken': csrfmiddlewaretoken,
-				}
-				$.post('/api/v1/register', data, function(data, status) {
-					console.log(data)
-				})
-			}
-		}
-		(function() {
-			var signUp = $('#signup');
-			signUp.on('click', function() {
-				Register()
-			})
-		})();
-	</script>
+	<script src='{% static "/js/register.js" %}'></script>
 </body>
 </html>
