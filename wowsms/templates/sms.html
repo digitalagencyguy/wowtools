@@ -9,7 +9,13 @@
 		<div class="sms-pricing-calculator-instructions">
 			<label>Credit Amount:</label>
 			<select name="#" id="#">
-				<option value="A$20">A$20</option>
+				<option value='10'>$10</option>
+				<option value="25">$25</option>
+				<option value='50'>$50</option>
+				<option value='100'>$100</option>
+				<option value='200'>$200</option>
+				<option value='500'>$500</option>
+				<option value='1000'>$1000</option>
 			</select>
 		</div>
 		<!-- TODO: Replace with pay with Stripe checkout button -->
@@ -33,8 +39,8 @@
 		<div class='d-flex flex-column sms-pricing-calculator-flex'>
 			<div class='sms-pricing-calculator-modal-header'>
 				<h2>Pricing Calculator</h2>
-				<button class='closeModal' onclick="event.preventDefault();Modal.closeModal();">
-				<i class="fa fa-times"></i>
+				<button type="button" class="close" aria-label="Close" id='close-modal'>
+					<span aria-hidden="true">&times;</span>
 				</button>
 				<hr>
 			</div>
@@ -59,20 +65,22 @@
 					</div>
 					<!-- End Table Header -->
 					<!-- Table Row -->
-					<div class="d-flex pricing-calculator-modal-table-row">
+					<div class="d-flex pricing-calculator-modal-table-row rowObject">
 						<div class="pricing-calculator-modal-table-destination-country">
-							<select name="#" id="#">
+							<select name="countryDestination" class='destinationCountry' id="destination-country">
 								<option value="Australia">Australia</option>
+								<option value="United States">United States</option>
+								<option value='Great Britain'>Great Britain</option>
 							</select>
 						</div>
 						<div class="pricing-calculator-modal-table-price-per-text">
-							<span>A$0.082</span>
+							<span class='cost-by-country'>$0.082</span>
 						</div>
 						<div class="pricing-calculator-modal-table-number-of-texts">
-							<input type="text" name="#" id="#" value="1000">
+							<input type="text" name="#" id="#" value="1" class='texts'>
 						</div>
 						<div class="pricing-calculator-modal-table-cost">
-							<span>A$82.00</span>
+							<span class='row-cost'>$0.082</span>
 						</div>
 						<div class="pricing-calculator-table-option">
 							<button onclick="event.preventDefault();">
@@ -84,14 +92,14 @@
 					<!-- Total Cost Row -->
 					<div class="d-flex pricing-calculator-modal-table-row pricing-calculator-modal-table-total-cost-row">
 						<div class="pricing-calculator-modal-table-destination-country">
-							<a href="#" onclick="event.preventDefault();"><i class="fa fa-plus"></i> <em>Add another country</em></a>
+							<a href="#" onclick="event.preventDefault();" id='add-country'><i class="fa fa-plus"></i> <em>Add another country</em></a>
 						</div>
 						<div class="pricing-calculator-modal-table-price-per-text"></div>
 						<div class="pricing-calculator-modal-table-number-of-texts" style='text-align:right;'>
 							<span><strong>Total Cost:</strong></span>
 						</div>
 						<div class="pricing-calculator-modal-table-cost">
-							<span>A$82.00</span>
+							<span id='total-cost'>$0.082</span>
 						</div>
 						<div class="pricing-calculator-table-option"></div>
 					</div>
@@ -101,7 +109,7 @@
 			<div class="sms-pricing-calculator-modal-footer">
 				<hr>
 				<p>Suitable top up amount:</p>
-				<span>100 AUD</span>
+				<span id='top-off-amount'>$1</span>
 				<button onclick="event.preventDefault();">Continue</button>
 			</div>
 		</div>
@@ -110,6 +118,7 @@
 </div>
 {% endblock %}
 {% block scripts %}
+<script src="{% static '/js/calculator.js' %}"></script>
 <script>
 	Site.init('pricingCalculator');
 </script>
